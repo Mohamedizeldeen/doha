@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 // Public routes
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('home');
 
 // Authentication routes
 Route::middleware('guest')->group(function () {

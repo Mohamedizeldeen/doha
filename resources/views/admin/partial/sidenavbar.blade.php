@@ -8,7 +8,7 @@
     </div>
 
     <!-- Main Navigation Menu -->
-    <ul class="list-none p-5 m-0 space-y-3" style="padding-top: 0;">
+    <ul class="list-none p-5 pt-5 m-0 space-y-3" >
         <!-- Dashboard -->
         <li>
             <a href="{{ route('admin.dashbord') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
@@ -82,7 +82,7 @@
         <li>
             <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
                 @csrf
-                <button type="submit" class="nav-link w-full flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all" style="text-align: right; justify-content: flex-end;">
+                <button type="submit" class="nav-link w-full flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all" style="text-align: right; justify-content: flex-start;">
                     <span class="text-lg">🚪</span>
                     <span class="font-medium text-sm">تسجيل الخروج</span>
                     

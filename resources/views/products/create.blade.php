@@ -39,7 +39,7 @@
             <!-- Stock Quantity -->
             <div>
                 <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-2">كمية المخزون</label>
-                <input type="number" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', 0) }}" required
+                <input  type="number" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', 0) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 @error('stock_quantity') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
@@ -48,7 +48,7 @@
         <!-- Description Arabic -->
         <div>
             <label for="description_ar" class="block text-sm font-medium text-gray-700 mb-2">الوصف (عربي)</label>
-            <textarea id="description_ar" name="description_ar" rows="3"
+            <textarea id="description_ar" name="description_ar" rows="3" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description_ar') }}</textarea>
             @error('description_ar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
@@ -56,7 +56,7 @@
         <!-- Description English -->
         <div>
             <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">Description (English)</label>
-            <textarea id="description_en" name="description_en" rows="3"
+            <textarea id="description_en" name="description_en" rows="3" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description_en') }}</textarea>
             @error('description_en') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
@@ -64,7 +64,7 @@
         <!-- Image -->
         <div>
             <label for="image" class="block text-sm font-medium text-gray-700 mb-2">صورة المنتج</label>
-            <input type="file" id="image" name="image" accept="image/*"
+            <input type="file" id="image" name="image" accept="image/*" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <p class="text-xs text-gray-500 mt-1">الصيغ المقبولة: jpeg, png, jpg, gif - الحجم الأقصى: 2MB</p>
             @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror

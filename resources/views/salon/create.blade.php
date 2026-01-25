@@ -219,16 +219,30 @@
                             name="currency" 
                             class="w-full px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition"
                         >
-                            <option value="">-- اختر العملة --</option>
-                            <option value="SAR" {{ old('currency') == 'SAR' ? 'selected' : '' }}>الريال السعودي (ريال)</option>
-                            <option value="AED" {{ old('currency') == 'AED' ? 'selected' : '' }}>الدرهم الإماراتي (د.إ)</option>
-                            <option value="KWD" {{ old('currency') == 'KWD' ? 'selected' : '' }}>الدينار الكويتي (د.ك)</option>
-                            <option value="QAR" {{ old('currency') == 'QAR' ? 'selected' : '' }}>الريال القطري (ر.ق)</option>
-                            <option value="OMR" {{ old('currency') == 'OMR' ? 'selected' : '' }}>الريال العماني (ر.ع.)</option>
-                            <option value="BHD" {{ old('currency') == 'BHD' ? 'selected' : '' }}>الدينار البحريني (د.ب)</option>
-                            <option value="EGP" {{ old('currency') == 'EGP' ? 'selected' : '' }}>الجنيه المصري (ج.م)</option>
-                            <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>الدولار الأمريكي ($)</option>
-                            <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>اليورو (€)</option>
+                            <option value="SAR" {{ old('currency') === 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
+                            <option value="AED" {{ old('currency') === 'AED' ? 'selected' : '' }}>درهم إماراتي (AED)</option>
+                            <option value="EGP" {{ old('currency') === 'EGP' ? 'selected' : '' }}>جنيه مصري (EGP)</option>
+                            <option value="SDG" {{ old('currency') === 'SDG' ? 'selected' : '' }}>جنيه سوداني (SDG)</option>
+                            <option value="KWD" {{ old('currency') === 'KWD' ? 'selected' : '' }}>دينار كويتي (KWD)</option>
+                            <option value="BHD" {{ old('currency') === 'BHD' ? 'selected' : '' }}>دينار بحريني (BHD)</option>
+                            <option value="QAR" {{ old('currency') === 'QAR' ? 'selected' : '' }}>ريال قطري (QAR)</option>
+                            <option value="OMR" {{ old('currency') === 'OMR' ? 'selected' : '' }}>ريال عماني (OMR)</option>
+                            <option value="JOD" {{ old('currency') === 'JOD' ? 'selected' : '' }}>دينار أردني (JOD)</option>
+                            <option value="IQD" {{ old('currency') === 'IQD' ? 'selected' : '' }}>دينار عراقي (IQD)</option>
+                            <option value="LBP" {{ old('currency') === 'LBP' ? 'selected' : '' }}>ليرة لبنانية (LBP)</option>
+                            <option value="SYP" {{ old('currency') === 'SYP' ? 'selected' : '' }}>ليرة سورية (SYP)</option>
+                            <option value="YER" {{ old('currency') === 'YER' ? 'selected' : '' }}>ريال يمني (YER)</option>
+                            <option value="LYD" {{ old('currency') === 'LYD' ? 'selected' : '' }}>دينار ليبي (LYD)</option>
+                            <option value="TND" {{ old('currency') === 'TND' ? 'selected' : '' }}>دينار تونسي (TND)</option>
+                            <option value="DZD" {{ old('currency') === 'DZD' ? 'selected' : '' }}>دينار جزائري (DZD)</option>
+                            <option value="MAD" {{ old('currency') === 'MAD' ? 'selected' : '' }}>درهم مغربي (MAD)</option>
+                            <option value="MRU" {{ old('currency') === 'MRU' ? 'selected' : '' }}>أوقية موريتانية (MRU)</option>
+                            <option value="SOS" {{ old('currency') === 'SOS' ? 'selected' : '' }}>شلن صومالي (SOS)</option>
+                            <option value="DJF" {{ old('currency') === 'DJF' ? 'selected' : '' }}>فرنك جيبوتي (DJF)</option>
+                            <option value="KMF" {{ old('currency') === 'KMF' ? 'selected' : '' }}>فرنك قمري (KMF)</option>
+                            <option value="USD" {{ old('currency') === 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)</option>
+                            <option value="EUR" {{ old('currency') === 'EUR' ? 'selected' : '' }}>يورو (EUR)</option>
+                            <option value="GBP" {{ old('currency') === 'GBP' ? 'selected' : '' }}>جنيه إسترليني (GBP)</option>
                         </select>
                     </div>
 

@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashbord');
     
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/filter-revenue', [DashboardController::class, 'filterRevenue'])->name('admin.filter-revenue');
 });
 
 Route::get('/book/{company}', [BookingController::class, 'publicForm'])->name('book');

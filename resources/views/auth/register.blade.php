@@ -131,7 +131,7 @@
 
                 <!-- Back to Home -->
                 <div class="mt-6 sm:mt-8 text-center">
-                    <a href="{{ route('welcome') }}" class="text-xs sm:text-sm text-gray-600 hover:text-[#dd208e] transition">
+                    <a href="{{ route('home') }}" class="text-xs sm:text-sm text-gray-600 hover:text-[#dd208e] transition">
                         العودة إلى الصفحة الرئيسية
                     </a>
                 </div>

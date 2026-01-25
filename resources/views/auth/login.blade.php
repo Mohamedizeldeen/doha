@@ -47,7 +47,7 @@
             </div>
         @endif
         <div class="flex gap-4 justify-center border-t pt-2 border-gray-400 mt-4">
-        <a href="#" class="w-1/2 border-2 border-[#dd208e] rounded-md px-4 py-2 mt-4 inline-block text-[#dd208e] hover:bg-[#dd208e] hover:text-white transition-all">إنشاء حساب جديد</a>
+        <a href="{{ route('register') }}" class="w-1/2 border-2 border-[#dd208e] rounded-md px-4 py-2 mt-4 inline-block text-[#dd208e] hover:bg-[#dd208e] hover:text-white transition-all">إنشاء حساب جديد</a>
          <a href="{{ route('home') }}" class="w-1/2 border-2 border-[#dd208e] rounded-md px-4 py-2 mt-4 inline-block text-[#dd208e] hover:bg-[#dd208e] hover:text-white transition-all">الصفحة الرئيسية</a>
         </div>
     </div>

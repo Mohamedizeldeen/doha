@@ -53,7 +53,7 @@
                 <div>
                     <h3 class="text-sm font-medium text-gray-600 mb-2">الحالة</h3>
                     <span class="text-lg px-4 py-2 rounded-full {{ $product->isInStock() ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                        {{ $product->getStockStatus() }}
+                        {{ $product->getStockStatus() === 'in_stock' ? 'متوفر' : 'غير متوفر' }}
                     </span>
                 </div>
 

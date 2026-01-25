@@ -49,6 +49,11 @@ class SalonController extends Controller
             'work_days.*' => 'string',
         ]);
 
+        //check if the user have already a salon
+        if (Auth::user()->salons()->count() > 0) {
+            return redirect()->back()->withErrors(['You can only create one salon.']);
+        }
+
         $trial_end_date = now()->addDays(14);
         $subscription_end_date = $trial_end_date;
 
@@ -64,7 +69,7 @@ class SalonController extends Controller
 
         // Convert work_days array to JSON if provided
         if (isset($validated['work_days']) && !empty($validated['work_days'])) {
-            $salon->work_days = $validated['work_days'];
+            $salon->work_days = json_encode($validated['work_days']);
         }
 
         // Set subscription dates based on type

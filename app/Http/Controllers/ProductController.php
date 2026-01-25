@@ -42,11 +42,11 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name_en' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
-            'description_en' => 'nullable|string',
-            'description_ar' => 'nullable|string',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Handle image upload
@@ -70,7 +70,7 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('product.index', $salon)
-            ->with('success', 'Product created successfully');
+            ->with('success', 'تم إنشاء المنتج بنجاح');
     }
 
     /**
@@ -106,8 +106,8 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name_en' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
-            'description_en' => 'nullable|string',
-            'description_ar' => 'nullable|string',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -130,7 +130,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return redirect()->route('product.show', [$salon, $product])
-            ->with('success', 'Product updated successfully');
+            ->with('success', 'تم تحديث المنتج بنجاح');
     }
 
     /**
@@ -149,7 +149,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product.index', $salon)
-            ->with('success', 'Product deleted successfully');
+            ->with('success', 'تم حذف المنتج بنجاح');
     }
 
     /**
@@ -158,7 +158,7 @@ class ProductController extends Controller
     private function authorizeProductBelongsToSalon($product, $salon)
     {
         if ($product->salon_id !== $salon->id) {
-            abort(403, 'Product does not belong to this salon');
+            abort(403, 'Unauthorized action.ٍ');
         }
     }
 }

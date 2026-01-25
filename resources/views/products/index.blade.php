@@ -41,7 +41,7 @@
                     </div>
                     <div>
                         <span class="text-xs px-3 py-1 rounded-full {{ $product->isInStock() ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ $product->getStockStatus() }}
+                            {{ $product->getStockStatus() === 'in_stock' ? 'متوفر' : 'غير متوفر' }}
                         </span>
                     </div>
                 </div>

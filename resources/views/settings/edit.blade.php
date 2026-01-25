@@ -160,6 +160,19 @@
                         <option value="BHD" {{ $salon->currency === 'BHD' ? 'selected' : '' }}>دينار بحريني (BHD)</option>
                         <option value="QAR" {{ $salon->currency === 'QAR' ? 'selected' : '' }}>ريال قطري (QAR)</option>
                         <option value="OMR" {{ $salon->currency === 'OMR' ? 'selected' : '' }}>ريال عماني (OMR)</option>
+                        <option value="JOD" {{ $salon->currency === 'JOD' ? 'selected' : '' }}>دينار أردني (JOD)</option>
+                        <option value="IQD" {{ $salon->currency === 'IQD' ? 'selected' : '' }}>دينار عراقي (IQD)</option>
+                        <option value="LBP" {{ $salon->currency === 'LBP' ? 'selected' : '' }}>ليرة لبنانية (LBP)</option>
+                        <option value="SYP" {{ $salon->currency === 'SYP' ? 'selected' : '' }}>ليرة سورية (SYP)</option>
+                        <option value="YER" {{ $salon->currency === 'YER' ? 'selected' : '' }}>ريال يمني (YER)</option>
+                        <option value="LYD" {{ $salon->currency === 'LYD' ? 'selected' : '' }}>دينار ليبي (LYD)</option>
+                        <option value="TND" {{ $salon->currency === 'TND' ? 'selected' : '' }}>دينار تونسي (TND)</option>
+                        <option value="DZD" {{ $salon->currency === 'DZD' ? 'selected' : '' }}>دينار جزائري (DZD)</option>
+                        <option value="MAD" {{ $salon->currency === 'MAD' ? 'selected' : '' }}>درهم مغربي (MAD)</option>
+                        <option value="MRU" {{ $salon->currency === 'MRU' ? 'selected' : '' }}>أوقية موريتانية (MRU)</option>
+                        <option value="SOS" {{ $salon->currency === 'SOS' ? 'selected' : '' }}>شلن صومالي (SOS)</option>
+                        <option value="DJF" {{ $salon->currency === 'DJF' ? 'selected' : '' }}>فرنك جيبوتي (DJF)</option>
+                        <option value="KMF" {{ $salon->currency === 'KMF' ? 'selected' : '' }}>فرنك قمري (KMF)</option>
                         <option value="USD" {{ $salon->currency === 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)</option>
                         <option value="EUR" {{ $salon->currency === 'EUR' ? 'selected' : '' }}>يورو (EUR)</option>
                         <option value="GBP" {{ $salon->currency === 'GBP' ? 'selected' : '' }}>جنيه إسترليني (GBP)</option>

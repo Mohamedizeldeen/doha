@@ -24,12 +24,10 @@
                     <p class="text-red-100 text-sm sm:text-base mt-2">مرحبا {{ Auth::user()->name }}</p>
                 </div>
                 <div class="flex gap-3">
-                    <a href="{{ route('salon.create') }}" class="px-4 sm:px-6 py-2 sm:py-3 bg-white text-[#dd208e] font-bold text-xs sm:text-sm sm:text-base rounded-lg hover:shadow-lg transition">
-                        + صالون جديد
-                    </a>
+                   
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
-                        <button type="submit" class="px-4 sm:px-6 py-2 sm:py-3 bg-white bg-opacity-20 text-white font-bold text-xs sm:text-sm sm:text-base rounded-lg hover:bg-opacity-30 transition">
+                        <button type="submit" class="text-gray-800 px-4 sm:px-6 py-2 sm:py-3 bg-white bg-opacity-20  font-bold text-xs sm:text-sm sm:text-base rounded-lg hover:bg-opacity-30 transition">
                             تسجيل الخروج
                         </button>
                     </form>
@@ -96,8 +94,8 @@
 
                             <!-- Dates -->
                             <div class="mb-6 sm:mb-8 p-3 sm:p-4 bg-gray-50 rounded-lg text-xs sm:text-sm text-gray-700 space-y-1">
-                                <div><strong>بدء:</strong> {{ $salon->subscription_start_date->format('d/m/Y') }}</div>
-                                <div><strong>انتهاء:</strong> {{ $salon->subscription_end_date->format('d/m/Y') }}</div>
+                                <div><strong>بدء:</strong> {{ Carbon\Carbon::parse($salon->subscription_start_date)->format('d/m/Y') }}</div>
+                                <div><strong>انتهاء:</strong> {{ Carbon\Carbon::parse($salon->subscription_end_date)->format('d/m/Y') }}</div>
                             </div>
 
                             <!-- Actions -->

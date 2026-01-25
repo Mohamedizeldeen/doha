@@ -37,7 +37,7 @@
 
                 <div class="mb-4 flex justify-between items-center">
                     <div>
-                        <p class="text-2xl font-bold text-green-600">{{ $product->price }} ريال</p>
+                        <p class="text-2xl font-bold text-green-600">{{ $product->price }} {{ $salon->currency }}</p>
                     </div>
                     <div>
                         <span class="text-xs px-3 py-1 rounded-full {{ $product->isInStock() ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">

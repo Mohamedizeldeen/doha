@@ -42,7 +42,7 @@
 
                 <div>
                     <h3 class="text-sm font-medium text-gray-600 mb-2">السعر</h3>
-                    <p class="text-2xl font-bold text-green-600">{{ $product->price }} ريال</p>
+                    <p class="text-2xl font-bold text-green-600">{{ $product->price }} {{ $salon->currency }}</p>
                 </div>
 
                 <div>
@@ -104,11 +104,11 @@
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">السعر (للقطعة):</span>
-                    <span class="font-bold text-green-600">{{ $product->price }} ريال</span>
+                    <span class="font-bold text-green-600">{{ $product->price }} {{ $salon->currency }}</span>
                 </div>
                 <div class="flex justify-between border-t pt-2 mt-2">
                     <span class="text-gray-600">القيمة الإجمالية:</span>
-                    <span class="font-bold text-purple-600">{{ $product->price * $product->stock_quantity }} ريال</span>
+                    <span class="font-bold text-purple-600">{{ $product->price * $product->stock_quantity }} {{ $salon->currency }}</span>
                 </div>
             </div>
 

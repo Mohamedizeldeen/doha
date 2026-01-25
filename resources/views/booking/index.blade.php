@@ -75,7 +75,7 @@
                     <div>
                         <h5 class="text-sm font-medium text-gray-600">الخدمة</h5>
                         <p class="text-lg font-semibold text-gray-900">{{ $booking->service->name_ar }}</p>
-                        <p class="text-sm text-gray-500">{{ $booking->service->price }} ريال</p>
+                        <p class="text-sm text-gray-500">{{ $booking->service->price }} {{ $salon->currency }}</p>
                     </div>
                     <div>
                         <h5 class="text-sm font-medium text-gray-600">الموظفة</h5>

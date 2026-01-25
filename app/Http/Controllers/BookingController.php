@@ -317,19 +317,31 @@ class BookingController extends Controller
             $appointmentStart = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $appointmentDateTime);
             $appointmentEnd = $appointmentStart->copy()->addMinutes($duration);
 
-            $conflictingBooking = Book::where('staff_id', $validated['staff_id'])
+            // Fetch nearby bookings with their services to check full duration overlap
+            $nearbyBookings = Book::where('staff_id', $validated['staff_id'])
                 ->where('salon_id', $salon->id)
                 ->where('status', '!=', 'cancelled')
                 ->whereBetween('appointment_datetime', [
-                    $appointmentStart,
-                    $appointmentEnd->copy()->subMinute()
+                    $appointmentStart->copy()->subMinutes(480), // 8 hours before
+                    $appointmentEnd->copy()->addMinutes(480)    // 8 hours after
                 ])
-                ->exists();
+                ->with('service')
+                ->get();
 
-            if ($conflictingBooking) {
-                return back()->withErrors([
-                    'appointment_time' => 'هذا الوقت غير متاح للموظف المختار / This time is not available for the selected staff'
-                ])->withInput();
+            // Check for overlap: startA < endB && startB < endA
+            foreach ($nearbyBookings as $existing) {
+                $existingStart = $existing->appointment_datetime instanceof \Carbon\Carbon
+                    ? $existing->appointment_datetime
+                    : \Carbon\Carbon::parse($existing->appointment_datetime);
+
+                $existingDuration = $existing->service->duration_minutes ?? 60;
+                $existingEnd = $existingStart->copy()->addMinutes($existingDuration);
+
+                if ($appointmentStart->lt($existingEnd) && $existingStart->lt($appointmentEnd)) {
+                    return back()->withErrors([
+                        'appointment_time' => 'هذا الوقت غير متاح للموظف المختار / This time is not available for the selected staff'
+                    ])->withInput();
+                }
             }
         }
 
@@ -369,21 +381,32 @@ class BookingController extends Controller
         $appointmentStart = \Carbon\Carbon::createFromFormat('Y-m-d H:i', "$date $time");
         $appointmentEnd = $appointmentStart->copy()->addMinutes($duration);
 
-        // Check for conflicting bookings
-        $conflictingBooking = Book::where('staff_id', $staff->id)
+        // Fetch nearby bookings with their services to check full duration overlap
+        $nearbyBookings = Book::where('staff_id', $staff->id)
             ->where('salon_id', $staff->salon_id)
             ->where('status', '!=', 'cancelled')
             ->whereBetween('appointment_datetime', [
-                $appointmentStart,
-                $appointmentEnd->copy()->subMinute()
+                $appointmentStart->copy()->subMinutes(480), // 8 hours before
+                $appointmentEnd->copy()->addMinutes(480)    // 8 hours after
             ])
-            ->exists();
+            ->with('service')
+            ->get();
 
-        if ($conflictingBooking) {
-            return response()->json([
-                'available' => false,
-                'message' => 'Staff member is not available at this time'
-            ]);
+        // Check for overlap: startA < endB && startB < endA
+        foreach ($nearbyBookings as $existing) {
+            $existingStart = $existing->appointment_datetime instanceof \Carbon\Carbon
+                ? $existing->appointment_datetime
+                : \Carbon\Carbon::parse($existing->appointment_datetime);
+
+            $existingDuration = $existing->service->duration_minutes ?? 60;
+            $existingEnd = $existingStart->copy()->addMinutes($existingDuration);
+
+            if ($appointmentStart->lt($existingEnd) && $existingStart->lt($appointmentEnd)) {
+                return response()->json([
+                    'available' => false,
+                    'message' => 'Staff member is not available at this time'
+                ]);
+            }
         }
 
         return response()->json([

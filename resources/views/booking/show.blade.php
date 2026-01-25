@@ -41,7 +41,7 @@
                 </div>
                 <div>
                     <h5 class="text-sm font-medium text-gray-600">السعر</h5>
-                    <p class="text-lg font-semibold text-gray-900">{{ $booking->price }} ريال</p>
+                    <p class="text-lg font-semibold text-gray-900">{{ $booking->price }} {{ $salon->currency }}</p>
                 </div>
             </div>
 

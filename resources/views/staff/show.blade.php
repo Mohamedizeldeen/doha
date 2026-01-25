@@ -61,7 +61,7 @@
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
                         <p class="font-medium text-gray-800">{{ $service->name_ar }}</p>
                         <p class="text-sm text-gray-600">{{ $service->name_en }}</p>
-                        <p class="text-lg font-bold text-green-600 mt-2">{{ $service->price }} ريال</p>
+                        <p class="text-lg font-bold text-green-600 mt-2">{{ $service->price }} {{ $salon->currency }}</p>
                         <p class="text-sm text-gray-600">{{ $service->duration_minutes }} دقيقة</p>
                     </div>
                 @endforeach

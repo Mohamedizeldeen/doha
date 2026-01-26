@@ -21,9 +21,7 @@
             <div class="bg-white rounded-lg sm:rounded-2xl shadow-lg sm:shadow-2xl p-6 sm:p-8 md:p-12 border border-[#f0b3d8]">
                 <!-- Header -->
                 <div class="text-center mb-8 sm:mb-12">
-                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                        <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">ضحي</span>
-                    </h1>
+                  <img src="{{ asset('images/bg.png') }}" alt="northline-logo" class="w-1/4 h-auto mx-auto mb-4">
                     <p class="text-xs sm:text-sm text-gray-600">أنشئ حسابك وابدأ رحلتك مع ضحي</p>
                 </div>
 

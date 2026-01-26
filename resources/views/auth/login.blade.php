@@ -24,7 +24,7 @@
     <body>
        <div class="min-h-screen flex items-center justify-center bg-[#dd208e] text-white ">
     <div class="w-full max-w-md p-6 m-5 bg-white border border-gray-400  rounded-lg shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)]">
-        <img src="{{ asset('images/bg.png') }}" alt="doha logo" class="w-2xs h-auto mx-auto mb-4">
+        <img src="{{ asset('images/bg.png') }}" alt="doha logo" class="w-2/5 h-auto mx-auto mb-4">
         <form method="POST" action="#">
             @csrf
             <div class="mb-4">

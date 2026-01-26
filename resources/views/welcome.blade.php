@@ -98,7 +98,7 @@
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-12 sm:mb-16 md:mb-20">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-                        <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">نبذة عن ضحي</span>
+                        <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">نبذة عننا</span>
                     </h2>
                     <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">نحن نبني الحل الأمثل لإدارة صالونات ومراكز التجميل - منصة متكاملة تجمع الكفاءة والابتكار</p>
                 </div>
@@ -110,10 +110,10 @@
                             <div class="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl border border-gray-100">
                                 <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">رؤيتنا</h3>
                                 <p class="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                                    تطبيق ضحي يوفر حلاً متكاملاً وحديثاً لإدارة صالونات ومراكز التجميل والعيادات الجمالية من جميع الأحجام. نحن نفهم التحديات الحقيقية التي تواجهك في إدارة المواعيد والعاملين والعملاء.
+                                    تطبيقينا يوفر حلاً متكاملاً وحديثاً لإدارة صالونات ومراكز التجميل والعيادات الجمالية من جميع الأحجام. نحن نفهم التحديات الحقيقية التي تواجهك في إدارة المواعيد والعاملين والعملاء.
                                 </p>
                                 <p class="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
-                                    مع ضحي، تتحكم بكل جوانب عملك من مكان واحد - من الحجوزات إلى الفواتير، مع توفير تجربة استثنائية لعملائك عبر تطبيق جوال سهل الاستخدام.
+                                    مع تطبيقينا تتحكم بكل جوانب عملك من مكان واحد - من الحجوزات إلى الفواتير، مع توفير تجربة استثنائية لعملائك عبر تطبيق جوال سهل الاستخدام.
                                 </p>
                             </div>
                         </div>
@@ -210,8 +210,8 @@
 
                     <div class="bg-white rounded-lg sm:rounded-2xl p-6 sm:p-8 border border-[#f0b3d8] shadow-lg hover:shadow-xl transition">
                         <div class="text-4xl sm:text-5xl mb-3 sm:mb-4">💰</div>
-                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">الفواتير والمدفوعات</h3>
-                        <p class="text-xs sm:text-base text-gray-700">نظام فواتير متقدم مع قبول المدفوعات الإلكترونية والتحويلات البنكية</p>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">المدفوعات</h3>
+                        <p class="text-xs sm:text-base text-gray-700">تتبع المدفوعات لكل الحجوزات</p>
                     </div>
 
                     <div class="bg-white rounded-lg sm:rounded-2xl p-6 sm:p-8 border border-[#f0b3d8] shadow-lg hover:shadow-xl transition">
@@ -222,8 +222,8 @@
 
                     <div class="bg-white rounded-lg sm:rounded-2xl p-6 sm:p-8 border border-[#f0b3d8] shadow-lg hover:shadow-xl transition">
                         <div class="text-4xl sm:text-5xl mb-3 sm:mb-4">📱</div>
-                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">التطبيق الجوال</h3>
-                        <p class="text-xs sm:text-base text-gray-700">تطبيق iOS و Android متكامل لك ولعملائك للحجوزات والمتابعة</p>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">متوافقة مع الهواتف</h3>
+                        <p class="text-xs sm:text-base text-gray-700"> متوافق مع جميع الأجهزة المحمولة و انواع الشاشات المتعددة</p>
                     </div>
                 </div>
             </div>
@@ -249,8 +249,8 @@
                     <div class="flex gap-3 sm:gap-4">
                         <div class="text-3xl sm:text-4xl flex-shrink-0">✅</div>
                         <div>
-                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">تنبيهات تلقائية</h3>
-                            <p class="text-xs sm:text-base text-gray-700">تذكيرات للموظفين والعملاء قبل المواعيد لتقليل عدم الحضور</p>
+                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2"> اضافة منتجات</h3>
+                            <p class="text-xs sm:text-base text-gray-700">يمكنك إضافة منتجات جديدة بسهولة وإدارتها</p>
                         </div>
                     </div>
 
@@ -265,16 +265,16 @@
                     <div class="flex gap-3 sm:gap-4">
                         <div class="text-3xl sm:text-4xl flex-shrink-0">✅</div>
                         <div>
-                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">نقاط الولاء</h3>
-                            <p class="text-xs sm:text-base text-gray-700">برنامج نقاط لتشجيع العملاء على العودة والشراء المتكرر</p>
+                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">قياس اداء الموظفين</h3>
+                            <p class="text-xs sm:text-base text-gray-700">تتبع أداء الموظفين وتحليل الإنتاجية لتحسين الخدمة</p>
                         </div>
                     </div>
 
                     <div class="flex gap-3 sm:gap-4">
                         <div class="text-3xl sm:text-4xl flex-shrink-0">✅</div>
                         <div>
-                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">الرسائل والإشعارات</h3>
-                            <p class="text-xs sm:text-base text-gray-700">أرسل عروض خاصة وتنبيهات للعملاء عبر الرسائل النصية والبريد</p>
+                            <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">إدارة العملاء</h3>
+                            <p class="text-xs sm:text-base text-gray-700">إدارة بيانات العملاء وتتبع حجوزاتهم بسهولة</p>
                         </div>
                     </div>
 
@@ -314,7 +314,7 @@
                                 <!-- Plan Info -->
                                 <div class="lg:col-span-1 flex flex-col justify-between">
                                     <div>
-                                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">خطة ضحي</h3>
+                                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">الخطط</h3>
                                         <p class="text-sm sm:text-base md:text-lg text-gray-600 mb-4 sm:mb-8">الحل الكامل لصالونك</p>
                                         <p class="text-xs sm:text-sm md:text-base text-gray-700 mb-6 sm:mb-8">مناسبة للصالونات والعيادات من جميع الأحجام والنطاقات</p>
                                     </div>
@@ -461,7 +461,7 @@
 
                 <!-- Comparison Section -->
                 <div class="mt-12 md:mt-20 text-center">
-                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">لماذا تختار ضحي؟</h3>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">لماذا تختارنا ؟</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
                         <div class="bg-white rounded-lg sm:rounded-xl p-6 shadow-lg border border-gray-100">
                             <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">⚡</div>
@@ -521,9 +521,9 @@
                             </div>
                             <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">الواتس آب</h3>
                             <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">للدعم الفوري والاستفسارات السريعة</p>
-                            <a href="https://wa.me/966501234567" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
-                                +966 50 123 4567
-                                <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="https://wa.me/96898084952" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
+                                00968-9808-4952
+                            <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
                             </a>
@@ -539,9 +539,9 @@
                                 </div>
                             </div>
                             <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">المقر الرئيسي</h3>
-                            <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">تفضل بزيارتنا في الرياض</p>
+                            <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">تفضل بزيارتنا في مسقط</p>
                             <div class="flex items-start gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
-                                <span>الرياض، المملكة العربية السعودية</span>
+                                <span>الخوض - مسقط - سلطنة عمان</span>
                             </div>
                         </div>
                     </div>
@@ -558,22 +558,27 @@
                             <form class="space-y-4 sm:space-y-6">
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الاسم</label>
-                                    <input type="text" placeholder="أدخل اسمك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input required type="text" placeholder="أدخل اسمك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">البريد الإلكتروني</label>
-                                    <input type="email" placeholder="أدخل بريدك الإلكتروني" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input required type="email" placeholder="أدخل بريدك الإلكتروني" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                </div>
+
+                                 <div>
+                                    <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2"> الجوال</label>
+                                    <input required type="tel" placeholder="أدخل رقم جوالك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الموضوع</label>
-                                    <input type="text" placeholder="موضوع الرسالة" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input required type="text" placeholder="موضوع الرسالة" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الرسالة</label>
-                                    <textarea placeholder="اكتب رسالتك..." rows="5" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition resize-none text-xs sm:text-base"></textarea>
+                                    <textarea required placeholder="اكتب رسالتك..." rows="5" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition resize-none text-xs sm:text-base"></textarea>
                                 </div>
 
                                 <button type="submit" class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-lg hover:shadow-xl transition transform hover:scale-105">
@@ -591,7 +596,7 @@
                                     <div class="text-2xl sm:text-3xl flex-shrink-0">⏰</div>
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">ساعات العمل</h4>
-                                        <p class="text-red-100 text-xs sm:text-sm">السبت - الخميس: 9 صباحًا - 6 مساءً</p>
+                                        <p class="text-red-100 text-xs sm:text-sm">الاحد - الخميس: 9 صباحًا - 6 مساءً</p>
                                         <p class="text-red-100 text-xs sm:text-sm">الجمعة: مغلق</p>
                                         <p class="text-red-100 text-xs sm:text-sm">الدعم الفني: 24/7</p>
                                     </div>
@@ -601,10 +606,30 @@
                                     <div class="text-2xl sm:text-3xl flex-shrink-0">🌐</div>
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">تابعنا</h4>
-                                        <div class="flex gap-2 sm:gap-3 text-xs sm:text-sm">
-                                            <a href="#" class="hover:opacity-80 transition">Twitter</a>
-                                            <a href="#" class="hover:opacity-80 transition">Instagram</a>
-                                            <a href="#" class="hover:opacity-80 transition">LinkedIn</a>
+                                        <div class="flex gap-2 sm:gap-3 text-xs sm:text-sm text-white">
+                                            <a href="#" class="hover:opacity-80 transition" aria-label="Twitter">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                    <path d="M23 4.56a9.83 9.83 0 01-2.828.775A4.93 4.93 0 0022.337 3.2a9.86 9.86 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482A13.97 13.97 0 011.671 3.149a4.92 4.92 0 001.523 6.574A4.9 4.9 0 01.96 9.1v.062a4.92 4.92 0 003.95 4.827 4.9 4.9 0 01-2.212.084 4.93 4.93 0 004.6 3.417A9.87 9.87 0 010 19.54a13.94 13.94 0 007.548 2.212c9.058 0 14.01-7.513 14.01-14.02 0-.213-.005-.425-.014-.636A10.01 10.01 0 0023 4.56z"/>
+                                                </svg>
+                                            </a>
+
+                                            <a href="#" class="hover:opacity-80 transition" aria-label="Instagram">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                    <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-2.6a1.12 1.12 0 11-1.12 1.12A1.12 1.12 0 0118.4 5.6zM12 15.3A3.3 3.3 0 1115.3 12 3.3 3.3 0 0112 15.3z"/>
+                                                </svg>
+                                            </a>
+
+                                            <a href="#" class="hover:opacity-80 transition" aria-label="TikTok">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                    <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
+                                                </svg>
+                                            </a>
+
+                                            <a href="#" class="hover:opacity-80 transition" aria-label="LinkedIn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                    <path d="M4.98 3.5A2.5 2.5 0 102.48 6a2.5 2.5 0 002.5-2.5zM3 8.98h4v12H3v-12zM9 8.98h3.84v1.64h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21v7.23h-4v-6.4c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.67-2.46 3.4v6.5H9v-12z"/>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -613,8 +638,8 @@
                                     <div class="text-2xl sm:text-3xl flex-shrink-0">📞</div>
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">رقم الهاتف</h4>
-                                        <p class="text-red-100 text-xs sm:text-sm">+966 11 123 4567</p>
-                                        <p class="text-red-100 text-xs sm:text-sm">+966 50 123 4567</p>
+                                        <p class="text-red-100 text-xs sm:text-sm">00968-9808-4952</p>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -678,7 +703,7 @@
                 </div>
                 
                 <div class="border-t border-gray-800 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
-                    <p>&copy; 2026 ضحي. جميع الحقوق محفوظة.</p>
+                    <p>&copy; 2026 . جميع الحقوق محفوظة.</p>
                 </div>
             </div>
         </footer>

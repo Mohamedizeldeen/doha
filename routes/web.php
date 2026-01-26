@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\ContactController;
 
 // Public routes
 Route::get('/', function () {
@@ -49,6 +50,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/bookings/{booking}', [SuperAdminController::class, 'showBooking'])->name('bookings.show');
         Route::delete('/bookings/{booking}', [SuperAdminController::class, 'destroyBooking'])->name('bookings.destroy');
         Route::get('/statistics', [SuperAdminController::class, 'getStatistics'])->name('statistics');
+        Route::get('/contacts', [ContactController::class, 'superAdminIndex'])->name('contacts.index');
+        Route::get('/contacts/{contact}', [ContactController::class, 'superAdminShow'])->name('contacts.show');
+        Route::delete('/contacts/{contact}', [ContactController::class, 'superAdminDestroy'])->name('contacts.destroy');
     });
     
     // Salon routes
@@ -91,6 +95,9 @@ Route::get('/book/{company}', [BookingController::class, 'publicForm'])->name('b
 
 // Public booking submission
 Route::post('/book/{company}', [BookingController::class, 'publicStore'])->name('booking.public.store');
+
+// public contact form submission
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // API endpoint to check staff availability
 Route::get('/api/staff/{staff}/availability', [BookingController::class, 'checkStaffAvailability'])->name('staff.availability');

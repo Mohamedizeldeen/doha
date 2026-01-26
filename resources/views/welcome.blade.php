@@ -27,19 +27,19 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <img src="{{ asset('images/bg.png') }}" alt="Logo" class="h-8 w-auto">
-                    <div class="hidden md:flex space-x-8 space-x-reverse">
-                        <a href="#about" class="text-gray-700 hover:text-[#dd208e] transition">عننا</a>
-                        <a href="#services" class="text-gray-700 hover:text-[#dd208e] transition">الخدمات</a>
-                        <a href="#features" class="text-gray-700 hover:text-[#dd208e] transition">المميزات</a>
-                        <a href="#pricing" class="text-gray-700 hover:text-[#dd208e] transition">الأسعار</a>
-                        <a href="#contact" class="text-gray-700 hover:text-[#dd208e] transition">التواصل</a>
+                    <div class="hidden md:flex space-x-4 space-x-reverse">
+                        <a href="#about" class="px-2 text-gray-700 hover:text-[#dd208e] transition">عننا</a>
+                        <a href="#services" class="px-2 text-gray-700 hover:text-[#dd208e] transition">الخدمات</a>
+                        <a href="#features" class="px-2 text-gray-700 hover:text-[#dd208e] transition">المميزات</a>
+                        <a href="#pricing" class="px-2 text-gray-700 hover:text-[#dd208e] transition">الأسعار</a>
+                        <a href="#contact" class="px-2 text-gray-700 hover:text-[#dd208e] transition">التواصل</a>
                     </div>
                     @if (Route::has('login'))
                         <div class="flex gap-3">
                             @auth
                                 <a href="{{ route('admin.dashbord') }}" class="px-6 py-2 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white rounded-lg hover:shadow-lg transition">لوحة التحكم</a>
                             @else
-                                <a href="{{ route('login') }}" class="px-6 py-2 text-[#dd208e] border border-[#dd208e] rounded-lg hover:bg-red-50 transition">دخول</a>
+                                <a href="{{ route('login') }}" class="px-6 py-2 text-[#dd208e] border border-[#dd208e] rounded-lg hover:bg-red-50 transition">تسجيل الدخول</a>
                             @endauth
                         </div>
                     @endif
@@ -377,8 +377,8 @@
                                             <div class="flex items-center justify-center h-7 sm:h-8 w-7 sm:w-8 rounded-lg bg-gradient-to-br from-[#dd208e] to-[#b01670] text-white font-bold text-base sm:text-lg">✓</div>
                                         </div>
                                         <div>
-                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">الفواتير والمدفوعات</h5>
-                                            <p class="text-xs sm:text-base text-gray-700">نظام فواتير متقدم مع قبول المدفوعات الإلكترونية</p>
+                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1"> المدفوعات</h5>
+                                            <p class="text-xs sm:text-base text-gray-700">متابعة جميع الحجوزات و مدوفعاتها</p>
                                         </div>
                                     </div>
 
@@ -388,7 +388,7 @@
                                         </div>
                                         <div>
                                             <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">التقارير والإحصائيات</h5>
-                                            <p class="text-xs sm:text-base text-gray-700">تحليلات شاملة وتقارير مفصلة</p>
+                                            <p class="text-xs sm:text-base text-gray-700">تحليلات شاملة و مفصلة</p>
                                         </div>
                                     </div>
 
@@ -397,8 +397,8 @@
                                             <div class="flex items-center justify-center h-7 sm:h-8 w-7 sm:w-8 rounded-lg bg-gradient-to-br from-[#dd208e] to-[#b01670] text-white font-bold text-base sm:text-lg">✓</div>
                                         </div>
                                         <div>
-                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">تطبيق الجوال</h5>
-                                            <p class="text-xs sm:text-base text-gray-700">iOS و Android متكامل</p>
+                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">تصميم متجاوب</h5>
+                                            <p class="text-xs sm:text-base text-gray-700">متكامل مع جميع انواع الشاشات</p>
                                         </div>
                                     </div>
 
@@ -407,8 +407,8 @@
                                             <div class="flex items-center justify-center h-7 sm:h-8 w-7 sm:w-8 rounded-lg bg-gradient-to-br from-[#dd208e] to-[#b01670] text-white font-bold text-base sm:text-lg">✓</div>
                                         </div>
                                         <div>
-                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">برنامج الولاء والنقاط</h5>
-                                            <p class="text-xs sm:text-base text-gray-700">احتفظ بعملائك مع نقاط مكافآت</p>
+                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">قياس اداء الموظفين</h5>
+                                            <p class="text-xs sm:text-base text-gray-700">تتبع اداء الموظفين و تحليل الانتاجية لتحسين الخدمة</p>
                                         </div>
                                     </div>
 
@@ -417,8 +417,8 @@
                                             <div class="flex items-center justify-center h-7 sm:h-8 w-7 sm:w-8 rounded-lg bg-gradient-to-br from-[#dd208e] to-[#b01670] text-white font-bold text-base sm:text-lg">✓</div>
                                         </div>
                                         <div>
-                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">الإشعارات التلقائية</h5>
-                                            <p class="text-xs sm:text-base text-gray-700">رسائل SMS و البريد الإلكتروني</p>
+                                            <h5 class="text-sm sm:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1">ادارة المنتجات</h5>
+                                            <p class="text-xs sm:text-base text-gray-700">ادارة المنتجات و المخزون</p>
                                         </div>
                                     </div>
 
@@ -548,37 +548,45 @@
                 </div>
 
                 <!-- Contact Form Section -->
-                <div class="bg-white rounded-lg sm:rounded-3xl shadow-2xl overflow-hidden">
+                <div id="contact-form" class="bg-white rounded-lg sm:rounded-3xl shadow-2xl overflow-hidden">
                     <div class="grid grid-cols-1 lg:grid-cols-2">
                         <!-- Form -->
+                         
                         <div class="p-6 sm:p-8 md:p-12">
                             <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">أرسل لنا رسالة</h3>
                             <p class="text-xs sm:text-base text-gray-600 mb-6 sm:mb-8">سنرد عليك في أسرع وقت ممكن</p>
                             
-                            <form class="space-y-4 sm:space-y-6">
+                            @if(session('success'))
+                                <div class="mb-6 p-4 bg-green-100 border-2 border-green-400 rounded-lg">
+                                    <p class="text-green-800 font-semibold text-sm sm:text-base">{{ session('success') }}</p>
+                                </div>
+                            @endif
+                            
+                            <form class="space-y-4 sm:space-y-6" action="{{ route('contact.store') }}" method="POST">
+                                @csrf
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الاسم</label>
-                                    <input required type="text" placeholder="أدخل اسمك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input value="{{ old('name') }}" required type="text" name="name" placeholder="أدخل اسمك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">البريد الإلكتروني</label>
-                                    <input required type="email" placeholder="أدخل بريدك الإلكتروني" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input value="{{ old('email') }}" required type="email" name="email" placeholder="أدخل بريدك الإلكتروني" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                  <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2"> الجوال</label>
-                                    <input required type="tel" placeholder="أدخل رقم جوالك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input value="{{ old('phone') }}" required type="tel" name="phone" placeholder="أدخل رقم جوالك" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الموضوع</label>
-                                    <input required type="text" placeholder="موضوع الرسالة" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
+                                    <input value="{{ old('title') }}" required type="text" name="title" placeholder="موضوع الرسالة" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition text-xs sm:text-base">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">الرسالة</label>
-                                    <textarea required placeholder="اكتب رسالتك..." rows="5" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition resize-none text-xs sm:text-base"></textarea>
+                                    <textarea required name="message" placeholder="اكتب رسالتك..." rows="5" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition resize-none text-xs sm:text-base">{{ old('message') }}</textarea>
                                 </div>
 
                                 <button type="submit" class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-lg hover:shadow-xl transition transform hover:scale-105">
@@ -586,6 +594,7 @@
                                 </button>
                             </form>
                         </div>
+                       
 
                         <!-- Info Side -->
                         <div class="bg-gradient-to-br from-[#dd208e] to-[#b01670] p-6 sm:p-8 md:p-12 text-white flex flex-col justify-center">
@@ -660,7 +669,7 @@
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#dd208e] font-bold text-sm sm:text-base md:text-lg rounded-lg sm:rounded-lg hover:shadow-xl hover:scale-105 transition transform">
-                        ابدأ المحاولة المجانية
+                        ابدأ التجربة المجانية
                     </a>
                 @endauth
             </div>

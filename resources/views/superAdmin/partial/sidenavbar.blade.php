@@ -38,6 +38,13 @@
                     <span class="font-medium text-sm">الحجوزات</span>
                 </a>
             </li>
+
+            <li>
+                <a href="{{ route('superAdmin.contacts.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.contacts.*') ? 'bg-white/20' : '' }}">
+                    <span class="text-lg">💬</span>
+                    <span class="font-medium text-sm">الرسائل</span>
+                </a>
+            </li>
         @else
             <!-- Regular Admin Menu -->
             <li>

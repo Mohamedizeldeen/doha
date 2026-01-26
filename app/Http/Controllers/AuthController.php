@@ -28,41 +28,51 @@ class AuthController extends Controller
      * Handle login request
      */
     public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:6',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-
-        $user = Auth::user();
-        $salon = $user->salons()->first(); // صالون واحد فقط
-
-        if (!$salon) {
-            return redirect()->route('salon.create');
-        }
-
-        $now = now();
-
-        // التحقق من الاشتراك أو التجربة
-        if (
-            ($salon->subscription_end_date && $now->greaterThan($salon->subscription_end_date)) &&
-            ($salon->trial_end_date && $now->greaterThan($salon->trial_end_date))
-        ) {
-            return redirect()->route('subscription.expired');
-        }
-
-        return redirect()->route('admin.dashboard', [
-            'salon_id' => $salon->id
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
-    }
 
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
-}
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            // Check if user is super admin
+            if ($user->role === 'super_admin') {
+                return redirect()->route('superAdmin.dashboard');
+            }
+
+            // Regular admin/salon owner
+            $salon = $user->salons()->first();
+
+            if (!$salon) {
+                return redirect()->route('salon.create');
+            }
+
+            $now = now();
+
+            // Check if subscription has ended
+            if ($salon->subscription_end_date && $now->greaterThan($salon->subscription_end_date)) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                
+                return redirect()->route('login')->withErrors([
+                    'email' => 'اشتراك صالونك انتهى. يرجى تجديد الاشتراك للمتابعة.',
+                ]);
+            }
+
+            return redirect()->route('admin.dashboard', [
+                'salon_id' => $salon->id
+            ]);
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
 
 
     /**

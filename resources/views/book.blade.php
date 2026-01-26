@@ -344,77 +344,87 @@
                     </div>
 
                     <!-- Products Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         @foreach($products as $product)
-                            <div class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-gray-400 transition-all duration-300">
-                                <!-- Image Container -->
-                                <div class="relative h-64 overflow-hidden bg-gray-50">
+                            <div class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                <!-- Image Container with Overlay -->
+                                <div class="relative h-56 sm:h-64 md:h-72 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                                     @if($product->image)
                                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name_ar }}" 
-                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center bg-gray-100">
-                                            <span class="text-gray-300 text-6xl">📦</span>
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+                                            <span class="text-gray-300 text-5xl sm:text-6xl">📦</span>
                                         </div>
                                     @endif
                                     
-                                    <!-- Price Badge -->
-                                    <div class="absolute top-4 left-4 bg-gray-900 text-white px-4 py-2 rounded-lg font-bold text-lg">
-                                        <span class="hidden-ar">{{ $product->price }} {{ $salon->currency  }}</span>
+                                    <!-- Dark Overlay on Hover -->
+                                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                                    
+                                    <!-- Price Badge - Bottom Left -->
+                                    <div class="absolute bottom-4 left-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 sm:px-4 py-2 rounded-xl font-bold text-sm sm:text-base shadow-lg">
+                                        <span class="hidden-ar">{{ $product->price }} {{ $salon->currency }}</span>
                                         <span class="hidden-en">{{ $product->price }} {{ $salon->currency }}</span>
                                     </div>
 
-                                    <!-- Stock Badge -->
+                                    <!-- Stock Badge - Top Right -->
                                     <div class="absolute top-4 right-4">
                                         @if($product->stock_quantity > 0)
-                                            <div class="bg-green-700 text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                                            <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-md flex items-center gap-1">
+                                                <span class="text-lg">✓</span>
                                                 <span class="hidden-ar">متوفر</span>
                                                 <span class="hidden-en">Available</span>
                                             </div>
                                         @else
-                                            <div class="bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">
-                                                <span class="hidden-ar">غير متوفر</span>
-                                                <span class="hidden-en">Unavailable</span>
+                                            <div class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-md flex items-center gap-1">
+                                                <span class="text-lg">✕</span>
+                                                <span class="hidden-ar">نفد</span>
+                                                <span class="hidden-en">Out</span>
                                             </div>
                                         @endif
                                     </div>
                                 </div>
 
-                                <!-- Content -->
-                                <div class="p-6">
+                                <!-- Content Section -->
+                                <div class="p-4 sm:p-6">
                                     <!-- Title -->
-                                    <h3 class="text-lg font-bold text-gray-900 mb-4 product-name" data-ar="{{ $product->name_ar }}" data-en="{{ $product->name_en ?? $product->name_ar }}">
+                                    <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 product-name line-clamp-2 group-hover:text-blue-600 transition-colors duration-300" data-ar="{{ $product->name_ar }}" data-en="{{ $product->name_en ?? $product->name_ar }}">
                                         {{ $product->name_ar }}
                                     </h3>
 
                                     <!-- Description -->
                                     @if(!empty($product->description_ar))
-                                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 product-description" data-ar="{{ $product->description_ar }}" data-en="{{ $product->description_en ?? $product->description_ar }}">
+                                        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2 product-description" data-ar="{{ $product->description_ar }}" data-en="{{ $product->description_en ?? $product->description_ar }}">
                                             {{ $product->description_ar }}
                                         </p>
                                     @else
-                                        <div class="h-8 mb-4"></div>
+                                        <div class="h-6 sm:h-8 mb-4"></div>
                                     @endif
 
-                                    <!-- Stock Info -->
-                                    <div class="flex items-center justify-between py-2 mb-4 text-sm">
-                                        <span class="text-gray-600">
-                                            <span class="hidden-ar">الكمية:</span>
-                                            <span class="hidden-en">Quantity:</span>
+                                    <!-- Divider -->
+                                    <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mb-4"></div>
+
+                                    <!-- Stock Info Footer -->
+                                    <div class="flex items-center justify-between pt-2 sm:pt-4">
+                                        <span class="text-gray-600 text-xs sm:text-sm font-medium">
+                                            <span class="hidden-ar">الكمية المتاحة:</span>
+                                            <span class="hidden-en">Stock:</span>
                                         </span>
                                         @if ($product->stock_quantity > 0)
-                                            <span class="font-semibold text-green-700">{{ $product->stock_quantity }}</span>
+                                            <span class="inline-flex items-center justify-center px-3 py-1 bg-green-100 text-green-700 rounded-full font-bold text-sm">
+                                                {{ $product->stock_quantity }}
+                                            </span>
                                         @else
-                                            <span class="font-semibold text-red-700">
-                                                <span class="hidden-ar">نفدت الكمية</span>
-                                                <span class="hidden-en">Out of Stock</span>
+                                            <span class="inline-flex items-center justify-center px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs sm:text-sm font-bold">
+                                                <span class="hidden-ar">غير متوفر</span>
+                                                <span class="hidden-en">Not Available</span>
                                             </span>
                                         @endif
-                                      
                                     </div>
-
-                                    
                                 </div>
+
+                                <!-- Subtle Bottom Border -->
+                                <div class="h-1 bg-gradient-to-r from-blue-400 via-indigo-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                         @endforeach
                     </div>

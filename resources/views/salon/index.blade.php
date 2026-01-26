@@ -70,7 +70,7 @@
                                     <div class="flex items-center gap-2">
                                         <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                                         <span class="text-xs sm:text-sm text-green-700 font-medium">
-                                            نشط - {{ $salon->daysRemaining() }} يوم متبقي
+                                            نشط
                                         </span>
                                     </div>
                                 @else
@@ -106,13 +106,7 @@
                                 <a href="{{ route('salon.edit', $salon->id) }}" class="flex-1 text-center px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-[#dd208e] text-[#dd208e] font-bold text-xs sm:text-sm rounded-lg hover:bg-red-50 transition">
                                     تعديل
                                 </a>
-                                <form method="POST" action="{{ route('salon.destroy', $salon->id) }}" class="flex-1" onsubmit="return confirm('هل أنت متأكد؟')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-red-300 text-red-700 font-bold text-xs sm:text-sm rounded-lg hover:bg-red-50 transition">
-                                        حذف
-                                    </button>
-                                </form>
+                                
                             </div>
                         </div>
                     @endforeach

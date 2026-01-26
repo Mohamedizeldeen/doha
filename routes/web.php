@@ -53,7 +53,6 @@ Route::middleware('auth')->group(function () {
     
     // Salon routes
     Route::resource('salon', SalonController::class);
-    Route::get('/salons', [SalonController::class, 'index'])->name('salon.index');
     
     // Settings routes
         Route::get('/settings/edit', [SalonController::class, 'settingsEdit'])->name('settings.edit');

@@ -19,6 +19,7 @@
                     <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">المخزون</th>
                     <th class="px-6 py-3 text-right text-sm font-semibold text-gray-700">الوصف</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">تاريخ الإنشاء</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">الإجراء</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,15 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-600 text-center">
                             {{ $product->created_at->format('d/m/Y') }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-center">
+                            <a href="{{ route('superAdmin.products.show', $product->id) }}" class="text-blue-600 hover:text-blue-700 font-medium">عرض</a>
+                            <a href="{{ route('superAdmin.products.edit', $product->id) }}" class="text-yellow-600 hover:text-yellow-700 font-medium ml-4">تعديل</a>
+                            <form action="{{ route('superAdmin.products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-700 font-medium ml-4 border-0 bg-none cursor-pointer">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 @empty

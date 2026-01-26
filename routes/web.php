@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/salons/{salon}', [SuperAdminController::class, 'updateSalon'])->name('salons.update');
         Route::delete('/salons/{salon}', [SuperAdminController::class, 'destroySalon'])->name('salons.destroy');
         Route::get('/products', [SuperAdminController::class, 'products'])->name('products.index');
+        Route::get('/products/{product}', [SuperAdminController::class, 'showProduct'])->name('products.show');
+        Route::get('/products/{product}/edit', [SuperAdminController::class, 'editProduct'])->name('products.edit');
+        Route::patch('/products/{product}', [SuperAdminController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/products/{product}', [SuperAdminController::class, 'destroyProduct'])->name('products.destroy');
         Route::get('/bookings', [SuperAdminController::class, 'bookings'])->name('bookings.index');
         Route::get('/bookings/{booking}', [SuperAdminController::class, 'showBooking'])->name('bookings.show');
         Route::delete('/bookings/{booking}', [SuperAdminController::class, 'destroyBooking'])->name('bookings.destroy');

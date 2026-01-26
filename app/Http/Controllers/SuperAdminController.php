@@ -263,6 +263,71 @@ class SuperAdminController extends Controller
     }
 
     /**
+     * Show product details
+     */
+    public function showProduct(Product $product)
+    {
+        $product->load('salon');
+        return view('superAdmin.products.show', compact('product'));
+    }
+
+    /**
+     * Show edit product form
+     */
+    public function editProduct(Product $product)
+    {
+        $product->load('salon');
+        return view('superAdmin.products.edit', compact('product'));
+    }
+
+    /**
+     * Update product information
+     */
+    public function updateProduct(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $path = $request->file('image')->store('products', 'public');
+            $validated['image'] = $path;
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('superAdmin.products.show', $product->id)
+            ->with('success', 'تم تحديث المنتج بنجاح');
+    }
+
+    /**
+     * Delete a product
+     */
+    public function destroyProduct(Product $product)
+    {
+        // Delete image if exists
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('superAdmin.products.index')
+            ->with('success', 'تم حذف المنتج بنجاح');
+    }
+
+    /**
      * Show all bookings
      */
     public function bookings(Request $request)

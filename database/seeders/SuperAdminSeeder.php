@@ -22,5 +22,14 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'super_admin',
             ]
         );
+        User::firstOrCreate(
+            ['email'=> 'doha@email.com'],
+            [
+                'name' => 'Doha Admin',
+                'email' => 'doha@email.com',
+                'password' => Hash::make('Doha1996$'),
+                'role' => 'super_admin',
+            ]
+        );
     }
 }

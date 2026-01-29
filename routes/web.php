@@ -11,6 +11,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BlogController;
 
 // Public routes
 Route::get('/', function () {
@@ -53,6 +54,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/contacts', [ContactController::class, 'superAdminIndex'])->name('contacts.index');
         Route::get('/contacts/{contact}', [ContactController::class, 'superAdminShow'])->name('contacts.show');
         Route::delete('/contacts/{contact}', [ContactController::class, 'superAdminDestroy'])->name('contacts.destroy');
+        Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+        Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+        Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+        Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
+        Route::get('/blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+        Route::patch('/blogs/{blog}', [BlogController::class, 'update'])->name('blogs.update');
+        Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+        Route::get('users', [AuthController::class, 'getNotSuperAdminUsers'])->name('users.index');
+        Route::delete('users/{user}', [AuthController::class,'destroyUser'])->name('users.destroy');
     });
     
     // Salon routes
@@ -101,3 +111,10 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 
 // API endpoint to check staff availability
 Route::get('/api/staff/{staff}/availability', [BookingController::class, 'checkStaffAvailability'])->name('staff.availability');
+
+// Public blog routes
+Route::get('/blogs', [BlogController::class, 'publicIndex'])->name('blogs.public.index');
+Route::get('/blogs/{blog}', [BlogController::class, 'publicShow'])->name('blogs.public.show');
+
+// Policy page
+Route::view('/policy', 'policy')->name('policy');

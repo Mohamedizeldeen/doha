@@ -439,6 +439,12 @@
             <p class="text-gray-400 footer-text" data-ar="{{ $salon->name_ar }} © 2026 - جميع الحقوق محفوظة" data-en="{{ $salon->name_en ?? $salon->name_ar }} © 2026 - All Rights Reserved">
                 {{ $salon->name_ar }} © 2026 - جميع الحقوق محفوظة
             </p>
+             <a href="https://www.instagram.com/mohamed_izeldeen/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 text-gray-400 hover:text-[#b01670] mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M7 2C4.23858 2 2 4.23858 2 7v10c0 2.7614 2.23858 5 5 5h10c2.7614 0 5-2.2386 5-5V7c0-2.76142-2.2386-5-5-5H7zm10 2c1.657 0 3 1.343 3 3v10c0 1.657-1.343 3-3 3H7c-1.657 0-3-1.343-3-3V7c0-1.657 1.343-3 3-3h10zM12 7.75a4.25 4.25 0 100 8.5 4.25 4.25 0 000-8.5zm0 2a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5zM17.5 6.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+                        </svg>
+                        <span>تم التطوير بواسطة محمد عزالدين</span>
+                    </a>
         </div>
     </footer>
 

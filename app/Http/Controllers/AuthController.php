@@ -119,5 +119,20 @@ class AuthController extends Controller
         
         return redirect()->route('home');
     }
+
+    public function getNotSuperAdminUsers()
+    {
+        $users = User::where('role', '!=', 'super_admin')->get();
+        return view('superAdmin.users.index', compact('users'));
+    }
+    public function destroyUser(User $user)
+    {
+        if ($user->role === 'super_admin') {
+            return redirect()->route('superAdmin.users.index')->withErrors('لا يمكن حذف مستخدم من نوع Super Admin.');
+        }
+
+        $user->delete();
+        return redirect()->route('superAdmin.users.index')->with('success', 'تم حذف المستخدم بنجاح.');
+    }
 }
 

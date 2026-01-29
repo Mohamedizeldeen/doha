@@ -34,6 +34,8 @@
                         <a href="#services" class="px-2 text-gray-700 hover:text-[#dd208e] transition">الخدمات</a>
                         <a href="#features" class="px-2 text-gray-700 hover:text-[#dd208e] transition">المميزات</a>
                         <a href="#pricing" class="px-2 text-gray-700 hover:text-[#dd208e] transition">الأسعار</a>
+                        <a href="{{ route('blogs.public.index') }}" class="px-2 text-gray-700 hover:text-[#dd208e] transition">المدونة</a>
+                        
                         <a href="#contact" class="px-2 text-gray-700 hover:text-[#dd208e] transition">التواصل</a>
                     </div>
                     @if (Route::has('login'))
@@ -444,12 +446,12 @@
                                     </button>
                                 @else
                                     <a href="{{ route('login') }}" class="flex-1 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white font-bold text-sm sm:text-lg rounded-lg sm:rounded-xl hover:shadow-2xl hover:scale-105 transition transform duration-300 text-center">
-                                        ابدأ المحاولة المجانية
+                                        ابدأ التجربة المجانية
                                     </a>
                                 @endauth
-                                <button class="flex-1 px-6 sm:px-8 py-3 sm:py-4 border-2 border-[#dd208e] text-[#dd208e] font-bold text-sm sm:text-lg rounded-lg sm:rounded-xl hover:bg-red-50 transition duration-300">
+                                <a href="tel:+96898084952" class="flex-1 px-6 sm:px-8 py-3 sm:py-4 border-2 border-[#dd208e] text-[#dd208e] font-bold text-sm sm:text-lg rounded-lg sm:rounded-xl hover:bg-red-50 transition duration-300 flex items-center justify-center">
                                     اتصل بنا للاستفسار
-                                </button>
+                                </a>
                             </div>
 
                             <!-- Footer Text -->
@@ -523,8 +525,8 @@
                             </div>
                             <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">الواتس آب</h3>
                             <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">للدعم الفوري والاستفسارات السريعة</p>
-                            <a href="https://wa.me/96898084952" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
-                                00968-9808-4952
+                            <a href="https://wa.me/968249912345674" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
+                                00249-9123-45674
                             <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
@@ -543,7 +545,7 @@
                             <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">المقر الرئيسي</h3>
                             <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">تفضل بزيارتنا في مسقط</p>
                             <div class="flex items-start gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
-                                <span>الخوض - مسقط - سلطنة عمان</span>
+                                <span>العمارات - الخرطوم - السودان</span>
                             </div>
                         </div>
                     </div>
@@ -649,7 +651,7 @@
                                     <div class="text-2xl sm:text-3xl flex-shrink-0">📞</div>
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">رقم الهاتف</h4>
-                                        <p class="text-red-100 text-xs sm:text-sm">00968-9808-4952</p>
+                                        <p class="text-red-100 text-xs sm:text-sm">00249-9123-45674</p>
                                         
                                     </div>
                                 </div>
@@ -692,22 +694,22 @@
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                             <li><a href="#features" class="hover:text-gray-700 transition">المميزات</a></li>
                             <li><a href="#pricing" class="hover:text-gray-700 transition">الأسعار</a></li>
-                            <li><a href="#" class="hover:text-gray-700 transition">الدعم</a></li>
+                            
                         </ul>
                     </div>
                     <div>
                         <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">الشركة</h4>
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                             <li><a href="#about" class="hover:text-gray-700 transition">عننا</a></li>
-                            <li><a href="#" class="hover:text-gray-700 transition">المدونة</a></li>
-                            <li><a href="#" class="hover:text-gray-700 transition">الوظائف</a></li>
+                            <li><a href="{{ route('blogs.public.index') }}" class="hover:text-gray-700 transition">المدونة</a></li>
+                            
                         </ul>
                     </div>
                     <div>
                         <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">قانوني</h4>
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                            <li><a href="#" class="hover:text-gray-700 transition">الخصوصية</a></li>
-                            <li><a href="#" class="hover:text-gray-700 transition">الشروط</a></li>
+                            
+                            <li><a href="{{ route('policy') }}" class="hover:text-gray-700 transition">الشروط و الاحكام</a></li>
                             <li><a href="#contact" class="hover:text-gray-700 transition">التواصل</a></li>
                         </ul>
                     </div>
@@ -715,6 +717,12 @@
                 
                 <div class="border-t border-gray-800 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
                     <p>&copy; 2026 . جميع الحقوق محفوظة.</p>
+                    <a href="https://www.instagram.com/mohamed_izeldeen/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 text-[#dd208e] hover:text-[#b01670] mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M7 2C4.23858 2 2 4.23858 2 7v10c0 2.7614 2.23858 5 5 5h10c2.7614 0 5-2.2386 5-5V7c0-2.76142-2.2386-5-5-5H7zm10 2c1.657 0 3 1.343 3 3v10c0 1.657-1.343 3-3 3H7c-1.657 0-3-1.343-3-3V7c0-1.657 1.343-3 3-3h10zM12 7.75a4.25 4.25 0 100 8.5 4.25 4.25 0 000-8.5zm0 2a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5zM17.5 6.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+                        </svg>
+                        <span>تم التطوير بواسطة محمد عزالدين</span>
+                    </a>
                 </div>
             </div>
         </footer>

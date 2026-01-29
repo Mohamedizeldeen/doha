@@ -6,6 +6,7 @@ use App\Models\Salon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class SalonController extends Controller
 {
@@ -228,10 +229,23 @@ class SalonController extends Controller
         $salon = Salon::findOrFail($id);
         $this->authorizeUser($salon);
 
+
+
+
         if ($salon->logo) {
             Storage::disk('public')->delete($salon->logo);
         }
 
+        // find the user that onwer the salon and deletethe user also
+        // delete the salon owner via the relationship
+        $salonEmail = $salon->getAttribute('email');
+        if ($salonEmail) {
+            $user = User::where('email', $salonEmail)->first();
+            if ($user) {
+                $user->delete();
+            }
+        }
+  
         $salon->delete();
         return response()->json(['message' => 'Salon deleted successfully']);
     }

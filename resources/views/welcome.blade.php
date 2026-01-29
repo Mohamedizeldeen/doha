@@ -525,8 +525,8 @@
                             </div>
                             <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">الواتس آب</h3>
                             <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">للدعم الفوري والاستفسارات السريعة</p>
-                            <a href="https://wa.me/968249912345674" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
-                                00249-9123-45674
+                            <a href="https://wa.me/249110920958" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#dd208e] hover:text-[#b01670] font-bold transition text-xs sm:text-base">
+                                00249-1109-20958
                             <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
@@ -651,7 +651,7 @@
                                     <div class="text-2xl sm:text-3xl flex-shrink-0">📞</div>
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">رقم الهاتف</h4>
-                                        <p class="text-red-100 text-xs sm:text-sm">00249-9123-45674</p>
+                                        <p class="text-red-100 text-xs sm:text-sm">00249-1109-20958</p>
                                         
                                     </div>
                                 </div>

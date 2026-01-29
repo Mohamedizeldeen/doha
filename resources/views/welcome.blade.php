@@ -449,7 +449,7 @@
                                         ابدأ التجربة المجانية
                                     </a>
                                 @endauth
-                                <a href="tel:+96898084952" class="flex-1 px-6 sm:px-8 py-3 sm:py-4 border-2 border-[#dd208e] text-[#dd208e] font-bold text-sm sm:text-lg rounded-lg sm:rounded-xl hover:bg-red-50 transition duration-300 flex items-center justify-center">
+                                <a href="tel:+249110920958" class="flex-1 px-6 sm:px-8 py-3 sm:py-4 border-2 border-[#dd208e] text-[#dd208e] font-bold text-sm sm:text-lg rounded-lg sm:rounded-xl hover:bg-red-50 transition duration-300 flex items-center justify-center">
                                     اتصل بنا للاستفسار
                                 </a>
                             </div>

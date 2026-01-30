@@ -97,6 +97,7 @@
             </div>
         </section>
 
+
         <!-- About Section -->
         <section id="about" class="py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-[#faf8fc] to-white">
             <div class="max-w-7xl mx-auto">
@@ -184,6 +185,25 @@
                 </div>
             </div>
         </section>
+
+        <!-- hpw can use our app video -->
+        <section class="py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 md:mb-20">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+                <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">كيف يمكن لتطبيقينا أن يساعدك؟</span>
+                </h2>
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">شاهد الفيديو القصير التالي لتتعرف على كيفية استخدام تطبيقينا في إدارة صالونك بكفاءة وسهولة.</p>
+            </div>      
+            <div class="aspect-w-16 aspect-h-9">
+                <video controls class="w-full h-full rounded-lg shadow-lg">
+                <source src="{{ asset('videos/example.mp4') }}" type="video/mp4">
+                
+                متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+            </div>
+            </div>
+        </section>        
 
         <!-- Services Section -->
         <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#fde4f1] to-white">

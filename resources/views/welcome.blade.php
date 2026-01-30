@@ -197,7 +197,7 @@
             </div>      
             <div class="aspect-w-16 aspect-h-9">
                 <video controls class="w-full h-full rounded-lg shadow-lg">
-                <source src="{{ asset('videos/example.mp4') }}" type="video/mp4">
+                <source src="{{ asset('videos/example2.mp4') }}" type="video/mp4">
                 
                 متصفحك لا يدعم تشغيل الفيديو.
                 </video>

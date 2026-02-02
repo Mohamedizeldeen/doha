@@ -640,29 +640,30 @@
                                     <div>
                                         <h4 class="font-bold text-base sm:text-lg mb-1 sm:mb-2">تابعنا</h4>
                                         <div class="flex gap-2 sm:gap-3 text-xs sm:text-sm text-white">
+                                            <!-- Social Media Icons 
                                             <a href="#" class="hover:opacity-80 transition" aria-label="Twitter">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                                     <path d="M23 4.56a9.83 9.83 0 01-2.828.775A4.93 4.93 0 0022.337 3.2a9.86 9.86 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482A13.97 13.97 0 011.671 3.149a4.92 4.92 0 001.523 6.574A4.9 4.9 0 01.96 9.1v.062a4.92 4.92 0 003.95 4.827 4.9 4.9 0 01-2.212.084 4.93 4.93 0 004.6 3.417A9.87 9.87 0 010 19.54a13.94 13.94 0 007.548 2.212c9.058 0 14.01-7.513 14.01-14.02 0-.213-.005-.425-.014-.636A10.01 10.01 0 0023 4.56z"/>
                                                 </svg>
-                                            </a>
-
+                                            </a> -->
+                                           <!-- Social Media Icons 
                                             <a href="#" class="hover:opacity-80 transition" aria-label="Instagram">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                                     <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-2.6a1.12 1.12 0 11-1.12 1.12A1.12 1.12 0 0118.4 5.6zM12 15.3A3.3 3.3 0 1115.3 12 3.3 3.3 0 0112 15.3z"/>
                                                 </svg>
                                             </a>
-
-                                            <a href="#" class="hover:opacity-80 transition" aria-label="TikTok">
+-->
+                                            <a href="https://www.tiktok.com/@doha_tech" class="hover:opacity-80 transition" aria-label="TikTok" target="_blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                                     <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
                                                 </svg>
                                             </a>
-
+ <!-- Social Media Icons 
                                             <a href="#" class="hover:opacity-80 transition" aria-label="LinkedIn">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                                     <path d="M4.98 3.5A2.5 2.5 0 102.48 6a2.5 2.5 0 002.5-2.5zM3 8.98h4v12H3v-12zM9 8.98h3.84v1.64h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21v7.23h-4v-6.4c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.67-2.46 3.4v6.5H9v-12z"/>
                                                 </svg>
-                                            </a>
+                                            </a>-->
                                         </div>
                                     </div>
                                 </div>

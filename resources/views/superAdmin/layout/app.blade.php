@@ -85,9 +85,6 @@
             <a href="{{ route('superAdmin.contacts.index') }}" class="nav-item {{ request()->routeIs('superAdmin.contacts.*') ? 'active' : '' }}">
                 <i class="fas fa-envelope"></i><span>{{ __('admin.messages') }}</span>
             </a>
-            <a href="{{ route('superAdmin.blogs.index') }}" class="nav-item {{ request()->routeIs('superAdmin.blogs.*') ? 'active' : '' }}">
-                <i class="fas fa-newspaper"></i><span>{{ __('admin.articles') }}</span>
-            </a>
             <div class="nav-section-label">{{ __('admin.users') }}</div>
             <a href="{{ route('superAdmin.users.index') }}" class="nav-item {{ request()->routeIs('superAdmin.users.*') ? 'active' : '' }}">
                 <i class="fas fa-users"></i><span>{{ __('admin.users') }}</span>

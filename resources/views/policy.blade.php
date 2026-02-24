@@ -27,9 +27,7 @@
         <nav class="fixed top-0 right-0 w-full bg-white shadow-lg z-50 border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
-                    <a href="{{ route('home') }}" class="flex items-center hover:opacity-80 transition">
-                        <img src="{{ asset('images/bg.png') }}" alt="Logo" class="h-8 w-auto">
-                    </a>
+                   
                    
                
                         <div class="flex gap-3">

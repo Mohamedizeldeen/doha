@@ -94,7 +94,6 @@
                         <a href="#services" class="text-sm font-medium text-gray-600 hover:text-[#dd208e] transition">{{ __('landing.nav_services') }}</a>
                         <a href="#features" class="text-sm font-medium text-gray-600 hover:text-[#dd208e] transition">{{ __('landing.nav_features') }}</a>
                         <a href="#pricing" class="text-sm font-medium text-gray-600 hover:text-[#dd208e] transition">{{ __('landing.nav_pricing') }}</a>
-                        <a href="{{ route('blogs.public.index') }}" class="text-sm font-medium text-gray-600 hover:text-[#dd208e] transition">{{ __('landing.nav_blog') }}</a>
                         <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-[#dd208e] transition">{{ __('landing.nav_contact') }}</a>
                     </div>
 
@@ -132,7 +131,6 @@
                         <a href="#services" class="px-3 py-2 text-sm text-gray-600 hover:text-[#dd208e] hover:bg-pink-50 rounded-lg transition">{{ __('landing.nav_services') }}</a>
                         <a href="#features" class="px-3 py-2 text-sm text-gray-600 hover:text-[#dd208e] hover:bg-pink-50 rounded-lg transition">{{ __('landing.nav_features') }}</a>
                         <a href="#pricing" class="px-3 py-2 text-sm text-gray-600 hover:text-[#dd208e] hover:bg-pink-50 rounded-lg transition">{{ __('landing.nav_pricing') }}</a>
-                        <a href="{{ route('blogs.public.index') }}" class="px-3 py-2 text-sm text-gray-600 hover:text-[#dd208e] hover:bg-pink-50 rounded-lg transition">{{ __('landing.nav_blog') }}</a>
                         <a href="#contact" class="px-3 py-2 text-sm text-gray-600 hover:text-[#dd208e] hover:bg-pink-50 rounded-lg transition">{{ __('landing.nav_contact') }}</a>
                     </div>
                 </div>
@@ -649,7 +647,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold mb-1">{{ __('landing.contact_phone_title') }}</h4>
-                                        <p class="text-pink-100 text-sm">00968-9808-4952/p>
+                                        <p class="text-pink-100 text-sm">00968-9808-4952</p>
                                     </div>
                                 </div>
                             </div>
@@ -702,7 +700,6 @@
                         <h4 class="font-bold text-gray-900 mb-4">{{ __('landing.footer_company') }}</h4>
                         <ul class="space-y-2 text-sm">
                             <li><a href="#about" class="text-gray-500 hover:text-[#dd208e] transition">{{ __('landing.nav_about') }}</a></li>
-                            <li><a href="{{ route('blogs.public.index') }}" class="text-gray-500 hover:text-[#dd208e] transition">{{ __('landing.nav_blog') }}</a></li>
                         </ul>
                     </div>
                     <div>

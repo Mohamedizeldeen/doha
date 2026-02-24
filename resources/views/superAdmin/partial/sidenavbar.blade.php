@@ -47,12 +47,6 @@
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.blogs.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.blogs.*') ? 'bg-white/20' : '' }}">
-                    <span class="text-lg">📝</span>
-                    <span class="font-medium text-sm">{{ __('admin.articles') }}</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('superAdmin.users.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.users.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">👥</span>
                     <span class="font-medium text-sm">{{ __('admin.users') }}</span>

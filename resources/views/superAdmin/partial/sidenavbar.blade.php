@@ -1,5 +1,5 @@
 <!-- Sidebar Navigation -->
-<nav id="sidebar" class="w-60 bg-gray-800 min-h-screen fixed right-0 top-0 z-40 shadow-lg transition-transform duration-300">
+<nav id="sidebar" class="w-60 bg-gray-800 min-h-screen fixed {{ app()->getLocale() === 'ar' ? 'right-0' : 'left-0' }} top-0 z-40 shadow-lg transition-transform duration-300">
     <!-- Close Button for Mobile -->
     <div style="display: none; padding: 1rem;" class="mobile-close">
         <button id="sidebar-close" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; width: 44px; height: 44px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
@@ -12,78 +12,78 @@
         @if(auth()->user()->role === 'super_admin')
             <!-- Super Admin Menu -->
             <li>
-                <a href="{{ route('superAdmin.dashboard') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.dashboard') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.dashboard') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.dashboard') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">📊</span>
-                    <span class="font-medium text-sm">لوحة التحكم</span>
+                    <span class="font-medium text-sm">{{ __('admin.dashboard') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.salons.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.salons.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.salons.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.salons.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">🏢</span>
-                    <span class="font-medium text-sm">الصالونات</span>
+                    <span class="font-medium text-sm">{{ __('admin.salons') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.products.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.products.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.products.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.products.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">📦</span>
-                    <span class="font-medium text-sm">المنتجات</span>
+                    <span class="font-medium text-sm">{{ __('admin.products') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.bookings.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.bookings.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.bookings.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.bookings.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">📅</span>
-                    <span class="font-medium text-sm">الحجوزات</span>
+                    <span class="font-medium text-sm">{{ __('admin.bookings') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.contacts.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.contacts.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.contacts.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.contacts.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">💬</span>
-                    <span class="font-medium text-sm">الرسائل</span>
+                    <span class="font-medium text-sm">{{ __('admin.messages') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('superAdmin.blogs.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.blogs.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.blogs.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.blogs.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">📝</span>
-                    <span class="font-medium text-sm">المقالات</span>
+                    <span class="font-medium text-sm">{{ __('admin.articles') }}</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('superAdmin.users.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right {{ request()->routeIs('superAdmin.users.*') ? 'bg-white/20' : '' }}">
+                <a href="{{ route('superAdmin.users.index') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }} {{ request()->routeIs('superAdmin.users.*') ? 'bg-white/20' : '' }}">
                     <span class="text-lg">👥</span>
-                    <span class="font-medium text-sm">المستخدمين</span>
+                    <span class="font-medium text-sm">{{ __('admin.users') }}</span>
                 </a>
         @else
             <!-- Regular Admin Menu -->
             <li>
-                <a href="{{ route('admin.dashbord') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }}">
                     <span class="text-lg">📊</span>
-                    <span class="font-medium text-sm">لوحة التحكم</span>
+                    <span class="font-medium text-sm">{{ __('admin.dashboard') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('staff.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <a href="{{ route('staff.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }}">
                     <span class="text-lg">👥</span>
-                    <span class="font-medium text-sm"> الصالونات</span>
+                    <span class="font-medium text-sm">{{ __('admin.salons') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('booking.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <a href="{{ route('booking.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }}">
                     <span class="text-lg">📅</span>
-                    <span class="font-medium text-sm">الحجوزات</span>
+                    <span class="font-medium text-sm">{{ __('admin.bookings') }}</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('product.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <a href="{{ route('product.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all {{ app()->getLocale() === 'ar' ? 'text-right' : 'text-left' }}">
                     <span class="text-lg">📦</span>
-                    <span class="font-medium text-sm">المنتجات</span>
+                    <span class="font-medium text-sm">{{ __('admin.products') }}</span>
                 </a>
             </li>
         @endif
@@ -100,7 +100,7 @@
                 @csrf
                 <button type="submit" class="nav-link w-full flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all" style="text-align: right; justify-content: flex-start;">
                     <span class="text-lg">🚪</span>
-                    <span class="font-medium text-sm">تسجيل الخروج</span>
+                    <span class="font-medium text-sm">{{ __('admin.logout') }}</span>
                     
                 </button>
             </form>
@@ -182,7 +182,7 @@
 
 <style>
     body {
-        font-family: 'Cairo', sans-serif;
+        font-family: {{ app()->getLocale() === 'ar' ? "'Cairo'" : "'Inter'" }}, sans-serif;
     }
 
     .nav-link {
@@ -195,6 +195,6 @@
 
     .nav-link.active {
         background-color: rgba(255, 255, 255, 0.2);
-        border-right: 4px solid white;
+        {{ app()->getLocale() === 'ar' ? 'border-right' : 'border-left' }}: 4px solid white;
     }
 </style>

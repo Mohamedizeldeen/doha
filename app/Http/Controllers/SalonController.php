@@ -52,7 +52,7 @@ class SalonController extends Controller
 
         //check if the user have already a salon
         if (Auth::user()->salons()->count() > 0) {
-            return redirect()->back()->withErrors(['You can only create one salon.']);
+            return redirect()->back()->withErrors([__('messages.only_one_salon')]);
         }
 
         $trial_end_date = now()->addDays(14);
@@ -84,7 +84,7 @@ class SalonController extends Controller
         // For now, we're establishing that the authenticated user is the admin of this salon
 
         return redirect()->route('admin.dashboard', ['salon_id' => $salon->id])
-            ->with('success', 'Salon created successfully! Your trial period starts now.');
+            ->with('success', __('messages.salon_created'));
     }
 
     /**
@@ -104,7 +104,7 @@ class SalonController extends Controller
     {
         $salon = Auth::user()->salons()->first();
         if (!$salon) {
-            abort(404, 'Salon not found');
+            abort(404, __('messages.salon_not_found'));
         }
         return view('settings.show', compact('salon'));
     }
@@ -159,7 +159,7 @@ class SalonController extends Controller
         $salon->update($validated);
 
         return redirect()->route('settings.show')
-            ->with('success', 'تم تحديث إعدادات الصالون بنجاح!');
+            ->with('success', __('messages.salon_updated'));
     }
 
     /**
@@ -178,7 +178,7 @@ class SalonController extends Controller
         $salon->delete();
 
         return redirect()->route('salon.index')
-            ->with('success', 'Salon deleted successfully!');
+            ->with('success', __('messages.salon_deleted'));
     }
 
     /**
@@ -256,7 +256,7 @@ class SalonController extends Controller
     private function authorizeUser($salon)
     {
         if ($salon->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized to access this salon.');
+            abort(403, __('messages.unauthorized'));
         }
     }
 
@@ -267,7 +267,7 @@ class SalonController extends Controller
     {
         $salon = Auth::user()->salons()->first();
         if (!$salon) {
-            abort(404, 'Salon not found');
+            abort(404, __('messages.salon_not_found'));
         }
         return view('settings.edit', compact('salon'));
     }
@@ -276,7 +276,7 @@ class SalonController extends Controller
     {
         $salon = Auth::user()->salons()->first();
         if (!$salon) {
-            abort(404, 'Salon not found');
+            abort(404, __('messages.salon_not_found'));
         }
 
         $validated = $request->validate([
@@ -314,6 +314,6 @@ class SalonController extends Controller
         $salon->update($validated);
 
         return redirect()->route('settings.show')
-            ->with('success', 'تم تحديث إعدادات الصالون بنجاح!');
+            ->with('success', __('messages.salon_updated'));
     }
 }

@@ -1,12 +1,12 @@
 @extends('superAdmin.layout.app')
 
-@section('page-title', 'إضافة صالون جديد')
+@section('page-title', __('admin.add_salon'))
 
 @section('content')
 
 <div class="max-w-2xl mx-auto">
     <div class="bg-white rounded-lg shadow-md p-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">إضافة صالون جديد</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">{{ __('admin.add_salon') }}</h1>
 
         @if ($errors->any())
             <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -23,9 +23,9 @@
 
             <!-- Owner Selection -->
             <div>
-                <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">مالك الصالون *</label>
+                <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.salon_owner') }} *</label>
                 <select name="user_id" id="user_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
-                    <option value="">اختر مالك الصالون</option>
+                    <option value="">{{ __('admin.select_salon_owner') }}</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
                             {{ $user->name }} ({{ $user->email }})
@@ -39,7 +39,7 @@
 
             <!-- Name English -->
             <div>
-                <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">اسم الصالون (إنجليزي) *</label>
+                <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.salon_name_en') }} *</label>
                 <input type="text" name="name_en" id="name_en" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('name_en') }}" required>
                 @error('name_en')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -48,7 +48,7 @@
 
             <!-- Name Arabic -->
             <div>
-                <label for="name_ar" class="block text-sm font-medium text-gray-700 mb-2">اسم الصالون (عربي) *</label>
+                <label for="name_ar" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.salon_name_ar') }} *</label>
                 <input type="text" name="name_ar" id="name_ar" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('name_ar') }}" required>
                 @error('name_ar')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -57,7 +57,7 @@
 
             <!-- Phone -->
             <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">الهاتف</label>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.phone') }}</label>
                 <input type="tel" name="phone" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('phone') }}">
                 @error('phone')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -66,7 +66,7 @@
 
             <!-- Email -->
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.email') }}</label>
                 <input type="email" name="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('email') }}">
                 @error('email')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -75,7 +75,7 @@
 
             <!-- Address English -->
             <div>
-                <label for="address_en" class="block text-sm font-medium text-gray-700 mb-2">العنوان (إنجليزي)</label>
+                <label for="address_en" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.address_en') }}</label>
                 <textarea name="address_en" id="address_en" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('address_en') }}</textarea>
                 @error('address_en')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -84,7 +84,7 @@
 
             <!-- Address Arabic -->
             <div>
-                <label for="address_ar" class="block text-sm font-medium text-gray-700 mb-2">العنوان (عربي)</label>
+                <label for="address_ar" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.address_ar') }}</label>
                 <textarea name="address_ar" id="address_ar" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('address_ar') }}</textarea>
                 @error('address_ar')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -93,7 +93,7 @@
 
             <!-- Description English -->
             <div>
-                <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">الوصف (إنجليزي)</label>
+                <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.description_en') }}</label>
                 <textarea name="description_en" id="description_en" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('description_en') }}</textarea>
                 @error('description_en')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -102,7 +102,7 @@
 
             <!-- Description Arabic -->
             <div>
-                <label for="description_ar" class="block text-sm font-medium text-gray-700 mb-2">الوصف (عربي)</label>
+                <label for="description_ar" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.description_ar') }}</label>
                 <textarea name="description_ar" id="description_ar" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('description_ar') }}</textarea>
                 @error('description_ar')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -111,7 +111,7 @@
 
             <!-- Logo -->
             <div>
-                <label for="logo" class="block text-sm font-medium text-gray-700 mb-2">الشعار</label>
+                <label for="logo" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.logo') }}</label>
                 <input type="file" name="logo" id="logo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" accept="image/*">
                 @error('logo')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -120,7 +120,7 @@
 
             <!-- Opening Time -->
             <div>
-                <label for="opening_time" class="block text-sm font-medium text-gray-700 mb-2">وقت الفتح</label>
+                <label for="opening_time" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.opening_time') }}</label>
                 <input type="time" name="opening_time" id="opening_time" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('opening_time') }}">
                 @error('opening_time')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -129,7 +129,7 @@
 
             <!-- Closing Time -->
             <div>
-                <label for="closing_time" class="block text-sm font-medium text-gray-700 mb-2">وقت الإغلاق</label>
+                <label for="closing_time" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.closing_time') }}</label>
                 <input type="time" name="closing_time" id="closing_time" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" value="{{ old('closing_time') }}">
                 @error('closing_time')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -138,8 +138,8 @@
 
             <!-- Currency -->
             <div>
-                <label for="currency" class="block text-sm font-medium text-gray-700 mb-2">العملة</label>
-                <input type="text" name="currency" id="currency" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="مثال: QAR" value="{{ old('currency') }}">
+                <label for="currency" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.currency') }}</label>
+                <input type="text" name="currency" id="currency" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="{{ __('admin.currency_example') }}" value="{{ old('currency') }}">
                 @error('currency')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
@@ -147,11 +147,11 @@
 
             <!-- Subscription Type -->
             <div>
-                <label for="subscription_type" class="block text-sm font-medium text-gray-700 mb-2">نوع الاشتراك *</label>
+                <label for="subscription_type" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.subscription_type') }} *</label>
                 <select name="subscription_type" id="subscription_type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
-                    <option value="trial" {{ old('subscription_type') == 'trial' ? 'selected' : '' }}>تجريبي</option>
-                    <option value="monthly" {{ old('subscription_type') == 'monthly' ? 'selected' : '' }}>شهري</option>
-                    <option value="yearly" {{ old('subscription_type') == 'yearly' ? 'selected' : '' }}>سنوي</option>
+                    <option value="trial" {{ old('subscription_type') == 'trial' ? 'selected' : '' }}>{{ __('admin.trial') }}</option>
+                    <option value="monthly" {{ old('subscription_type') == 'monthly' ? 'selected' : '' }}>{{ __('admin.monthly_sub') }}</option>
+                    <option value="yearly" {{ old('subscription_type') == 'yearly' ? 'selected' : '' }}>{{ __('admin.yearly_sub') }}</option>
                 </select>
                 @error('subscription_type')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -160,9 +160,9 @@
 
             <!-- Work Days -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">أيام العمل</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.working_days') }}</label>
                 <div class="space-y-2">
-                    @foreach(['Saturday' => 'السبت', 'Sunday' => 'الأحد', 'Monday' => 'الإثنين', 'Tuesday' => 'الثلاثاء', 'Wednesday' => 'الأربعاء', 'Thursday' => 'الخميس', 'Friday' => 'الجمعة'] as $key => $label)
+                    @foreach(['Saturday' => __('admin.saturday'), 'Sunday' => __('admin.sunday'), 'Monday' => __('admin.monday'), 'Tuesday' => __('admin.tuesday'), 'Wednesday' => __('admin.wednesday'), 'Thursday' => __('admin.thursday'), 'Friday' => __('admin.friday')] as $key => $label)
                         <label class="flex items-center">
                             <input type="checkbox" name="work_days[]" value="{{ $key }}" class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" {{ (is_array(old('work_days')) && in_array($key, old('work_days'))) ? 'checked' : '' }}>
                             <span class="mr-2 text-gray-700">{{ $label }}</span>
@@ -177,10 +177,10 @@
             <!-- Buttons -->
             <div class="flex gap-4 pt-6">
                 <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
-                    إضافة الصالون
+                    {{ __('admin.add_salon_btn') }}
                 </button>
                 <a href="{{ route('superAdmin.salons.index') }}" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg font-medium transition text-center">
-                    إلغاء
+                    {{ __('admin.cancel') }}
                 </a>
             </div>
         </form>

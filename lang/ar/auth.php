@@ -1,0 +1,80 @@
+<?php
+
+return [
+    // Login Page
+    'login_title' => 'الدخول',
+    'email' => 'الايميل',
+    'password' => 'كلمة السر',
+    'login_button' => 'تسجيل الدخول',
+    'create_account' => 'إنشاء حساب جديد',
+    'home_page' => 'الصفحة الرئيسية',
+
+    // Register Page
+    'register_subtitle' => 'أنشئ حسابك وابدأ رحلتك مع معنا',
+    'full_name' => 'الاسم الكامل',
+    'full_name_placeholder' => 'أدخل اسمك الكامل',
+    'email_label' => 'البريد الإلكتروني',
+    'email_placeholder' => 'أدخل بريدك الإلكتروني',
+    'password_label' => 'كلمة المرور',
+    'password_placeholder' => 'أدخل كلمة مرور قوية',
+    'confirm_password' => 'تأكيد كلمة المرور',
+    'confirm_password_placeholder' => 'أعد كتابة كلمة المرور',
+    'agree_terms' => 'أوافق على',
+    'terms_conditions' => 'الشروط والأحكام',
+    'create_account_button' => 'إنشاء حساب',
+    'have_account' => 'هل لديك حساب؟',
+    'login_to_account' => 'دخول إلى الحساب',
+    'back_to_home' => 'العودة إلى الصفحة الرئيسية',
+
+    // Trust Indicators
+    'free_trial' => '14 يوم تجربة مجانية',
+    'secure_trusted' => 'آمن وموثوق',
+    'no_credit_card' => 'بدون بطاقة ائتمان',
+
+    // Password Reset
+    'forgot_password' => 'نسيت كلمة المرور؟',
+    'forgot_password_title' => 'إعادة تعيين كلمة المرور',
+    'forgot_password_subtitle' => 'أدخل رقم هاتفك وسنرسل لك رمز إعادة التعيين عبر واتساب',
+    'send_reset_link' => 'إرسال رابط الإعادة',
+    'reset_link_sent' => 'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك!',
+    'reset_link_failed' => 'لم نتمكن من العثور على مستخدم بهذا البريد الإلكتروني.',
+    'reset_password' => 'إعادة تعيين كلمة المرور',
+    'new_password' => 'كلمة المرور الجديدة',
+    'new_password_placeholder' => 'أدخل كلمة المرور الجديدة',
+    'confirm_new_password' => 'تأكيد كلمة المرور الجديدة',
+    'confirm_new_password_placeholder' => 'أعد كتابة كلمة المرور الجديدة',
+    'reset_password_button' => 'إعادة تعيين كلمة المرور',
+    'password_reset_success' => 'تم إعادة تعيين كلمة المرور بنجاح!',
+    'reset_failed' => 'فشل في إعادة تعيين كلمة المرور. ربما انتهت صلاحية الرابط.',
+    'back_to_login' => 'العودة لتسجيل الدخول',
+
+    // WhatsApp OTP
+    'phone_number' => 'رقم الهاتف',
+    'phone_placeholder' => 'أدخل رقم هاتفك (مثال: +968XXXXXXXX)',
+    'phone_not_found' => 'لا يوجد حساب مرتبط بهذا الرقم.',
+    'otp_via_whatsapp_info' => 'سيتم إرسال رمز إعادة التعيين إليك عبر واتساب',
+    'send_otp' => 'إرسال رمز التعيين',
+    'verify_otp_title' => 'التحقق من الرمز',
+    'verify_otp_subtitle' => 'أدخل الرمز المكون من 6 أرقام المرسل إلى واتساب',
+    'otp_generated' => 'تم إنشاء رمز إعادة التعيين بنجاح!',
+    'contact_admin_for_code' => 'اضغط أدناه لاستلام رمز التعيين عبر واتساب',
+    'send_code_whatsapp' => 'استلام الرمز عبر واتساب',
+    'whatsapp_instruction' => 'سيتم إرسال الرمز إلى رقم واتساب الخاص بك',
+    'enter_otp' => 'أدخل رمز التعيين',
+    'otp_valid_10_min' => 'الرمز صالح لمدة 10 دقائق',
+    'verify_otp_button' => 'تحقق من الرمز',
+    'resend_otp' => 'طلب رمز جديد',
+    'invalid_otp' => 'رمز غير صالح أو منتهي الصلاحية. حاول مرة أخرى.',
+    'otp_verified' => 'تم التحقق من الرمز بنجاح! قم بتعيين كلمة مرور جديدة.',
+    'set_new_password_subtitle' => 'اختر كلمة مرور جديدة قوية لحسابك',
+    'whatsapp_otp_message' => 'رمز إعادة تعيين كلمة المرور لـ NLD Salon: :code. صالح لمدة 10 دقائق. لا تشارك هذا الرمز.',
+    'whatsapp_request_code' => 'مرحباً، أحتاج رمز إعادة تعيين كلمة المرور لحسابي. رقم هاتفي: :phone',
+
+    // Change Password
+    'change_password' => 'تغيير كلمة المرور',
+    'current_password' => 'كلمة المرور الحالية',
+    'current_password_placeholder' => 'أدخل كلمة المرور الحالية',
+    'wrong_current_password' => 'كلمة المرور الحالية غير صحيحة.',
+    'password_changed' => 'تم تغيير كلمة المرور بنجاح!',
+    'change_password_button' => 'تحديث كلمة المرور',
+];

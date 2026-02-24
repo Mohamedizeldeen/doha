@@ -1,0 +1,80 @@
+<?php
+
+return [
+    // Login Page
+    'login_title' => 'Login',
+    'email' => 'Email',
+    'password' => 'Password',
+    'login_button' => 'Sign In',
+    'create_account' => 'Create New Account',
+    'home_page' => 'Home Page',
+
+    // Register Page
+    'register_subtitle' => 'Create your account and start your journey with us',
+    'full_name' => 'Full Name',
+    'full_name_placeholder' => 'Enter your full name',
+    'email_label' => 'Email Address',
+    'email_placeholder' => 'Enter your email address',
+    'password_label' => 'Password',
+    'password_placeholder' => 'Enter a strong password',
+    'confirm_password' => 'Confirm Password',
+    'confirm_password_placeholder' => 'Re-enter your password',
+    'agree_terms' => 'I agree to the',
+    'terms_conditions' => 'Terms & Conditions',
+    'create_account_button' => 'Create Account',
+    'have_account' => 'Already have an account?',
+    'login_to_account' => 'Log In to Account',
+    'back_to_home' => 'Back to Home Page',
+
+    // Trust Indicators
+    'free_trial' => '14-Day Free Trial',
+    'secure_trusted' => 'Secure & Trusted',
+    'no_credit_card' => 'No Credit Card Required',
+
+    // Password Reset
+    'forgot_password' => 'Forgot Password?',
+    'forgot_password_title' => 'Reset Password',
+    'forgot_password_subtitle' => 'Enter your phone number and we will send you a reset code via WhatsApp',
+    'send_reset_link' => 'Send Reset Link',
+    'reset_link_sent' => 'We have emailed your password reset link!',
+    'reset_link_failed' => 'We could not find a user with that email address.',
+    'reset_password' => 'Reset Password',
+    'new_password' => 'New Password',
+    'new_password_placeholder' => 'Enter your new password',
+    'confirm_new_password' => 'Confirm New Password',
+    'confirm_new_password_placeholder' => 'Re-enter your new password',
+    'reset_password_button' => 'Reset Password',
+    'password_reset_success' => 'Your password has been reset successfully!',
+    'reset_failed' => 'Failed to reset password. The link may have expired.',
+    'back_to_login' => 'Back to Login',
+
+    // WhatsApp OTP
+    'phone_number' => 'Phone Number',
+    'phone_placeholder' => 'Enter your phone number (e.g. +968XXXXXXXX)',
+    'phone_not_found' => 'No account found with this phone number.',
+    'otp_via_whatsapp_info' => 'A reset code will be sent to you via WhatsApp',
+    'send_otp' => 'Send Reset Code',
+    'verify_otp_title' => 'Verify Reset Code',
+    'verify_otp_subtitle' => 'Enter the 6-digit code sent to your WhatsApp',
+    'otp_generated' => 'Reset code has been generated successfully!',
+    'contact_admin_for_code' => 'Click below to receive your reset code via WhatsApp',
+    'send_code_whatsapp' => 'Get Code via WhatsApp',
+    'whatsapp_instruction' => 'The code will be sent to your WhatsApp number',
+    'enter_otp' => 'Enter Reset Code',
+    'otp_valid_10_min' => 'Code is valid for 10 minutes',
+    'verify_otp_button' => 'Verify Code',
+    'resend_otp' => 'Request New Code',
+    'invalid_otp' => 'Invalid or expired code. Please try again.',
+    'otp_verified' => 'Code verified successfully! Set your new password.',
+    'set_new_password_subtitle' => 'Choose a strong new password for your account',
+    'whatsapp_otp_message' => 'Your NLD Salon password reset code is: :code. Valid for 10 minutes. Do not share this code.',
+    'whatsapp_request_code' => 'Hi, I need a password reset code for my account. My phone number is: :phone',
+
+    // Change Password
+    'change_password' => 'Change Password',
+    'current_password' => 'Current Password',
+    'current_password_placeholder' => 'Enter your current password',
+    'wrong_current_password' => 'The current password is incorrect.',
+    'password_changed' => 'Password has been changed successfully!',
+    'change_password_button' => 'Update Password',
+];

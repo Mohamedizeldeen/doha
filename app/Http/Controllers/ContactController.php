@@ -3,17 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Contact;
 
 class ContactController extends Controller
 {
-    public function index()
-    {
-        $contacts = Contact::all()->orderBy('created_at', 'desc')->get();
-        return view('contact', compact('contacts'));
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -26,18 +19,7 @@ class ContactController extends Controller
 
        Contact::create($validated);
 
-        return redirect()->to(url()->previous() . '#contact-form')->with('success', 'تم استقبال الرسالة بنجاح سوف نتواصل معك قريبا');
-    }
-    public function show($id)
-    {
-        $contact = Contact::findOrFail($id);
-        return view('contact_show', compact('contact'));
-    }
-    public function delete($id)
-    {
-        $contact = Contact::findOrFail($id);
-        $contact->delete();
-        return redirect()->back()->with('success', 'تم حذف الرسالة بنجاح!');
+        return redirect()->to(url()->previous() . '#contact-form')->with('success', __('messages.contact_received'));
     }
 
     /**
@@ -70,6 +52,6 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->route('superAdmin.contacts.index')
-            ->with('success', 'تم حذف الرسالة بنجاح');
+            ->with('success', __('messages.contact_deleted'));
     }
 }

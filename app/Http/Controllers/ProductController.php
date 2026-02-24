@@ -70,7 +70,7 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('product.index', $salon)
-            ->with('success', 'تم إنشاء المنتج بنجاح');
+            ->with('success', __('messages.product_created'));
     }
 
     /**
@@ -130,7 +130,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return redirect()->route('product.show', [$salon, $product])
-            ->with('success', 'تم تحديث المنتج بنجاح');
+            ->with('success', __('messages.product_updated'));
     }
 
     /**
@@ -149,7 +149,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product.index', $salon)
-            ->with('success', 'تم حذف المنتج بنجاح');
+            ->with('success', __('messages.product_deleted'));
     }
 
     /**
@@ -158,7 +158,7 @@ class ProductController extends Controller
     private function authorizeProductBelongsToSalon($product, $salon)
     {
         if ($product->salon_id !== $salon->id) {
-            abort(403, 'Unauthorized action.ٍ');
+            abort(403, __('messages.unauthorized'));
         }
     }
 }

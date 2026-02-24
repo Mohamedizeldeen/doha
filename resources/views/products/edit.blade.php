@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('page-title', 'تعديل المنتج')
+@section('page-title', __('admin.edit_product'))
 
 @section('content')
 <div class="mb-6">
-    <h2 class="text-2xl font-bold text-gray-800">تعديل: {{ $product->name_ar }}</h2>
+    <h2 class="text-2xl font-bold text-gray-800">{{ __('admin.edit') }}: {{ app()->getLocale() === 'ar' ? $product->name_ar : ($product->name_en ?? $product->name_ar) }}</h2>
 </div>
 
 <div class="bg-white rounded-lg shadow-md p-8 max-w-2xl">
@@ -25,7 +25,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Name Arabic -->
             <div>
-                <label for="name_ar" class="block text-sm font-medium text-gray-700 mb-2">اسم المنتج (عربي)</label>
+                <label for="name_ar" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.product_name_ar') }}</label>
                 <input type="text" id="name_ar" name="name_ar" value="{{ old('name_ar', $product->name_ar) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 @error('name_ar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -33,7 +33,7 @@
 
             <!-- Name English -->
             <div>
-                <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">Product Name (English)</label>
+                <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.product_name_en') }}</label>
                 <input type="text" id="name_en" name="name_en" value="{{ old('name_en', $product->name_en) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 @error('name_en') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -41,7 +41,7 @@
 
             <!-- Price -->
             <div>
-                <label for="price" class="block text-sm font-medium text-gray-700 mb-2">السعر</label>
+                <label for="price" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.price') }}</label>
                 <input type="number" id="price" name="price" step="0.01" value="{{ old('price', $product->price) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 @error('price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -49,7 +49,7 @@
 
             <!-- Stock Quantity -->
             <div>
-                <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-2">كمية المخزون</label>
+                <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.stock_quantity') }}</label>
                 <input type="number" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', $product->stock_quantity) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 @error('stock_quantity') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -58,7 +58,7 @@
 
         <!-- Description Arabic -->
         <div>
-            <label for="description_ar" class="block text-sm font-medium text-gray-700 mb-2">الوصف (عربي)</label>
+            <label for="description_ar" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.description_ar') }}</label>
             <textarea id="description_ar" name="description_ar" rows="3" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description_ar', $product->description_ar) }}</textarea>
             @error('description_ar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -66,7 +66,7 @@
 
         <!-- Description English -->
         <div>
-            <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">Description (English)</label>
+            <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.description_en') }}</label>
             <textarea id="description_en" name="description_en" rows="3" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description_en', $product->description_en) }}</textarea>
             @error('description_en') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -74,25 +74,25 @@
 
         <!-- Image -->
         <div>
-            <label for="image" class="block text-sm font-medium text-gray-700 mb-2">صورة المنتج</label>
+            <label for="image" class="block text-sm font-medium text-gray-700 mb-2">{{ __('admin.product_image') }}</label>
             @if ($product->image)
                 <div class="mb-4">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name_ar }}" class="max-w-xs h-32 object-cover rounded">
-                    <p class="text-xs text-gray-500 mt-2">الصورة الحالية</p>
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ app()->getLocale() === 'ar' ? $product->name_ar : ($product->name_en ?? $product->name_ar) }}" class="max-w-xs h-32 object-cover rounded">
+                    <p class="text-xs text-gray-500 mt-2">{{ __('admin.current_image') }}</p>
                 </div>
             @endif
             <input type="file" id="image" name="image" accept="image/*"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <p class="text-xs text-gray-500 mt-1">اترك فارغاً للاحتفاظ بالصورة الحالية</p>
+            <p class="text-xs text-gray-500 mt-1">{{ __('admin.leave_empty_keep_image') }}</p>
             @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div class="flex gap-4 pt-6">
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
-                حفظ التعديلات
+                {{ __('admin.save_changes') }}
             </button>
             <a href="{{ route('product.show', [$salon, $product]) }}" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition">
-                إلغاء
+                {{ __('admin.cancel') }}
             </a>
         </div>
     </form>

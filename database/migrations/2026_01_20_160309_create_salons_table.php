@@ -33,7 +33,7 @@ return new class extends Migration
             $table->json('work_days')->nullable();
             $table->time('opening_time')->nullable();
             $table->time('closing_time')->nullable();
-            $table->string('currency')->default('جنية');
+            $table->string('currency')->default('OMR');
         });
     }
 

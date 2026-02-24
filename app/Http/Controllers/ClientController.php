@@ -54,7 +54,7 @@ class ClientController extends Controller
         );
 
         if ($existing) {
-            return back()->with('error', 'Client with this phone or email already exists');
+            return back()->with('error', __('messages.client_duplicate'));
         }
 
         // Generate client code if not provided
@@ -70,7 +70,7 @@ class ClientController extends Controller
         ]);
 
         return redirect()->route('client.index', $salon)
-            ->with('success', 'Client created successfully');
+            ->with('success', __('messages.client_created'));
     }
 
     /**
@@ -124,13 +124,13 @@ class ClientController extends Controller
             ->first();
 
         if ($existing) {
-            return back()->with('error', 'Another client with this phone or email already exists');
+            return back()->with('error', __('messages.client_duplicate_other'));
         }
 
         $client->update($validated);
 
         return redirect()->route('client.show', [$salon, $client])
-            ->with('success', 'Client updated successfully');
+            ->with('success', __('messages.client_updated'));
     }
 
     /**
@@ -147,7 +147,7 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('client.index', $salon)
-            ->with('success', 'Client deleted successfully');
+            ->with('success', __('messages.client_deleted'));
     }
 
     /**
@@ -166,7 +166,7 @@ class ClientController extends Controller
     private function authorizeClientBelongsToSalon($client, $salon)
     {
         if ($client->salon_id !== $salon->id) {
-            abort(403, 'Client does not belong to this salon');
+            abort(403, __('messages.client_not_belong'));
         }
     }
 }

@@ -37,7 +37,7 @@ class BlogController extends Controller
 
         Blog::create($validated);
 
-        return redirect()->route('superAdmin.blogs.index')->with('success', 'تم إنشاء المقالة بنجاح');
+        return redirect()->route('superAdmin.blogs.index')->with('success', __('messages.blog_created'));
     }
 
     public function show(Blog $blog)
@@ -71,7 +71,7 @@ class BlogController extends Controller
 
         $blog->update($validated);
 
-        return redirect()->route('superAdmin.blogs.index')->with('success', 'تم تحديث المقالة بنجاح');
+        return redirect()->route('superAdmin.blogs.index')->with('success', __('messages.blog_updated'));
     }
 
     public function destroy(Blog $blog)
@@ -83,7 +83,7 @@ class BlogController extends Controller
 
         $blog->delete();
 
-        return redirect()->route('superAdmin.blogs.index')->with('success', 'تم حذف المقالة بنجاح');
+        return redirect()->route('superAdmin.blogs.index')->with('success', __('messages.blog_deleted'));
     }
 
     // Public methods

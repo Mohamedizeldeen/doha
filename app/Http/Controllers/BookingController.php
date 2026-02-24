@@ -60,7 +60,7 @@ class BookingController extends Controller
         // Verify client belongs to salon
         $client = Client::findOrFail($validated['client_id']);
         if ($client->salon_id !== $salon->id) {
-            abort(403, 'Client does not belong to this salon');
+            abort(403, __('messages.client_not_belong'));
         }
 
         // Verify service belongs to salon
@@ -74,7 +74,7 @@ class BookingController extends Controller
         // Check if staff provides this service
         if (!$staff->services()->where('service_id', $service->id)->exists()) {
             return back()->withErrors([
-                'staff_id' => 'Selected staff member does not provide this service.'
+                'staff_id' => __('messages.staff_no_service')
             ])->withInput();
         }
 
@@ -91,7 +91,7 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('booking.show', [$salon, $booking])
-            ->with('success', 'Booking created successfully');
+            ->with('success', __('messages.booking_created'));
     }
 
     /**
@@ -176,7 +176,7 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('booking.show', [$salon, $booking])
-            ->with('success', 'Booking updated successfully');
+            ->with('success', __('messages.booking_updated'));
     }
 
     /**
@@ -213,7 +213,7 @@ class BookingController extends Controller
         $booking->update($validated);
 
         return redirect()->route('booking.show', [$salon, $booking])
-            ->with('success', 'Booking status updated successfully');
+            ->with('success', __('messages.booking_status_updated'));
     }
 
     /**
@@ -230,7 +230,23 @@ class BookingController extends Controller
         $booking->delete();
 
         return redirect()->route('booking.index', $salon)
-            ->with('success', 'Booking deleted successfully');
+            ->with('success', __('messages.booking_deleted'));
+    }
+
+    /**
+     * Toggle WhatsApp reminder status for a booking
+     */
+    public function toggleWhatsappReminder(Request $request, Salon $salon, Book $booking)
+    {
+        $this->authorize('own', $salon);
+        if ($booking->salon_id !== $salon->id) abort(403);
+
+        $booking->update([
+            'whatsapp_reminded' => !$booking->whatsapp_reminded,
+            'whatsapp_reminded_at' => !$booking->whatsapp_reminded ? now() : null,
+        ]);
+
+        return back()->with('success', __('admin.whatsapp_reminder_updated'));
     }
 
     /**
@@ -239,7 +255,7 @@ class BookingController extends Controller
     private function authorizeServiceBelongsToSalon($service, $salon)
     {
         if ($service->salon_id !== $salon->id) {
-            abort(403, 'Service does not belong to this salon');
+            abort(403, __('messages.service_not_belong'));
         }
     }
 
@@ -249,7 +265,7 @@ class BookingController extends Controller
     private function authorizeStaffBelongsToSalon($staff, $salon)
     {
         if ($staff->salon_id !== $salon->id) {
-            abort(403, 'Staff does not belong to this salon');
+            abort(403, __('messages.staff_not_belong'));
         }
     }
 
@@ -339,7 +355,7 @@ class BookingController extends Controller
 
                 if ($appointmentStart->lt($existingEnd) && $existingStart->lt($appointmentEnd)) {
                     return back()->withErrors([
-                        'appointment_time' => 'هذا الوقت غير متاح للموظف المختار / This time is not available for the selected staff'
+                        'appointment_time' => __('messages.time_not_available')
                     ])->withInput();
                 }
             }
@@ -356,7 +372,7 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('book', $company)
-            ->with('success', 'تم حجز موعدك بنجاح! سيتم التواصل معك قريباً لتأكيد الموعد.');
+            ->with('success', __('messages.public_booking_success'));
     }
 
     /**
@@ -412,6 +428,82 @@ class BookingController extends Controller
         return response()->json([
             'available' => true,
             'message' => 'Staff member is available'
+        ]);
+    }
+
+    /**
+     * Get available staff for a salon at a specific date/time/service
+     */
+    public function getAvailableStaff(Request $request, Salon $salon)
+    {
+        $date = $request->query('date');
+        $time = $request->query('time');
+        $serviceId = $request->query('service_id');
+        $excludeBookingId = $request->query('exclude_booking_id'); // for edit form
+
+        if (!$date || !$time || !$serviceId) {
+            return response()->json(['error' => 'Missing parameters'], 400);
+        }
+
+        $service = Service::findOrFail($serviceId);
+        $duration = $service->duration_minutes ?? 60;
+
+        // Get all staff who provide this service
+        $staffMembers = $salon->staff()
+            ->whereHas('services', function ($q) use ($serviceId) {
+                $q->where('services.id', $serviceId);
+            })
+            ->get();
+
+        $appointmentStart = \Carbon\Carbon::createFromFormat('Y-m-d H:i', "$date $time");
+        $appointmentEnd = $appointmentStart->copy()->addMinutes($duration);
+
+        $availableStaff = [];
+
+        foreach ($staffMembers as $member) {
+            // Check for conflicting bookings
+            $query = Book::where('staff_id', $member->id)
+                ->where('salon_id', $salon->id)
+                ->where('status', '!=', 'cancelled')
+                ->whereBetween('appointment_datetime', [
+                    $appointmentStart->copy()->subMinutes(480),
+                    $appointmentEnd->copy()->addMinutes(480)
+                ])
+                ->with('service');
+
+            // Exclude current booking when editing
+            if ($excludeBookingId) {
+                $query->where('id', '!=', $excludeBookingId);
+            }
+
+            $nearbyBookings = $query->get();
+
+            $isBusy = false;
+            foreach ($nearbyBookings as $existing) {
+                $existingStart = $existing->appointment_datetime instanceof \Carbon\Carbon
+                    ? $existing->appointment_datetime
+                    : \Carbon\Carbon::parse($existing->appointment_datetime);
+
+                $existingDuration = $existing->service->duration_minutes ?? 60;
+                $existingEnd = $existingStart->copy()->addMinutes($existingDuration);
+
+                if ($appointmentStart->lt($existingEnd) && $existingStart->lt($appointmentEnd)) {
+                    $isBusy = true;
+                    break;
+                }
+            }
+
+            $availableStaff[] = [
+                'id' => $member->id,
+                'name_ar' => $member->name_ar,
+                'name_en' => $member->name_en ?? $member->name_ar,
+                'available' => !$isBusy,
+            ];
+        }
+
+        return response()->json([
+            'staff' => $availableStaff,
+            'service_duration' => $duration,
         ]);
     }
 }

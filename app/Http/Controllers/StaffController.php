@@ -84,7 +84,7 @@ class StaffController extends Controller
         }
 
         return redirect()->route('staff.index', $salon)
-            ->with('success', 'Staff member created successfully');
+            ->with('success', __('messages.staff_created'));
     }
 
     /**
@@ -150,7 +150,7 @@ class StaffController extends Controller
         }
 
         return redirect()->route('staff.show', [$salon, $staff])
-            ->with('success', 'Staff member updated successfully');
+            ->with('success', __('messages.staff_updated'));
     }
 
     /**
@@ -170,7 +170,7 @@ class StaffController extends Controller
         $staff->delete();
 
         return redirect()->route('staff.index', $salon)
-            ->with('success', 'Staff member deleted successfully');
+            ->with('success', __('messages.staff_deleted'));
     }
 
     /**
@@ -191,7 +191,7 @@ class StaffController extends Controller
     private function authorizeStaffBelongsToSalon($staff, $salon)
     {
         if ($staff->salon_id !== $salon->id) {
-            abort(403, 'Staff member does not belong to this salon');
+            abort(403, __('messages.staff_not_belong'));
         }
     }
 }

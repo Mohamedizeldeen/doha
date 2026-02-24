@@ -14,6 +14,17 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (auth()->check() && auth()->user()->role === $role) {
+            // Check if account is blocked (skip for super_admin)
+            if ($role !== 'super_admin' && !auth()->user()->is_active) {
+                auth()->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return redirect()->route('login')->withErrors([
+                    'email' => __('admin.account_blocked_message'),
+                ]);
+            }
+
             return $next($request);
         }
 

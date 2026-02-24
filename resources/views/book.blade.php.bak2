@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" id="htmlElement">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ __('booking.page_title') }} - {{ $company ?? __('booking.default_salon') }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root { --accent: #dd208e; --accent-dark: #b01670; --accent-light: #fdf2f8; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Inter'" : "'Inter', 'Cairo'" }}, sans-serif; background: #0f0f1a; color: #fff; min-height: 100vh; overflow-x: hidden; }
+        .ltr { direction: ltr; }
+
+        /* Animated Background */
+        .bg-scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+        .bg-scene::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 20% 50%, rgba(221,32,142,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(99,102,241,0.12) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(16,185,129,0.08) 0%, transparent 50%); animation: bgFloat 20s ease-in-out infinite; }
+        @keyframes bgFloat { 0%,100% { transform: translate(0,0) rotate(0deg); } 33% { transform: translate(30px,-20px) rotate(2deg); } 66% { transform: translate(-20px,30px) rotate(-1deg); } }
+        .float-orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; animation: orbFloat 15s ease-in-out infinite; }
+        .float-orb:nth-child(1) { width: 300px; height: 300px; background: var(--accent); top: 10%; left: 5%; animation-delay: 0s; }
+        .float-orb:nth-child(2) { width: 200px; height: 200px; background: #6366f1; top: 60%; right: 10%; animation-delay: -5s; }
+        .float-orb:nth-child(3) { width: 250px; height: 250px; background: #10b981; bottom: 10%; left: 30%; animation-delay: -10s; }
+        @keyframes orbFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-40px) scale(1.1); } }
+
+        .main-container { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        /* Glass Card */
+        .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; }
+        .glass-strong { background: rgba(255,255,255,0.1); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.15); border-radius: 1.5rem; }
+
+        /* Step Progress */
+        .step-progress { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 2.5rem; }
+        .step-item { display: flex; align-items: center; gap: 0.5rem; }
+        .step-circle { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; transition: all 0.5s cubic-bezier(0.4,0,0.2,1); border: 2px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+        .step-circle.active { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border-color: var(--accent); color: #fff; box-shadow: 0 0 30px rgba(221,32,142,0.4); transform: scale(1.1); }
+        .step-circle.done { background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981; color: #fff; box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+        .step-label { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.3); transition: all 0.3s; white-space: nowrap; }
+        .step-label.active { color: var(--accent); }
+        .step-label.done { color: #10b981; }
+        .step-line { width: 40px; height: 2px; background: rgba(255,255,255,0.1); margin: 0 0.25rem; transition: all 0.5s; border-radius: 2px; }
+        .step-line.done { background: linear-gradient(90deg, #10b981, var(--accent)); height: 3px; }
+
+        /* Step Panels */
+        .step-panel { display: none; animation: stepIn 0.5s ease-out forwards; }
+        .step-panel.active { display: block; }
+        @keyframes stepIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Service Cards */
+        .service-card { background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.08); border-radius: 1rem; padding: 1.25rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+        .service-card:hover { border-color: rgba(221,32,142,0.4); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .service-card.selected { border-color: var(--accent); background: rgba(221,32,142,0.1); box-shadow: 0 0 25px rgba(221,32,142,0.2); }
+        .service-card.selected::after { content: '✓'; position: absolute; top: 0.75rem; {{ app()->getLocale() === 'ar' ? 'left' : 'right' }}: 0.75rem; width: 24px; height: 24px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; font-weight: 700; }
+
+        /* Staff Cards */
+        .staff-card { background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.08); border-radius: 1rem; padding: 1.25rem; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .staff-card:hover { border-color: rgba(221,32,142,0.4); transform: translateY(-3px); }
+        .staff-card.selected { border-color: var(--accent); background: rgba(221,32,142,0.1); }
+        .staff-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #6366f1); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.5rem; color: #fff; font-weight: 800; }
+
+        /* Time Slots */
+        .time-slot { padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.08); border-radius: 0.75rem; cursor: pointer; transition: all 0.3s; text-align: center; font-weight: 600; font-size: 0.85rem; background: rgba(255,255,255,0.03); }
+        .time-slot:hover:not(.disabled) { border-color: var(--accent); background: rgba(221,32,142,0.08); }
+        .time-slot.selected { border-color: var(--accent); background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; box-shadow: 0 4px 15px rgba(221,32,142,0.3); }
+        .time-slot.disabled { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+
+        /* Inputs */
+        .form-input { width: 100%; padding: 0.875rem 1rem; background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.1); border-radius: 0.75rem; color: #fff; font-size: 0.9rem; transition: all 0.3s; outline: none; }
+        .form-input::placeholder { color: rgba(255,255,255,0.35); }
+        .form-input:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(221,32,142,0.15); background: rgba(255,255,255,0.08); }
+        .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; }
+
+        /* Buttons */
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; border: none; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(221,32,142,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(221,32,142,0.4); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-secondary { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+        /* Language Switcher */
+        .lang-btn { padding: 0.4rem 1rem; border-radius: 2rem; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .lang-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; border-color: var(--accent); }
+
+        /* Summary Card */
+        .summary-row { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .summary-row:last-child { border-bottom: none; }
+
+        /* Calendar */
+        .flatpickr-calendar { background: #1a1a2e !important; border: 1px solid rgba(255,255,255,0.1) !important; box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important; border-radius: 1rem !important; }
+        .flatpickr-day { color: rgba(255,255,255,0.8) !important; border-radius: 0.5rem !important; }
+        .flatpickr-day:hover { background: rgba(221,32,142,0.2) !important; border-color: var(--accent) !important; }
+        .flatpickr-day.selected { background: var(--accent) !important; border-color: var(--accent) !important; }
+        .flatpickr-day.flatpickr-disabled { color: rgba(255,255,255,0.15) !important; }
+        .flatpickr-months .flatpickr-month { color: #fff !important; }
+        .flatpickr-current-month .flatpickr-monthDropdown-months { color: #fff !important; background: transparent !important; }
+        .flatpickr-weekday { color: rgba(255,255,255,0.4) !important; }
+        .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month { color: #fff !important; fill: #fff !important; }
+        span.flatpickr-weekday { color: rgba(255,255,255,0.4) !important; }
+        .flatpickr-current-month input.cur-year { color: #fff !important; }
+
+        .hidden-en { display: none; }
+        html.en .hidden-ar { display: none !important; }
+        html.en .hidden-en { display: block !important; display: inline !important; }
+
+        /* Product Cards */
+        .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.25rem; overflow: hidden; transition: all 0.4s; }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(221,32,142,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+
+        /* Success animation */
+        @keyframes checkPop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .check-pop { animation: checkPop 0.6s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+        @media (max-width: 768px) {
+            .step-label { display: none; }
+            .step-line { width: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-scene">
+        <div class="float-orb"></div>
+        <div class="float-orb"></div>
+        <div class="float-orb"></div>
+    </div>
+
+    <div class="main-container">
+        {{-- Header --}}
+        <div class="text-center py-6 mb-4">
+            <div class="flex justify-center mb-4">
+                <img src="{{ asset('storage/' . $salon->logo) }}" alt="{{ app()->getLocale() === 'ar' ? $salon->name_ar : ($salon->name_en ?? $salon->name_ar) }}" class="h-20 w-20 object-contain rounded-2xl" style="background: rgba(255,255,255,0.1); padding: 0.5rem;">
+            </div>
+            <h1 class="text-3xl md:text-4xl font-black mb-2" style="background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <span class="hidden-ar">{{ __('booking.book_title', [], 'ar') }}</span>
+                <span class="hidden-en">{{ __('booking.book_title', [], 'en') }}</span>
+            </h1>
+            <p class="text-sm" style="color: rgba(255,255,255,0.5);">
+                <span class="hidden-ar">{{ $salon->name_ar }}</span>
+                <span class="hidden-en">{{ $salon->name_en ?? $salon->name_ar }}</span>
+            </p>
+            <div class="flex justify-center gap-2 mt-3">
+                <button class="lang-btn active" onclick="switchLanguage('ar')">عربي</button>
+                <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+            </div>
+        </div>
+
+        {{-- Success Message --}}
+        @if (session('success'))
+        <div class="glass-strong p-6 mb-8 max-w-xl mx-auto text-center" style="border-color: rgba(16,185,129,0.3);">
+            <div class="check-pop w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <p class="text-lg font-bold text-green-400 success-title" data-ar="{{ __('booking.success_message', [], 'ar') }}" data-en="{{ __('booking.success_message', [], 'en') }}">{{ __('booking.success_message') }}</p>
+        </div>
+        @endif
+
+        {{-- Step Progress Bar --}}
+        <div class="step-progress" id="stepProgress">
+            <div class="step-item">
+                <div class="step-circle active" data-step="1">1</div>
+                <span class="step-label active" data-step="1">
+                    <span class="hidden-ar">{{ __('booking.customer_info', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.customer_info', [], 'en') }}</span>
+                </span>
+            </div>
+            <div class="step-line" data-line="1"></div>
+            <div class="step-item">
+                <div class="step-circle" data-step="2">2</div>
+                <span class="step-label" data-step="2">
+                    <span class="hidden-ar">{{ __('booking.select_service_staff', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.select_service_staff', [], 'en') }}</span>
+                </span>
+            </div>
+            <div class="step-line" data-line="2"></div>
+            <div class="step-item">
+                <div class="step-circle" data-step="3">3</div>
+                <span class="step-label" data-step="3">
+                    <span class="hidden-ar">{{ __('booking.select_datetime', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.select_datetime', [], 'en') }}</span>
+                </span>
+            </div>
+            <div class="step-line" data-line="3"></div>
+            <div class="step-item">
+                <div class="step-circle" data-step="4">4</div>
+                <span class="step-label" data-step="4">
+                    <span class="hidden-ar">تأكيد</span>
+                    <span class="hidden-en">Confirm</span>
+                </span>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ route('booking.public.store', $company) }}" id="bookingForm">
+            @csrf
+
+            {{-- STEP 1: Customer Info --}}
+            <div class="step-panel active" data-panel="1">
+                <div class="glass p-8 max-w-2xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-user-plus text-white text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">
+                            <span class="hidden-ar">{{ __('booking.customer_info', [], 'ar') }}</span>
+                            <span class="hidden-en">{{ __('booking.customer_info', [], 'en') }}</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div>
+                            <label class="form-label">
+                                <span class="hidden-ar">{{ __('booking.full_name', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.full_name', [], 'en') }}</span>
+                            </label>
+                            <input type="text" id="name" name="name" required class="form-input"
+                                placeholder="{{ __('booking.name_placeholder') }}" data-en-placeholder="{{ __('booking.name_placeholder', [], 'en') }}" data-ar-placeholder="{{ __('booking.name_placeholder', [], 'ar') }}">
+                            @error('name') <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="form-label">
+                                    <span class="hidden-ar">{{ __('booking.phone', [], 'ar') }}</span>
+                                    <span class="hidden-en">{{ __('booking.phone', [], 'en') }}</span>
+                                </label>
+                                <input type="tel" id="phone" name="phone" required class="form-input ltr"
+                                    placeholder="+966 50 0000000">
+                                @error('phone') <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                            <div>
+                                <label class="form-label">
+                                    <span class="hidden-ar">{{ __('booking.email', [], 'ar') }}</span>
+                                    <span class="hidden-en">{{ __('booking.email', [], 'en') }}</span>
+                                </label>
+                                <input type="email" id="email" name="email" class="form-input ltr"
+                                    placeholder="{{ __('booking.email_placeholder') }}" data-en-placeholder="{{ __('booking.email_placeholder', [], 'en') }}" data-ar-placeholder="{{ __('booking.email_placeholder', [], 'ar') }}">
+                                @error('email') <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-8">
+                        <button type="button" class="btn-primary" onclick="goToStep(2)">
+                            <span class="hidden-ar">التالي</span>
+                            <span class="hidden-en">Next</span>
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'left' : 'right' }}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- STEP 2: Service & Staff --}}
+            <div class="step-panel" data-panel="2">
+                <div class="glass p-8 max-w-4xl mx-auto">
+                    {{-- Staff Selection --}}
+                    <div class="mb-8">
+                        <div class="text-center mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-user-tie text-white text-xl"></i>
+                            </div>
+                            <h2 class="text-xl font-bold">
+                                <span class="hidden-ar">{{ __('booking.staff_label', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.staff_label', [], 'en') }}</span>
+                            </h2>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="staffGrid">
+                            {{-- "Any Available" option --}}
+                            <div class="staff-card selected" data-staff-id="" onclick="selectStaff(this, '')">
+                                <div class="staff-avatar"><i class="fas fa-users" style="font-size:1.2rem;"></i></div>
+                                <p class="font-bold text-sm staff-name" data-ar="{{ __('booking.any_available_staff', [], 'ar') }}" data-en="{{ __('booking.any_available_staff', [], 'en') }}">{{ __('booking.any_available_staff') }}</p>
+                            </div>
+                            @foreach($staff as $member)
+                            <div class="staff-card" data-staff-id="{{ $member->id }}" onclick="selectStaff(this, '{{ $member->id }}')">
+                                <div class="staff-avatar">{{ mb_substr($member->name_ar, 0, 1) }}</div>
+                                <p class="font-bold text-sm staff-name" data-ar="{{ $member->name_ar }}" data-en="{{ $member->name_en ?? $member->name_ar }}">{{ app()->getLocale() === 'ar' ? $member->name_ar : ($member->name_en ?? $member->name_ar) }}</p>
+                            </div>
+                            @endforeach
+                        </div>
+                        <input type="hidden" name="staff_id" id="staffInput" value="">
+                    </div>
+
+                    {{-- Service Selection --}}
+                    <div>
+                        <div class="text-center mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-spa text-white text-xl"></i>
+                            </div>
+                            <h2 class="text-xl font-bold">
+                                <span class="hidden-ar">{{ __('booking.required_service', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.required_service', [], 'en') }}</span>
+                            </h2>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="serviceGrid">
+                            @foreach($services as $service)
+                            <div class="service-card" data-service-id="{{ $service->id }}" data-staff-ids="@json($service->staff->pluck('id')->toArray())" data-price="{{ $service->price }}" onclick="selectService(this, '{{ $service->id }}')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="font-bold text-sm service-name" data-ar="{{ $service->name_ar }}" data-en="{{ $service->name_en ?? $service->name_ar }}">{{ app()->getLocale() === 'ar' ? $service->name_ar : ($service->name_en ?? $service->name_ar) }}</h3>
+                                    <span class="text-sm font-bold" style="color: var(--accent);">{{ $service->price }} {{ $salon->currency }}</span>
+                                </div>
+                                @if($service->duration)
+                                <p class="text-xs" style="color: rgba(255,255,255,0.4);"><i class="fas fa-clock me-1"></i>{{ $service->duration }} min</p>
+                                @endif
+                            </div>
+                            @endforeach
+                        </div>
+                        <input type="hidden" name="service_id" id="serviceInput" value="" required>
+                        @error('service_id') <span class="text-red-400 text-sm mt-2 block">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="flex justify-between mt-8">
+                        <button type="button" class="btn-secondary" onclick="goToStep(1)">
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}"></i>
+                            <span class="hidden-ar">السابق</span>
+                            <span class="hidden-en">Back</span>
+                        </button>
+                        <button type="button" class="btn-primary" onclick="goToStep(3)" id="step2Next">
+                            <span class="hidden-ar">التالي</span>
+                            <span class="hidden-en">Next</span>
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'left' : 'right' }}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- STEP 3: Date & Time --}}
+            <div class="step-panel" data-panel="3">
+                <div class="glass p-8 max-w-3xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-calendar-alt text-white text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">
+                            <span class="hidden-ar">{{ __('booking.select_datetime', [], 'ar') }}</span>
+                            <span class="hidden-en">{{ __('booking.select_datetime', [], 'en') }}</span>
+                        </h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {{-- Date --}}
+                        <div>
+                            <label class="form-label mb-3">
+                                <i class="fas fa-calendar me-1"></i>
+                                <span class="hidden-ar">{{ __('booking.date', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.date', [], 'en') }}</span>
+                            </label>
+                            <input type="date" id="date" name="appointment_date" required class="form-input ltr" min="{{ date('Y-m-d') }}">
+                            @error('appointment_date') <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+
+                        {{-- Time Slots --}}
+                        <div>
+                            <label class="form-label mb-3">
+                                <i class="fas fa-clock me-1"></i>
+                                <span class="hidden-ar">{{ __('booking.time', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.time', [], 'en') }}</span>
+                            </label>
+                            <div class="grid grid-cols-3 gap-2" id="timeSlotsGrid">
+                                <p class="col-span-3 text-center" style="color: rgba(255,255,255,0.3); font-size: 0.85rem;">
+                                    <span class="hidden-ar">اختر التاريخ أولاً</span>
+                                    <span class="hidden-en">Select a date first</span>
+                                </p>
+                            </div>
+                            <input type="hidden" name="appointment_time" id="timeInput" value="" required>
+                            @error('appointment_time') <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-8">
+                        <button type="button" class="btn-secondary" onclick="goToStep(2)">
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}"></i>
+                            <span class="hidden-ar">السابق</span>
+                            <span class="hidden-en">Back</span>
+                        </button>
+                        <button type="button" class="btn-primary" onclick="goToStep(4)" id="step3Next">
+                            <span class="hidden-ar">التالي</span>
+                            <span class="hidden-en">Next</span>
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'left' : 'right' }}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- STEP 4: Confirm --}}
+            <div class="step-panel" data-panel="4">
+                <div class="glass p-8 max-w-2xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-clipboard-check text-white text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">
+                            <span class="hidden-ar">تأكيد الحجز</span>
+                            <span class="hidden-en">Confirm Booking</span>
+                        </h2>
+                    </div>
+
+                    <div class="glass-strong p-6 mb-6" id="summaryCard">
+                        {{-- Filled by JS --}}
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button type="button" class="btn-secondary" onclick="goToStep(3)">
+                            <i class="fas fa-arrow-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}"></i>
+                            <span class="hidden-ar">السابق</span>
+                            <span class="hidden-en">Back</span>
+                        </button>
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="hidden-ar">{{ __('booking.book_now', [], 'ar') }}</span>
+                            <span class="hidden-en">{{ __('booking.book_now', [], 'en') }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        {{-- Salon Info Sidebar (below form on mobile, side on desktop) --}}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
+            {{-- Working Hours --}}
+            <div class="glass p-6">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="fas fa-clock" style="color: var(--accent);"></i>
+                    <span class="hidden-ar">{{ __('booking.working_hours', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.working_hours', [], 'en') }}</span>
+                </h3>
+                @php $workDays = is_string($salon->work_days) ? json_decode($salon->work_days, true) : $salon->work_days; @endphp
+                <div class="space-y-2">
+                    @foreach($workDays as $day)
+                    <div class="flex items-center justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+                        <span class="text-sm font-semibold" style="color: rgba(255,255,255,0.7);">
+                            <span class="hidden-ar">{{ $day }}</span>
+                            <span class="hidden-en">{{ $day }}</span>
+                        </span>
+                        <span class="text-sm font-bold ltr" style="color: var(--accent);">{{ date('H:i', strtotime($salon->opening_time)) }} - {{ date('H:i', strtotime($salon->closing_time)) }}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Why Choose Us --}}
+            <div class="glass p-6">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="fas fa-star" style="color: var(--accent);"></i>
+                    <span class="hidden-ar">{{ __('booking.why_choose_us', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.why_choose_us', [], 'en') }}</span>
+                </h3>
+                <div class="space-y-3">
+                    @php $features = ['excellent_service', 'high_quality', 'professional_staff', 'competitive_prices']; @endphp
+                    @foreach($features as $f)
+                    <div class="flex items-center gap-3 p-3 rounded-xl" style="background: rgba(255,255,255,0.03);">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-check text-white text-xs"></i>
+                        </div>
+                        <span class="text-sm" style="color: rgba(255,255,255,0.75);">
+                            <span class="hidden-ar">{{ __('booking.'.$f, [], 'ar') }}</span>
+                            <span class="hidden-en">{{ __('booking.'.$f, [], 'en') }}</span>
+                        </span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        {{-- Contact Info --}}
+        <div class="glass p-6 mt-6">
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm" style="color: rgba(255,255,255,0.6);">
+                <span class="flex items-center gap-2"><i class="fas fa-phone" style="color: var(--accent);"></i> <span class="ltr">{{ $salon->phone }}</span></span>
+                <span class="flex items-center gap-2"><i class="fas fa-envelope" style="color: var(--accent);"></i> <span class="ltr">{{ $salon->email }}</span></span>
+                <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
+                    <span class="hidden-ar">{{ $salon->address_ar }}</span>
+                    <span class="hidden-en">{{ $salon->address_en ?? $salon->address_ar }}</span>
+                </span>
+            </div>
+        </div>
+
+        {{-- Products Section --}}
+        @if($products->count() > 0)
+        <div class="mt-16">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-black mb-2" style="background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    <span class="hidden-ar">{{ __('booking.our_products', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.our_products', [], 'en') }}</span>
+                </h2>
+                <p class="text-sm" style="color: rgba(255,255,255,0.4);">
+                    <span class="hidden-ar">{{ __('booking.choose_products', [], 'ar') }}</span>
+                    <span class="hidden-en">{{ __('booking.choose_products', [], 'en') }}</span>
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($products as $product)
+                <div class="product-card">
+                    <div class="h-56 overflow-hidden relative" style="background: linear-gradient(135deg, rgba(221,32,142,0.1), rgba(99,102,241,0.1));">
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ app()->getLocale() === 'ar' ? $product->name_ar : ($product->name_en ?? $product->name_ar) }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-box text-4xl" style="color: rgba(255,255,255,0.15);"></i>
+                            </div>
+                        @endif
+                        {{-- Price Badge --}}
+                        <div class="absolute bottom-3 {{ app()->getLocale() === 'ar' ? 'right-3' : 'left-3' }} px-3 py-1.5 rounded-lg font-bold text-sm text-white" style="background: linear-gradient(135deg, var(--accent), var(--accent-dark));">
+                            {{ $product->price }} {{ $salon->currency }}
+                        </div>
+                        {{-- Stock Badge --}}
+                        <div class="absolute top-3 {{ app()->getLocale() === 'ar' ? 'left-3' : 'right-3' }}">
+                            @if($product->stock_quantity > 0)
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold text-white" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                <span class="hidden-ar">{{ __('booking.available', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.available', [], 'en') }}</span>
+                            </span>
+                            @else
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold text-white" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                                <span class="hidden-ar">{{ __('booking.out_of_stock', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.out_of_stock', [], 'en') }}</span>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-base mb-1 product-name" data-ar="{{ $product->name_ar }}" data-en="{{ $product->name_en ?? $product->name_ar }}">{{ app()->getLocale() === 'ar' ? $product->name_ar : ($product->name_en ?? $product->name_ar) }}</h3>
+                        @if(!empty($product->description_ar))
+                        <p class="text-xs leading-relaxed mb-3 product-description" style="color: rgba(255,255,255,0.5);" data-ar="{{ $product->description_ar }}" data-en="{{ $product->description_en ?? $product->description_ar }}">{{ app()->getLocale() === 'ar' ? $product->description_ar : ($product->description_en ?? $product->description_ar) }}</p>
+                        @endif
+                        <div class="flex items-center justify-between pt-2" style="border-top: 1px solid rgba(255,255,255,0.06);">
+                            <span class="text-xs" style="color: rgba(255,255,255,0.4);">
+                                <span class="hidden-ar">{{ __('booking.stock_quantity', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.stock_quantity', [], 'en') }}</span>
+                            </span>
+                            @if($product->stock_quantity > 0)
+                            <span class="px-2 py-0.5 rounded-full text-xs font-bold" style="background: rgba(16,185,129,0.15); color: #10b981;">{{ $product->stock_quantity }}</span>
+                            @else
+                            <span class="text-xs font-bold" style="color: rgba(239,68,68,0.8);">
+                                <span class="hidden-ar">{{ __('booking.not_available', [], 'ar') }}</span>
+                                <span class="hidden-en">{{ __('booking.not_available', [], 'en') }}</span>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+    </div>
+
+    {{-- Footer --}}
+    <footer class="relative z-10 mt-16 py-8" style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="text-center">
+            <p class="text-sm footer-text" style="color: rgba(255,255,255,0.3);" data-ar="{{ $salon->name_ar }} © 2026 - {{ __('booking.all_rights_reserved', [], 'ar') }}" data-en="{{ $salon->name_en ?? $salon->name_ar }} © 2026 - {{ __('booking.all_rights_reserved', [], 'en') }}">
+                {{ $salon->name_ar }} © 2026 - {{ __('booking.all_rights_reserved') }}
+            </p>
+            <a href="https://www.instagram.com/mohamed_izeldeen/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-2 text-sm transition" style="color: rgba(255,255,255,0.3);">
+                <i class="fab fa-instagram"></i>
+                <span>{{ __('booking.developed_by') }}</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+    let currentStep = 1;
+    let selectedStaffId = '';
+    let selectedServiceId = '';
+    let selectedTime = '';
+    let selectedDate = '';
+    const locale = '{{ app()->getLocale() }}';
+    const currentLang = localStorage.getItem('language') || 'ar';
+
+    // Salon data
+    const workDays = @json(is_string($salon->work_days) ? json_decode($salon->work_days, true) : $salon->work_days);
+    const openingTime = '{{ $salon->opening_time }}';
+    const closingTime = '{{ $salon->closing_time }}';
+    const salonCurrency = '{{ $salon->currency }}';
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    // Step Navigation
+    function goToStep(step) {
+        // Validate before moving forward
+        if (step > currentStep) {
+            if (currentStep === 1 && !validateStep1()) return;
+            if (currentStep === 2 && !validateStep2()) return;
+            if (currentStep === 3 && !validateStep3()) return;
+        }
+
+        currentStep = step;
+
+        // Update panels
+        document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector(`[data-panel="${step}"]`).classList.add('active');
+
+        // Update progress circles
+        document.querySelectorAll('.step-circle').forEach(c => {
+            const s = parseInt(c.dataset.step);
+            c.classList.remove('active', 'done');
+            if (s === step) c.classList.add('active');
+            else if (s < step) { c.classList.add('done'); c.innerHTML = '<i class="fas fa-check text-sm"></i>'; }
+            else c.textContent = s;
+        });
+
+        // Update labels
+        document.querySelectorAll('.step-label').forEach(l => {
+            const s = parseInt(l.dataset.step);
+            l.classList.remove('active', 'done');
+            if (s === step) l.classList.add('active');
+            else if (s < step) l.classList.add('done');
+        });
+
+        // Update lines
+        document.querySelectorAll('.step-line').forEach(l => {
+            const n = parseInt(l.dataset.line);
+            l.classList.toggle('done', n < step);
+        });
+
+        // Build summary on step 4
+        if (step === 4) buildSummary();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep1() {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        if (!name || !phone) {
+            shakeElement(document.querySelector('[data-panel="1"]'));
+            return false;
+        }
+        return true;
+    }
+
+    function validateStep2() {
+        if (!selectedServiceId) {
+            shakeElement(document.getElementById('serviceGrid'));
+            return false;
+        }
+        return true;
+    }
+
+    function validateStep3() {
+        if (!selectedDate || !selectedTime) {
+            shakeElement(document.querySelector('[data-panel="3"]'));
+            return false;
+        }
+        return true;
+    }
+
+    function shakeElement(el) {
+        el.style.animation = 'none';
+        el.offsetHeight; // trigger reflow
+        el.style.animation = 'shake 0.5s ease';
+        setTimeout(() => el.style.animation = '', 500);
+    }
+
+    // Staff Selection
+    function selectStaff(card, id) {
+        document.querySelectorAll('.staff-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedStaffId = id;
+        document.getElementById('staffInput').value = id;
+        filterServicesByStaff();
+    }
+
+    function filterServicesByStaff() {
+        document.querySelectorAll('.service-card').forEach(card => {
+            if (!selectedStaffId) {
+                card.style.display = '';
+                card.style.opacity = '1';
+                return;
+            }
+            const staffIds = JSON.parse(card.dataset.staffIds || '[]');
+            if (staffIds.includes(parseInt(selectedStaffId))) {
+                card.style.display = '';
+                card.style.opacity = '1';
+            } else {
+                card.style.display = 'none';
+                if (card.classList.contains('selected')) {
+                    card.classList.remove('selected');
+                    selectedServiceId = '';
+                    document.getElementById('serviceInput').value = '';
+                }
+            }
+        });
+    }
+
+    // Service Selection
+    function selectService(card, id) {
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedServiceId = id;
+        document.getElementById('serviceInput').value = id;
+    }
+
+    // Time Slot Selection
+    function selectTimeSlot(el, time) {
+        if (el.classList.contains('disabled')) return;
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedTime = time;
+        document.getElementById('timeInput').value = time;
+    }
+
+    // Date & Time
+    function isWorkingDay(date) {
+        return workDays.includes(dayNames[date.getDay()]);
+    }
+
+    const dateInput = document.getElementById('date');
+    flatpickr(dateInput, {
+        minDate: new Date(),
+        disable: [function(date) { return !isWorkingDay(date); }],
+        dateFormat: 'Y-m-d',
+        onChange: function(selectedDates) {
+            if (selectedDates.length > 0) {
+                selectedDate = dateInput.value;
+                generateTimeSlots();
+            }
+        }
+    });
+
+    function generateTimeSlots() {
+        const grid = document.getElementById('timeSlotsGrid');
+        const openParts = openingTime.split(':');
+        const closeParts = closingTime.split(':');
+        let openH = parseInt(openParts[0]), openM = parseInt(openParts[1]);
+        let closeH = parseInt(closeParts[0]), closeM = parseInt(closeParts[1]);
+
+        let html = '';
+        let h = openH, m = openM;
+
+        while (h < closeH || (h === closeH && m < closeM)) {
+            const timeStr = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+            html += `<div class="time-slot" onclick="selectTimeSlot(this, '${timeStr}')">${timeStr}</div>`;
+            m += 30;
+            if (m >= 60) { m = 0; h++; }
+        }
+
+        grid.innerHTML = html || '<p class="col-span-3 text-center" style="color: rgba(255,255,255,0.3);">No available slots</p>';
+
+        // Check availability via API
+        if (selectedStaffId && selectedServiceId && selectedDate) {
+            checkTimeSlotsAvailability();
+        }
+    }
+
+    function checkTimeSlotsAvailability() {
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            const time = slot.textContent.trim();
+            fetch(`/api/staff/${selectedStaffId}/availability?date=${selectedDate}&time=${time}&service_id=${selectedServiceId}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.available) {
+                        slot.classList.add('disabled');
+                        if (slot.classList.contains('selected')) {
+                            slot.classList.remove('selected');
+                            selectedTime = '';
+                            document.getElementById('timeInput').value = '';
+                        }
+                    }
+                })
+                .catch(() => {});
+        });
+    }
+
+    // Build Summary
+    function buildSummary() {
+        const lang = localStorage.getItem('language') || 'ar';
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+
+        const serviceCard = document.querySelector(`.service-card[data-service-id="${selectedServiceId}"]`);
+        const serviceName = serviceCard ? serviceCard.querySelector('.service-name').getAttribute(`data-${lang}`) : '';
+        const servicePrice = serviceCard ? serviceCard.dataset.price : '';
+
+        const staffCard = document.querySelector(`.staff-card.selected`);
+        const staffName = staffCard ? staffCard.querySelector('.staff-name').getAttribute(`data-${lang}`) : '';
+
+        const labelClient = lang === 'ar' ? 'العميل' : 'Client';
+        const labelPhone = lang === 'ar' ? 'الهاتف' : 'Phone';
+        const labelEmail = lang === 'ar' ? 'البريد' : 'Email';
+        const labelService = lang === 'ar' ? 'الخدمة' : 'Service';
+        const labelStaff = lang === 'ar' ? 'الموظف' : 'Staff';
+        const labelDate = lang === 'ar' ? 'التاريخ' : 'Date';
+        const labelTime = lang === 'ar' ? 'الوقت' : 'Time';
+        const labelTotal = lang === 'ar' ? 'الإجمالي' : 'Total';
+
+        let html = `
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-user me-2" style="color:var(--accent);"></i>${labelClient}</span><span class="font-bold">${name}</span></div>
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-phone me-2" style="color:var(--accent);"></i>${labelPhone}</span><span class="font-bold ltr">${phone}</span></div>
+            ${email ? `<div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-envelope me-2" style="color:var(--accent);"></i>${labelEmail}</span><span class="font-bold ltr">${email}</span></div>` : ''}
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-spa me-2" style="color:var(--accent);"></i>${labelService}</span><span class="font-bold">${serviceName}</span></div>
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-user-tie me-2" style="color:var(--accent);"></i>${labelStaff}</span><span class="font-bold">${staffName}</span></div>
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-calendar me-2" style="color:var(--accent);"></i>${labelDate}</span><span class="font-bold ltr">${selectedDate}</span></div>
+            <div class="summary-row"><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;"><i class="fas fa-clock me-2" style="color:var(--accent);"></i>${labelTime}</span><span class="font-bold ltr">${selectedTime}</span></div>
+            <div class="summary-row" style="border-top: 2px solid rgba(221,32,142,0.3); padding-top: 1rem; margin-top: 0.5rem;">
+                <span class="font-bold" style="color: var(--accent); font-size: 1rem;">${labelTotal}</span>
+                <span class="font-black text-xl" style="color: var(--accent);">${servicePrice} ${salonCurrency}</span>
+            </div>`;
+
+        document.getElementById('summaryCard').innerHTML = html;
+    }
+
+    // Language switching
+    function switchLanguage(lang) {
+        const html = document.documentElement;
+        const btns = document.querySelectorAll('.lang-btn');
+
+        if (lang === 'ar') {
+            html.classList.remove('en'); html.lang = 'ar'; html.dir = 'rtl';
+            btns[0].classList.add('active'); btns[1].classList.remove('active');
+        } else {
+            html.classList.add('en'); html.lang = 'en'; html.dir = 'ltr';
+            btns[1].classList.add('active'); btns[0].classList.remove('active');
+        }
+        localStorage.setItem('language', lang);
+        updateTexts(lang);
+    }
+
+    function updateTexts(lang) {
+        // Update staff names
+        document.querySelectorAll('.staff-name').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+        });
+        // Update service names
+        document.querySelectorAll('.service-name').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+        });
+        // Product names + descriptions
+        document.querySelectorAll('.product-name').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+        });
+        document.querySelectorAll('.product-description').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+        });
+        // Footer
+        const footer = document.querySelector('.footer-text');
+        if (footer) footer.textContent = footer.getAttribute(`data-${lang}`) || footer.textContent;
+        // Success
+        const success = document.querySelector('.success-title');
+        if (success) success.textContent = success.getAttribute(`data-${lang}`) || success.textContent;
+        // Placeholders
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        if (nameInput) nameInput.placeholder = nameInput.getAttribute(`data-${lang}-placeholder`) || nameInput.placeholder;
+        if (emailInput) emailInput.placeholder = emailInput.getAttribute(`data-${lang}-placeholder`) || emailInput.placeholder;
+    }
+
+    // Shake animation
+    const shakeStyle = document.createElement('style');
+    shakeStyle.textContent = '@keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }';
+    document.head.appendChild(shakeStyle);
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        switchLanguage(localStorage.getItem('language') || 'ar');
+    });
+    </script>
+</body>
+</html>

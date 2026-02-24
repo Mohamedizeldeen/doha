@@ -11,6 +11,7 @@ class Service extends Model
 {
     protected $fillable = [
         'salon_id',
+        'category_id',
         'name_en',
         'name_ar',
         'description_en',
@@ -31,6 +32,14 @@ class Service extends Model
     public function salon(): BelongsTo
     {
         return $this->belongsTo(Salon::class);
+    }
+
+    /**
+     * Get the category this service belongs to
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**

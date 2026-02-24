@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Salon;
 use App\Models\Service;
 use App\Models\Staff;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -17,6 +18,7 @@ class ServiceController extends Controller
         $this->authorize('own', $salon);
 
         $services = $salon->services()
+            ->with('category')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -29,7 +31,8 @@ class ServiceController extends Controller
     public function create(Salon $salon)
     {
         $this->authorize('own', $salon);
-        return view('services.create', compact('salon'));
+        $categories = $salon->categories()->get();
+        return view('services.create', compact('salon', 'categories'));
     }
 
     /**
@@ -46,10 +49,12 @@ class ServiceController extends Controller
             'description_ar' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'duration_minutes' => 'required|integer|min:1',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         Service::create([
             'salon_id' => $salon->id,
+            'category_id' => $validated['category_id'] ?? null,
             'name_en' => $validated['name_en'],
             'name_ar' => $validated['name_ar'],
             'description_en' => $validated['description_en'] ?? null,
@@ -60,7 +65,7 @@ class ServiceController extends Controller
         ]);
 
         return redirect()->route('service.index', $salon)
-            ->with('success', 'Service created successfully');
+            ->with('success', __('messages.service_created'));
     }
 
     /**
@@ -82,8 +87,9 @@ class ServiceController extends Controller
     {
         $this->authorize('own', $salon);
         $this->authorizeServiceBelongsToSalon($service, $salon);
+        $categories = $salon->categories()->get();
 
-        return view('services.edit', compact('salon', 'service'));
+        return view('services.edit', compact('salon', 'service', 'categories'));
     }
 
     /**
@@ -102,12 +108,13 @@ class ServiceController extends Controller
             'price' => 'required|numeric|min:0',
             'duration_minutes' => 'required|integer|min:1',
             'is_active' => 'required|boolean',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $service->update($validated);
 
         return redirect()->route('service.show', [$salon, $service])
-            ->with('success', 'Service updated successfully');
+            ->with('success', __('messages.service_updated'));
     }
 
     /**
@@ -124,7 +131,7 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('service.index', $salon)
-            ->with('success', 'Service deleted successfully');
+            ->with('success', __('messages.service_deleted'));
     }
 
     /**
@@ -133,7 +140,7 @@ class ServiceController extends Controller
     private function authorizeServiceBelongsToSalon($service, $salon)
     {
         if ($service->salon_id !== $salon->id) {
-            abort(403, 'Service does not belong to this salon');
+            abort(403, __('messages.service_not_belong'));
         }
     }
 }

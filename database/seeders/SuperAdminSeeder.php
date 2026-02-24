@@ -31,5 +31,17 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'super_admin',
             ]
         );
+
+        User::firstOrCreate(
+            ['email' => 'sales@nld.com'],
+            [
+                'name' => 'Sales User',
+                'email' => 'sales@nld.com',
+                'password' => Hash::make('Sales2026$'),
+                'role' => 'sales',
+                'commission_rate' => 10.00,
+                'phone' => '0000000000',
+            ]
+        );
     }
 }

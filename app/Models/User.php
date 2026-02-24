@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_active',
+        'commission_rate',
+        'phone',
     ];
 
     /**
@@ -43,6 +47,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'commission_rate' => 'decimal:2',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -52,5 +58,53 @@ class User extends Authenticatable
     public function salons()
     {
         return $this->hasMany(Salon::class);
+    }
+
+    /**
+     * Get salons created by this sales user
+     */
+    public function soldSalons()
+    {
+        return $this->hasMany(Salon::class, 'sales_user_id');
+    }
+
+    /**
+     * Check if user is a sales person
+     */
+    public function isSales(): bool
+    {
+        return $this->role === 'sales';
+    }
+
+    /**
+     * Check if user is super admin
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Get commission payments earned by this sales user
+     */
+    public function commissionPayments()
+    {
+        return $this->hasMany(Payment::class, 'sales_user_id');
+    }
+
+    /**
+     * Calculate total commission earned from subscription payments
+     */
+    public function totalCommissionEarned()
+    {
+        return $this->commissionPayments()->paid()->sum('commission_amount');
     }
 }

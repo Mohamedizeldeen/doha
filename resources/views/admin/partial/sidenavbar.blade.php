@@ -1,5 +1,5 @@
 <!-- Sidebar Navigation -->
-<nav id="sidebar" class="w-60 bg-gradient-to-b from-[#dd208e] to-[#961660] min-h-screen fixed right-0 top-0 z-40 shadow-lg transition-transform duration-300">
+<nav id="sidebar" class="w-60 bg-gradient-to-b from-[#dd208e] to-[#961660] min-h-screen fixed {{ app()->getLocale() === 'ar' ? 'right-0' : 'left-0' }} top-0 z-40 shadow-lg transition-transform duration-300">
     <!-- Close Button for Mobile -->
     <div style="display: none; padding: 1rem;" class="mobile-close">
         <button id="sidebar-close" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; width: 44px; height: 44px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
@@ -11,9 +11,9 @@
     <ul class="list-none p-5 pt-5 m-0 space-y-3" >
         <!-- Dashboard -->
         <li>
-            <a href="{{ route('admin.dashbord') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+            <a href="{{ route('admin.dashboard') }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">📊</span>
-                <span class="font-medium text-sm">لوحة التحكم</span>
+                <span class="font-medium text-sm">{{ __('admin.dashboard') }}</span>
                 
             </a>
         </li>
@@ -22,7 +22,7 @@
         <li>
             <a href="{{ route('staff.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">👥</span>
-                <span class="font-medium text-sm">إدارة الموظفين</span>
+                <span class="font-medium text-sm">{{ __('admin.staff_management') }}</span>
                 
             </a>
         </li>
@@ -31,8 +31,16 @@
         <li>
             <a href="{{ route('service.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">🛠️</span>
-                <span class="font-medium text-sm">الخدمات</span>
+                <span class="font-medium text-sm">{{ __('admin.services') }}</span>
                 
+            </a>
+        </li>
+
+        <!-- Categories -->
+        <li>
+            <a href="{{ route('category.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <span class="text-lg">📁</span>
+                <span class="font-medium text-sm">{{ __('admin.categories') }}</span>
             </a>
         </li>
 
@@ -40,7 +48,7 @@
         <li>
             <a href="{{ route('booking.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">📅</span>
-                <span class="font-medium text-sm">الحجوزات</span>
+                <span class="font-medium text-sm">{{ __('admin.bookings') }}</span>
                 
             </a>
         </li>
@@ -49,7 +57,7 @@
         <li>
             <a href="{{ route('client.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">🤝</span>
-                <span class="font-medium text-sm">العملاء</span>
+                <span class="font-medium text-sm">{{ __('admin.clients') }}</span>
                 
             </a>
         </li>
@@ -58,8 +66,16 @@
         <li>
             <a href="{{ route('product.index', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">📦</span>
-                <span class="font-medium text-sm">المنتجات</span>
+                <span class="font-medium text-sm">{{ __('admin.products') }}</span>
                 
+            </a>
+        </li>
+
+        <!-- Reports -->
+        <li>
+            <a href="{{ route('admin.reports', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
+                <span class="text-lg">📈</span>
+                <span class="font-medium text-sm">{{ __('admin.reports') }}</span>
             </a>
         </li>
 
@@ -67,7 +83,7 @@
         <li>
             <a href="{{ route('salon.show', $salon ?? auth()->user()->salons->first()) }}" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all text-right">
                 <span class="text-lg">⚙️</span>
-                <span class="font-medium text-sm">الاعدادات</span>
+                <span class="font-medium text-sm">{{ __('admin.settings') }}</span>
                 
             </a>
         </li>
@@ -84,7 +100,7 @@
                 @csrf
                 <button type="submit" class="nav-link w-full flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all" style="text-align: right; justify-content: flex-start;">
                     <span class="text-lg">🚪</span>
-                    <span class="font-medium text-sm">تسجيل الخروج</span>
+                    <span class="font-medium text-sm">{{ __('admin.logout') }}</span>
                     
                 </button>
             </form>
@@ -162,7 +178,6 @@
         }
     </script>
 </nav>
-</nav>
 
 <style>
     body {
@@ -179,6 +194,6 @@
 
     .nav-link.active {
         background-color: rgba(255, 255, 255, 0.2);
-        border-right: 4px solid white;
+        {{ app()->getLocale() === 'ar' ? 'border-right: 4px solid white;' : 'border-left: 4px solid white;' }}
     }
 </style>

@@ -16,11 +16,15 @@ class Book extends Model
         'status',
         'price',
         'notes',
+        'whatsapp_reminded',
+        'whatsapp_reminded_at',
     ];
 
     protected $casts = [
         'appointment_datetime' => 'datetime',
         'price' => 'decimal:2',
+        'whatsapp_reminded' => 'boolean',
+        'whatsapp_reminded_at' => 'datetime',
     ];
 
     /**

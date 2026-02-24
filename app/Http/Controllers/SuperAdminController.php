@@ -6,6 +6,7 @@ use App\Models\Salon;
 use App\Models\Product;
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,62 +17,108 @@ class SuperAdminController extends Controller
      */
     public function dashboard()
     {
-        // Get statistics
+        // Salon stats
         $totalSalons = Salon::count();
-        $totalProducts = Product::count();
-        $totalBookings = Book::count();
-        $completedBookings = Book::where('status', 'completed')->count();
-        $pendingBookings = Book::where('status', 'scheduled')->count();
-        $cancelledBookings = Book::where('status', 'canceled')->count();
+        $activeSalons = Salon::where('subscription_end_date', '>=', now())->count();
+        $trialSalons = Salon::where('subscription_type', 'trial')->count();
+        $paidSalons = Salon::whereIn('subscription_type', ['monthly', 'yearly'])->count();
 
-        // Get total revenue
-        $totalRevenue = Book::where('status', 'completed')->sum('price');
+        // App subscription income (from payments table)
+        $totalIncome = Payment::paid()->sum('amount');
+        $monthlySubIncome = Payment::paid()->where('subscription_type', 'monthly')->sum('amount');
+        $yearlySubIncome = Payment::paid()->where('subscription_type', 'yearly')->sum('amount');
+        $totalCommissionsPaid = Payment::paid()->sum('commission_amount');
 
-        // Get recent bookings
-        $recentBookings = Book::with(['salon', 'client', 'service', 'staff'])
-            ->latest()
-            ->limit(10)
-            ->get();
+        // This month's income
+        $thisMonthIncome = Payment::paid()
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->sum('amount');
 
-        // Get salons with booking counts
-        $salons = Salon::withCount('bookings')
-            ->withCount(['bookings as completed_bookings_count' => function ($query) {
-                $query->where('status', 'completed');
-            }])
-            ->with(['bookings' => function ($query) {
-                $query->where('status', 'completed');
-            }])
+        // Subscription alerts
+        $overdueSalons = Salon::where('subscription_end_date', '<', now())->with('user')->get();
+        $expiringSoon = Salon::where('subscription_end_date', '>', now())
+            ->where('subscription_end_date', '<=', now()->addDays(7))
+            ->with('user')->get();
+
+        // Sales people stats
+        $salesUsers = User::where('role', 'sales')
+            ->withCount('soldSalons')
             ->get()
-            ->map(function ($salon) {
-                $salon->revenue = $salon->bookings->sum('price');
-                return $salon;
+            ->map(function ($sales) {
+                $sales->total_commission = $sales->totalCommissionEarned();
+                return $sales;
             });
 
-        // Revenue data by month
-        $monthlyRevenue = Book::where('status', 'completed')
-            ->selectRaw('MONTH(appointment_datetime) as month, SUM(price) as total')
-            ->whereYear('appointment_datetime', now()->year)
+        // Monthly income data for chart (subscription payments by month)
+        $monthlyIncome = Payment::paid()
+            ->selectRaw('MONTH(created_at) as month, SUM(amount) as total')
+            ->whereYear('created_at', now()->year)
             ->groupBy('month')
             ->get()
             ->pluck('total', 'month')
             ->toArray();
 
-        // Fill missing months with 0
         $allMonths = array_fill(1, 12, 0);
-        $monthlyRevenue = array_replace($allMonths, $monthlyRevenue);
+        $monthlyIncome = array_replace($allMonths, $monthlyIncome);
+
+        // Subscription type distribution for doughnut chart
+        $subscriptionStats = [
+            'trial' => $trialSalons,
+            'monthly' => Salon::where('subscription_type', 'monthly')->count(),
+            'yearly' => Salon::where('subscription_type', 'yearly')->count(),
+        ];
+
+        // Recent payments
+        $recentPayments = Payment::with(['salon', 'salesUser'])
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        // Salons with payment info
+        $salons = Salon::with(['salesUser', 'payments' => function ($q) {
+                $q->paid()->latest();
+            }])
+            ->get()
+            ->map(function ($salon) {
+                $salon->total_paid = $salon->payments->sum('amount');
+                $salon->last_payment_date = $salon->payments->first()?->created_at;
+                return $salon;
+            });
 
         return view('superAdmin.dashboard', [
             'totalSalons' => $totalSalons,
-            'totalProducts' => $totalProducts,
-            'totalBookings' => $totalBookings,
-            'completedBookings' => $completedBookings,
-            'pendingBookings' => $pendingBookings,
-            'cancelledBookings' => $cancelledBookings,
-            'totalRevenue' => $totalRevenue,
-            'recentBookings' => $recentBookings,
+            'activeSalons' => $activeSalons,
+            'trialSalons' => $trialSalons,
+            'paidSalons' => $paidSalons,
+            'totalIncome' => $totalIncome,
+            'monthlySubIncome' => $monthlySubIncome,
+            'yearlySubIncome' => $yearlySubIncome,
+            'totalCommissionsPaid' => $totalCommissionsPaid,
+            'thisMonthIncome' => $thisMonthIncome,
+            'monthlyIncome' => $monthlyIncome,
+            'subscriptionStats' => $subscriptionStats,
+            'overdueSalons' => $overdueSalons,
+            'expiringSoon' => $expiringSoon,
+            'salesUsers' => $salesUsers,
+            'recentPayments' => $recentPayments,
             'salons' => $salons,
-            'monthlyRevenue' => $monthlyRevenue,
         ]);
+    }
+
+    /**
+     * Record a subscription payment for a salon
+     */
+    public function recordPayment(Request $request, Salon $salon)
+    {
+        $request->validate([
+            'subscription_type' => 'required|in:monthly,yearly',
+            'notes' => 'nullable|string|max:500',
+        ]);
+
+        Payment::recordPayment($salon, $request->subscription_type, $request->notes);
+
+        return back()->with('success', __('admin.payment_recorded_successfully'));
     }
 
     /**
@@ -86,7 +133,7 @@ class SuperAdminController extends Controller
             ->withCount('clients')
             ->with(['bookings' => function ($query) {
                 $query->where('status', 'completed');
-            }])
+            }, 'salesUser', 'user'])
             ->latest()
             ->paginate(15);
 
@@ -108,8 +155,11 @@ class SuperAdminController extends Controller
         $users = User::where('role', 'admin')
             ->whereDoesntHave('salons')
             ->get();
+        
+        // Get all sales users for assignment
+        $salesUsers = User::where('role', 'sales')->get();
 
-        return view('superAdmin.salons.create', compact('users'));
+        return view('superAdmin.salons.create', compact('users', 'salesUsers'));
     }
 
     /**
@@ -134,13 +184,13 @@ class SuperAdminController extends Controller
             'currency' => 'nullable|string',
             'work_days' => 'nullable|array',
             'work_days.*' => 'string',
+            'sales_user_id' => 'nullable|exists:users,id',
         ]);
 
         $trial_end_date = now()->addDays(14);
-        $subscription_end_date = $trial_end_date;
 
         // Create salon
-        $salon = new Salon($validated + ['trial_end_date' => $trial_end_date] + ['subscription_end_date' => $subscription_end_date]);
+        $salon = new Salon($validated);
 
         // Handle logo upload
         if ($request->hasFile('logo')) {
@@ -153,11 +203,14 @@ class SuperAdminController extends Controller
             $salon->work_days = json_encode($validated['work_days']);
         }
 
+        // Set subscription dates based on type
+        $salon->setSubscriptionDates();
+
         // Save salon
         $salon->save();
 
         return redirect()->route('superAdmin.salons.index')
-            ->with('success', 'تم إنشاء الصالون بنجاح');
+            ->with('success', __('messages.sa_salon_created'));
     }
 
     /**
@@ -165,17 +218,25 @@ class SuperAdminController extends Controller
      */
     public function showSalon(Salon $salon)
     {
-        $salon->load(['bookings', 'products', 'services', 'staff', 'clients']);
+        $salon->load(['bookings', 'products', 'services', 'staff', 'clients', 'salesUser', 'user',
+            'payments' => function ($q) {
+                $q->with('salesUser')->latest();
+            }
+        ]);
         
         $total_bookings = $salon->bookings->count();
         $completed_bookings = $salon->bookings->where('status', 'completed')->count();
         $revenue = $salon->bookings->where('status', 'completed')->sum('price');
+        $totalPaid = $salon->payments->where('status', 'paid')->sum('amount');
+        $totalCommission = $salon->payments->where('status', 'paid')->sum('commission_amount');
 
         return view('superAdmin.salons.show', [
             'salon' => $salon,
             'total_bookings' => $total_bookings,
             'completed_bookings' => $completed_bookings,
             'revenue' => $revenue,
+            'totalPaid' => $totalPaid,
+            'totalCommission' => $totalCommission,
         ]);
     }
 
@@ -245,7 +306,26 @@ class SuperAdminController extends Controller
         $salon->delete();
 
         return redirect()->route('superAdmin.salons.index')
-            ->with('success', 'تم حذف الصالون بنجاح');
+            ->with('success', __('messages.sa_salon_deleted'));
+    }
+
+    /**
+     * Toggle salon owner account active/blocked status
+     */
+    public function toggleSalonStatus(Salon $salon)
+    {
+        $owner = $salon->user;
+        
+        if (!$owner) {
+            return back()->with('error', __('admin.salon_has_no_owner'));
+        }
+
+        $owner->update(['is_active' => !$owner->is_active]);
+
+        // If reactivating, also check and re-enable based on subscription
+        $status = $owner->is_active ? __('admin.account_activated') : __('admin.account_blocked');
+
+        return back()->with('success', $status);
     }
 
     /**
@@ -308,7 +388,7 @@ class SuperAdminController extends Controller
         $product->update($validated);
 
         return redirect()->route('superAdmin.products.show', $product->id)
-            ->with('success', 'تم تحديث المنتج بنجاح');
+            ->with('success', __('messages.sa_product_updated'));
     }
 
     /**
@@ -324,7 +404,7 @@ class SuperAdminController extends Controller
         $product->delete();
 
         return redirect()->route('superAdmin.products.index')
-            ->with('success', 'تم حذف المنتج بنجاح');
+            ->with('success', __('messages.sa_product_deleted'));
     }
 
     /**
@@ -383,7 +463,7 @@ class SuperAdminController extends Controller
         $booking->delete();
 
         return redirect()->route('superAdmin.bookings.index')
-            ->with('success', 'تم حذف الحجز بنجاح');
+            ->with('success', __('messages.sa_booking_deleted'));
     }
 
     /**
@@ -404,5 +484,110 @@ class SuperAdminController extends Controller
                 ->whereBetween('appointment_datetime', [now()->startOfWeek(), now()->endOfWeek()])
                 ->sum('price'),
         ]);
+    }
+
+    /**
+     * List all sales users
+     */
+    public function salesUsers()
+    {
+        $salesUsers = User::where('role', 'sales')
+            ->withCount('soldSalons')
+            ->get()
+            ->map(function ($user) {
+                $user->total_commission = $user->totalCommissionEarned();
+                return $user;
+            });
+
+        return view('superAdmin.salesUsers.index', compact('salesUsers'));
+    }
+
+    /**
+     * Show create sales user form
+     */
+    public function createSalesUser()
+    {
+        return view('superAdmin.salesUsers.create');
+    }
+
+    /**
+     * Store a new sales user
+     */
+    public function storeSalesUser(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+            'phone' => 'nullable|string|max:20',
+            'commission_rate' => 'required|numeric|min:0|max:100',
+        ]);
+
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+            'phone' => $validated['phone'] ?? null,
+            'role' => 'sales',
+            'commission_rate' => $validated['commission_rate'],
+        ]);
+
+        return redirect()->route('superAdmin.salesUsers.index')
+            ->with('success', __('admin.sales_user_created'));
+    }
+
+    /**
+     * Show edit sales user form
+     */
+    public function editSalesUser(User $user)
+    {
+        if ($user->role !== 'sales') abort(404);
+        $salesUser = $user;
+        return view('superAdmin.salesUsers.edit', compact('salesUser'));
+    }
+
+    /**
+     * Update a sales user
+     */
+    public function updateSalesUser(Request $request, User $user)
+    {
+        if ($user->role !== 'sales') abort(404);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:20',
+            'commission_rate' => 'required|numeric|min:0|max:100',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'] ?? null;
+        $user->commission_rate = $validated['commission_rate'];
+        
+        if (!empty($validated['password'])) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($validated['password']);
+        }
+        
+        $user->save();
+
+        return redirect()->route('superAdmin.salesUsers.index')
+            ->with('success', __('admin.sales_user_updated'));
+    }
+
+    /**
+     * Delete a sales user
+     */
+    public function destroySalesUser(User $user)
+    {
+        if ($user->role !== 'sales') abort(404);
+        
+        // Unlink salons from this sales user
+        Salon::where('sales_user_id', $user->id)->update(['sales_user_id' => null]);
+        $user->delete();
+
+        return redirect()->route('superAdmin.salesUsers.index')
+            ->with('success', __('admin.sales_user_deleted'));
     }
 }

@@ -9,6 +9,7 @@ class Salon extends Model
 {
     protected $fillable = [
         'user_id',
+        'sales_user_id',
         'name_en',
         'name_ar',
         'address_en',
@@ -43,6 +44,14 @@ class Salon extends Model
     }
 
     /**
+     * Get the sales person who created this salon
+     */
+    public function salesUser()
+    {
+        return $this->belongsTo(User::class, 'sales_user_id');
+    }
+
+    /**
      * Get all staff members in this salon
      */
     public function staff()
@@ -56,6 +65,14 @@ class Salon extends Model
     public function services()
     {
         return $this->hasMany(Service::class);
+    }
+
+    /**
+     * Get all categories in this salon
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 
     /**
@@ -80,6 +97,14 @@ class Salon extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get all subscription payments for this salon
+     */
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 
     /**
@@ -131,9 +156,16 @@ class Salon extends Model
      */
     public function daysRemaining()
     {
-        $today = Carbon::now();
-        $endDate = Carbon::parse($this->subscription_end_date);
-        $remaining = $endDate->diffInDays($today);
-        return max(0, $remaining);
+        if (!$this->subscription_end_date) {
+            return 0;
+        }
+        $today = Carbon::now()->startOfDay();
+        $endDate = Carbon::parse($this->subscription_end_date)->startOfDay();
+        
+        if ($endDate->lte($today)) {
+            return 0;
+        }
+        
+        return $today->diffInDays($endDate);
     }
 }

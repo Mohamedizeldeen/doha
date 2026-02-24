@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>إنشاء صالون جديد - ضحي</title>
+    <title>{{ __('admin.create_salon') }} - ضحي</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         * {
-            font-family: 'Cairo', sans-serif;
+            font-family: '{{ app()->getLocale() === 'ar' ? 'Cairo' : 'Inter' }}', sans-serif;
         }
     </style>
 </head>
@@ -20,10 +20,10 @@
             <!-- Header -->
             <div class="text-center mb-8 sm:mb-12">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-                    <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">أنشئ صالونك</span>
+                    <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">{{ __('admin.create_your_salon') }}</span>
                 </h1>
                 <p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-xl mx-auto px-2">
-                    أكمل معنا لإنشاء صالونك وابدأ مع 14 يوم تجربة مجانية
+                    {{ __('admin.create_salon_subtitle') }}
                 </p>
             </div>
 
@@ -44,7 +44,7 @@
                     <!-- Salon Names -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <label for="name_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">اسم الصالون (إنجليزي)</label>
+                            <label for="name_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.salon_name_en') }}</label>
                             <input 
                                 type="text" 
                                 id="name_en" 
@@ -56,7 +56,7 @@
                             >
                         </div>
                         <div>
-                            <label for="name_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">اسم الصالون (العربية)</label>
+                            <label for="name_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.salon_name_ar') }}</label>
                             <input 
                                 type="text" 
                                 id="name_ar" 
@@ -72,7 +72,7 @@
                     <!-- Contact Information -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <label for="phone" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">رقم الهاتف</label>
+                            <label for="phone" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.phone_number') }}</label>
                             <input 
                                 type="text" 
                                 id="phone" 
@@ -83,7 +83,7 @@
                             >
                         </div>
                         <div>
-                            <label for="email" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">البريد الإلكتروني</label>
+                            <label for="email" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.email') }}</label>
                             <input 
                                 type="email" 
                                 id="email" 
@@ -98,7 +98,7 @@
                     <!-- Addresses -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <label for="address_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">العنوان (إنجليزي)</label>
+                            <label for="address_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.address_en') }}</label>
                             <input 
                                 type="text" 
                                 id="address_en" 
@@ -109,7 +109,7 @@
                             >
                         </div>
                         <div>
-                            <label for="address_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">العنوان (العربية)</label>
+                            <label for="address_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.address_ar') }}</label>
                             <input 
                                 type="text" 
                                 id="address_ar" 
@@ -124,7 +124,7 @@
                     <!-- Descriptions -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <label for="description_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">الوصف (إنجليزي)</label>
+                            <label for="description_en" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.description_en_setting') }}</label>
                             <textarea 
                                 id="description_en" 
                                 name="description_en"
@@ -134,7 +134,7 @@
                             ></textarea>
                         </div>
                         <div>
-                            <label for="description_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">الوصف (العربية)</label>
+                            <label for="description_ar" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.description_ar_setting') }}</label>
                             <textarea 
                                 id="description_ar" 
                                 name="description_ar"
@@ -147,7 +147,7 @@
 
                     <!-- Logo Upload -->
                     <div>
-                        <label for="logo" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">شعار الصالون</label>
+                        <label for="logo" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.salon_logo') }}</label>
                         <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center hover:border-[#dd208e] transition cursor-pointer" onclick="document.getElementById('logo').click()">
                             <input 
                                 type="file" 
@@ -160,19 +160,19 @@
                             <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                 <path d="M28 8H12a4 4 0 00-4 4v20a4 4 0 004 4h24a4 4 0 004-4V20m-8-12l-3.172-3.172a4 4 0 00-5.656 0L28 20M20 32a4 4 0 100-8 4 4 0 000 8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
-                            <p class="text-xs sm:text-sm text-gray-600"><span id="fileName">اضغط أو انقل الملف هنا</span></p>
+                            <p class="text-xs sm:text-sm text-gray-600"><span id="fileName">{{ __('admin.click_or_drop_file') }}</span></p>
                         </div>
                     </div>
 
                     <!-- Work Days -->
                     <div>
-                        <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-3">أيام العمل</label>
+                        <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-3">{{ __('admin.working_days') }}</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             @php
-                                $days = ['Saturday' => 'السبت', 'Sunday' => 'الأحد', 'Monday' => 'الاثنين', 'Tuesday' => 'الثلاثاء', 'Wednesday' => 'الأربعاء', 'Thursday' => 'الخميس', 'Friday' => 'الجمعة'];
+                                $days = ['Saturday' => 'saturday', 'Sunday' => 'sunday', 'Monday' => 'monday', 'Tuesday' => 'tuesday', 'Wednesday' => 'wednesday', 'Thursday' => 'thursday', 'Friday' => 'friday'];
                                 $selectedDays = old('work_days', []);
                             @endphp
-                            @foreach($days as $day => $dayAr)
+                            @foreach($days as $day => $dayKey)
                                 <label class="flex items-center">
                                     <input 
                                         type="checkbox" 
@@ -181,7 +181,7 @@
                                         {{ in_array($day, $selectedDays) ? 'checked' : '' }}
                                         class="w-4 h-4 text-[#dd208e] rounded focus:ring-[#dd208e]"
                                     >
-                                    <span class="ml-2 text-xs sm:text-sm text-gray-700">{{ $dayAr }}</span>
+                                    <span class="ml-2 text-xs sm:text-sm text-gray-700">{{ __('admin.' . $dayKey) }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -190,7 +190,7 @@
                     <!-- Operating Hours -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <label for="opening_time" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">وقت الفتح</label>
+                            <label for="opening_time" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.opening_time') }}</label>
                             <input 
                                 type="time" 
                                 id="opening_time" 
@@ -200,7 +200,7 @@
                             >
                         </div>
                         <div>
-                            <label for="closing_time" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">وقت الإغلاق</label>
+                            <label for="closing_time" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.closing_time') }}</label>
                             <input 
                                 type="time" 
                                 id="closing_time" 
@@ -213,42 +213,42 @@
 
                     <!-- Currency -->
                     <div>
-                        <label for="currency" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">العملة</label>
+                        <label for="currency" class="block text-xs sm:text-sm font-bold text-gray-700 mb-2">{{ __('admin.currency') }}</label>
                         <select 
                             id="currency" 
                             name="currency" 
                             class="w-full px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border-2 border-gray-200 rounded-lg focus:border-[#dd208e] focus:outline-none transition"
                         >
-                            <option value="SAR" {{ old('currency') === 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
-                            <option value="AED" {{ old('currency') === 'AED' ? 'selected' : '' }}>درهم إماراتي (AED)</option>
-                            <option value="EGP" {{ old('currency') === 'EGP' ? 'selected' : '' }}>جنيه مصري (EGP)</option>
-                            <option value="SDG" {{ old('currency') === 'SDG' ? 'selected' : '' }}>جنيه سوداني (SDG)</option>
-                            <option value="KWD" {{ old('currency') === 'KWD' ? 'selected' : '' }}>دينار كويتي (KWD)</option>
-                            <option value="BHD" {{ old('currency') === 'BHD' ? 'selected' : '' }}>دينار بحريني (BHD)</option>
-                            <option value="QAR" {{ old('currency') === 'QAR' ? 'selected' : '' }}>ريال قطري (QAR)</option>
-                            <option value="OMR" {{ old('currency') === 'OMR' ? 'selected' : '' }}>ريال عماني (OMR)</option>
-                            <option value="JOD" {{ old('currency') === 'JOD' ? 'selected' : '' }}>دينار أردني (JOD)</option>
-                            <option value="IQD" {{ old('currency') === 'IQD' ? 'selected' : '' }}>دينار عراقي (IQD)</option>
-                            <option value="LBP" {{ old('currency') === 'LBP' ? 'selected' : '' }}>ليرة لبنانية (LBP)</option>
-                            <option value="SYP" {{ old('currency') === 'SYP' ? 'selected' : '' }}>ليرة سورية (SYP)</option>
-                            <option value="YER" {{ old('currency') === 'YER' ? 'selected' : '' }}>ريال يمني (YER)</option>
-                            <option value="LYD" {{ old('currency') === 'LYD' ? 'selected' : '' }}>دينار ليبي (LYD)</option>
-                            <option value="TND" {{ old('currency') === 'TND' ? 'selected' : '' }}>دينار تونسي (TND)</option>
-                            <option value="DZD" {{ old('currency') === 'DZD' ? 'selected' : '' }}>دينار جزائري (DZD)</option>
-                            <option value="MAD" {{ old('currency') === 'MAD' ? 'selected' : '' }}>درهم مغربي (MAD)</option>
-                            <option value="MRU" {{ old('currency') === 'MRU' ? 'selected' : '' }}>أوقية موريتانية (MRU)</option>
-                            <option value="SOS" {{ old('currency') === 'SOS' ? 'selected' : '' }}>شلن صومالي (SOS)</option>
-                            <option value="DJF" {{ old('currency') === 'DJF' ? 'selected' : '' }}>فرنك جيبوتي (DJF)</option>
-                            <option value="KMF" {{ old('currency') === 'KMF' ? 'selected' : '' }}>فرنك قمري (KMF)</option>
-                            <option value="USD" {{ old('currency') === 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)</option>
-                            <option value="EUR" {{ old('currency') === 'EUR' ? 'selected' : '' }}>يورو (EUR)</option>
-                            <option value="GBP" {{ old('currency') === 'GBP' ? 'selected' : '' }}>جنيه إسترليني (GBP)</option>
+                            <option value="SAR" {{ old('currency') === 'SAR' ? 'selected' : '' }}>{{ __('admin.currency_sar') }}</option>
+                            <option value="AED" {{ old('currency') === 'AED' ? 'selected' : '' }}>{{ __('admin.currency_aed') }}</option>
+                            <option value="EGP" {{ old('currency') === 'EGP' ? 'selected' : '' }}>{{ __('admin.currency_egp') }}</option>
+                            <option value="SDG" {{ old('currency') === 'SDG' ? 'selected' : '' }}>{{ __('admin.currency_sdg') }}</option>
+                            <option value="KWD" {{ old('currency') === 'KWD' ? 'selected' : '' }}>{{ __('admin.currency_kwd') }}</option>
+                            <option value="BHD" {{ old('currency') === 'BHD' ? 'selected' : '' }}>{{ __('admin.currency_bhd') }}</option>
+                            <option value="QAR" {{ old('currency') === 'QAR' ? 'selected' : '' }}>{{ __('admin.currency_qar') }}</option>
+                            <option value="OMR" {{ old('currency') === 'OMR' ? 'selected' : '' }}>{{ __('admin.currency_omr') }}</option>
+                            <option value="JOD" {{ old('currency') === 'JOD' ? 'selected' : '' }}>{{ __('admin.currency_jod') }}</option>
+                            <option value="IQD" {{ old('currency') === 'IQD' ? 'selected' : '' }}>{{ __('admin.currency_iqd') }}</option>
+                            <option value="LBP" {{ old('currency') === 'LBP' ? 'selected' : '' }}>{{ __('admin.currency_lbp') }}</option>
+                            <option value="SYP" {{ old('currency') === 'SYP' ? 'selected' : '' }}>{{ __('admin.currency_syp') }}</option>
+                            <option value="YER" {{ old('currency') === 'YER' ? 'selected' : '' }}>{{ __('admin.currency_yer') }}</option>
+                            <option value="LYD" {{ old('currency') === 'LYD' ? 'selected' : '' }}>{{ __('admin.currency_lyd') }}</option>
+                            <option value="TND" {{ old('currency') === 'TND' ? 'selected' : '' }}>{{ __('admin.currency_tnd') }}</option>
+                            <option value="DZD" {{ old('currency') === 'DZD' ? 'selected' : '' }}>{{ __('admin.currency_dzd') }}</option>
+                            <option value="MAD" {{ old('currency') === 'MAD' ? 'selected' : '' }}>{{ __('admin.currency_mad') }}</option>
+                            <option value="MRU" {{ old('currency') === 'MRU' ? 'selected' : '' }}>{{ __('admin.currency_mru') }}</option>
+                            <option value="SOS" {{ old('currency') === 'SOS' ? 'selected' : '' }}>{{ __('admin.currency_sos') }}</option>
+                            <option value="DJF" {{ old('currency') === 'DJF' ? 'selected' : '' }}>{{ __('admin.currency_djf') }}</option>
+                            <option value="KMF" {{ old('currency') === 'KMF' ? 'selected' : '' }}>{{ __('admin.currency_kmf') }}</option>
+                            <option value="USD" {{ old('currency') === 'USD' ? 'selected' : '' }}>{{ __('admin.currency_usd') }}</option>
+                            <option value="EUR" {{ old('currency') === 'EUR' ? 'selected' : '' }}>{{ __('admin.currency_eur') }}</option>
+                            <option value="GBP" {{ old('currency') === 'GBP' ? 'selected' : '' }}>{{ __('admin.currency_gbp') }}</option>
                         </select>
                     </div>
 
                     <!-- Subscription Type -->
                     <div>
-                        <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-3 sm:mb-4">نوع الاشتراك</label>
+                        <label class="block text-xs sm:text-sm font-bold text-gray-700 mb-3 sm:mb-4">{{ __('admin.subscription_type') }}</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <label class="relative">
                                 <input 
@@ -259,8 +259,8 @@
                                     class="sr-only"
                                 >
                                 <div class="p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-[#dd208e] transition peer-checked:border-[#dd208e]">
-                                    <div class="text-lg font-bold text-gray-900 mb-1">🎁 تجربة مجانية</div>
-                                    <div class="text-xs text-gray-600">14 يوم مجانًا</div>
+                                    <div class="text-lg font-bold text-gray-900 mb-1">🎁 {{ __('admin.free_trial') }}</div>
+                                    <div class="text-xs text-gray-600">{{ __('admin.free_trial_days') }}</div>
                                 </div>
                             </label>
 
@@ -274,13 +274,13 @@
                         type="submit" 
                         class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white font-bold text-sm sm:text-base rounded-lg hover:shadow-xl hover:scale-105 transition transform"
                     >
-                        إنشاء الصالون والبدء الآن
+                        {{ __('admin.create_salon_now') }}
                     </button>
 
                     <!-- Info -->
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
                         <p class="text-xs sm:text-sm text-blue-700">
-                            ✅ ستكون المسؤول الرئيسي لهذا الصالون افتراضيًا
+                            ✅ {{ __('admin.default_admin_notice') }}
                         </p>
                     </div>
                 </form>

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>الشروط والأحكام </title>
+        <title>{{ __('policy.title') }}</title>
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="{{ asset('images/fav.png') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Inter:wght@300..800&display=swap" rel="stylesheet">
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @else
             <style>
-                * { font-family: 'Cairo', sans-serif; }
+                * { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Inter'" : "'Inter', 'Cairo'" }}, sans-serif; }
             </style>
         @endif
     </head>
-    <body class="bg-white text-gray-900" style="font-family: 'Cairo', sans-serif;">
+    <body class="bg-white text-gray-900" style="font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Inter'" : "'Inter', 'Cairo'" }}, sans-serif;">
         <!-- Navigation Bar -->
         <nav class="fixed top-0 right-0 w-full bg-white shadow-lg z-50 border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +34,7 @@
                
                         <div class="flex gap-3">
                           
-                                <a href="{{ route('home') }}" class="px-6 py-2 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white rounded-lg hover:shadow-lg transition text-sm">الصفحة الرئيسية</a>
+                                <a href="{{ route('home') }}" class="px-6 py-2 bg-gradient-to-r from-[#dd208e] to-[#b01670] text-white rounded-lg hover:shadow-lg transition text-sm">{{ __('policy.home') }}</a>
                             
                         </div>
                     
@@ -48,10 +48,10 @@
             <section class="px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#fde4f1] to-white py-12 sm:py-20">
                 <div class="max-w-4xl mx-auto text-center">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-                        <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">الشروط والأحكام</span>
+                        <span class="bg-gradient-to-r from-[#dd208e] to-[#b01670] bg-clip-text text-transparent">{{ __('policy.title') }}</span>
                     </h1>
                     <p class="text-lg sm:text-xl text-gray-600">
-                        يرجى قراءة الشروط والأحكام التالية بعناية قبل استخدام المنصة 
+                        {{ __('policy.subtitle') }}
                     </p>
                 </div>
             </section>
@@ -62,19 +62,19 @@
                     <!-- 1. نطاق الخدمة -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            1. نطاق الخدمة
+                            {{ __('policy.section1_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                المنصة توفر حلاً متكاملاً لإدارة الصالونات والعيادات ومراكز التجميل. تشمل الخدمات:
+                                {{ __('policy.section1_intro') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>نظام إدارة الحجوزات والمواعيد</li>
-                                <li>إدارة الخدمات والأسعار</li>
-                                <li>إدارة الموارد البشرية والموظفين</li>
-                                <li>نظام تتبع المدفوعات والفواتير</li>
-                                <li>التقارير والإحصائيات المتقدمة</li>
-                                <li>تطبيق جوال للعملاء</li>
+                                <li>{{ __('policy.section1_item1') }}</li>
+                                <li>{{ __('policy.section1_item2') }}</li>
+                                <li>{{ __('policy.section1_item3') }}</li>
+                                <li>{{ __('policy.section1_item4') }}</li>
+                                <li>{{ __('policy.section1_item5') }}</li>
+                                <li>{{ __('policy.section1_item6') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -82,17 +82,17 @@
                     <!-- 2. حساب المستخدم -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            2. حساب المستخدم والمسؤولية
+                            {{ __('policy.section2_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                أنت توافق على أن تكون مسؤولاً عن:
+                                {{ __('policy.section2_intro') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>الحفاظ على سرية بيانات حسابك وكلمة المرور</li>
-                                <li>جميع الأنشطة التي تحدث تحت حسابك</li>
-                                <li>تحديث المعلومات الشخصية والتجارية بشكل دوري</li>
-                                <li>الامتثال لجميع القوانين والأنظمة المعمول بها</li>
+                                <li>{{ __('policy.section2_item1') }}</li>
+                                <li>{{ __('policy.section2_item2') }}</li>
+                                <li>{{ __('policy.section2_item3') }}</li>
+                                <li>{{ __('policy.section2_item4') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -100,25 +100,25 @@
                     <!-- 3. الاشتراك والدفع -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            3. الاشتراك والدفع
+                            {{ __('policy.section3_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                <strong>الفترة التجريبية:</strong> نوفر فترة تجريبية مجانية مدتها 14 يوماً بدون الحاجة لبطاقة ائتمان.
+                                <strong>{{ __('policy.section3_trial_label') }}</strong> {{ __('policy.section3_trial_text') }}
                             </p>
                             <p>
-                                <strong>الرسوم:</strong> بعد انتهاء الفترة التجريبية، ستُفرض رسوم الاشتراك وفقاً للخطة المختارة:
+                                <strong>{{ __('policy.section3_fees_label') }}</strong> {{ __('policy.section3_fees_text') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li><strong>الخطة الأساسية:</strong> $15 شهرياً</li>
-                                <li><strong>الخطة المتقدمة:</strong> $45 شهرياً</li>
-                                <li><strong>الخطة المتميزة:</strong> $120 سنوياً (توفير 33%)</li>
+                                <li><strong>{{ __('policy.section3_basic_label') }}</strong> {{ __('policy.section3_basic_price') }}</li>
+                                <li><strong>{{ __('policy.section3_advanced_label') }}</strong> {{ __('policy.section3_advanced_price') }}</li>
+                                <li><strong>{{ __('policy.section3_premium_label') }}</strong> {{ __('policy.section3_premium_price') }}</li>
                             </ul>
                             <p>
-                                <strong>طريقة الدفع:</strong> يتم الدفع بشكل آمن عبر بوابات الدفع المرخصة.
+                                <strong>{{ __('policy.section3_payment_label') }}</strong> {{ __('policy.section3_payment_text') }}
                             </p>
                             <p>
-                                <strong>الفواتير:</strong> ستتلقى فواتير الاشتراك عبر بريدك الإلكتروني.
+                                <strong>{{ __('policy.section3_invoices_label') }}</strong> {{ __('policy.section3_invoices_text') }}
                             </p>
                         </div>
                     </div>
@@ -126,14 +126,14 @@
                     <!-- 4. الإلغاء والاسترداد -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            4. الإلغاء والاسترداد
+                            {{ __('policy.section4_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>يمكنك إلغاء الاشتراك في أي وقت بدون عقوبات</li>
-                                <li>سيتم إيقاف الرسوم عند إلغاء الاشتراك</li>
-                                <li>لا يتم استرجاع الرسوم المدفوعة مسبقاً</li>
-                                <li>بيانات حسابك ستُحفظ لمدة 30 يوماً قبل الحذف النهائي</li>
+                                <li>{{ __('policy.section4_item1') }}</li>
+                                <li>{{ __('policy.section4_item2') }}</li>
+                                <li>{{ __('policy.section4_item3') }}</li>
+                                <li>{{ __('policy.section4_item4') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -141,23 +141,23 @@
                     <!-- 5. حماية البيانات والخصوصية -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            5. حماية البيانات والخصوصية
+                            {{ __('policy.section5_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                <strong>الأمان:</strong> نستخدم تقنيات التشفير العالية لحماية بيانات حسابك.
+                                <strong>{{ __('policy.section5_security_label') }}</strong> {{ __('policy.section5_security_text') }}
                             </p>
                             <p>
-                                <strong>الخصوصية:</strong> نلتزم بسياسات الخصوصية الدولية ولا نشارك بياناتك مع أطراف ثالثة دون موافقتك.
+                                <strong>{{ __('policy.section5_privacy_label') }}</strong> {{ __('policy.section5_privacy_text') }}
                             </p>
                             <p>
-                                <strong>حقوق العميل:</strong> لديك الحق في:
+                                <strong>{{ __('policy.section5_rights_label') }}</strong> {{ __('policy.section5_rights_text') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>الوصول إلى بيانات حسابك</li>
-                                <li>تعديل معلوماتك الشخصية</li>
-                                <li>حذف حسابك والبيانات المرتبطة به</li>
-                                <li>نقل بيانات حسابك إلى منصة أخرى</li>
+                                <li>{{ __('policy.section5_item1') }}</li>
+                                <li>{{ __('policy.section5_item2') }}</li>
+                                <li>{{ __('policy.section5_item3') }}</li>
+                                <li>{{ __('policy.section5_item4') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -165,20 +165,20 @@
                     <!-- 6. المسؤولية والضمان -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            6. المسؤولية والضمان
+                            {{ __('policy.section6_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                <strong>الضمان الضمني:</strong> نضمن توفر الخدمة بنسبة 99.5% مع استثناءات الصيانة المخطط لها.
+                                <strong>{{ __('policy.section6_warranty_label') }}</strong> {{ __('policy.section6_warranty_text') }}
                             </p>
                             <p>
-                                <strong>تحديد المسؤولية:</strong> لن نكون مسؤولين عن:
+                                <strong>{{ __('policy.section6_liability_label') }}</strong> {{ __('policy.section6_liability_text') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>الأضرار العرضية أو غير المباشرة</li>
-                                <li>فقدان البيانات نتيجة إهمال المستخدم</li>
-                                <li>الأخطاء التقنية غير المتوقعة</li>
-                                <li>انقطاع الخدمة بسبب قوة قاهرة</li>
+                                <li>{{ __('policy.section6_item1') }}</li>
+                                <li>{{ __('policy.section6_item2') }}</li>
+                                <li>{{ __('policy.section6_item3') }}</li>
+                                <li>{{ __('policy.section6_item4') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -186,19 +186,19 @@
                     <!-- 7. استخدام غير مصرح به -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            7. الاستخدام المحظور
+                            {{ __('policy.section7_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                أنت توافق على عدم استخدام المنصة في:
+                                {{ __('policy.section7_intro') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li>انتهاك القوانين والأنظمة</li>
-                                <li>استخدام غير قانوني أو تجاري غير مصرح</li>
-                                <li>إساءة معاملة أو تحرش بموظفي الدعم</li>
-                                <li>محاولات اختراق أو القرصنة</li>
-                                <li>نشر محتوى يسيء أو مسيء</li>
-                                <li>انتهاك حقوق الآخرين الفكرية</li>
+                                <li>{{ __('policy.section7_item1') }}</li>
+                                <li>{{ __('policy.section7_item2') }}</li>
+                                <li>{{ __('policy.section7_item3') }}</li>
+                                <li>{{ __('policy.section7_item4') }}</li>
+                                <li>{{ __('policy.section7_item5') }}</li>
+                                <li>{{ __('policy.section7_item6') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -206,14 +206,14 @@
                     <!-- 8. الملكية الفكرية -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            8. الملكية الفكرية
+                            {{ __('policy.section8_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                جميع محتويات المنصة وتصميمها وخوارزمياتها محمية بحقوق الملكية الفكرية. لا يسمح بنسخ أو تعديل أو توزيع أي جزء من المنصة بدون إذن صريح.
+                                {{ __('policy.section8_text1') }}
                             </p>
                             <p>
-                                بيانات حسابك وبيانات العملاء تبقى ملكك بالكامل.
+                                {{ __('policy.section8_text2') }}
                             </p>
                         </div>
                     </div>
@@ -221,14 +221,14 @@
                     <!-- 9. التعديلات والتحديثات -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            9. التعديلات والتحديثات
+                            {{ __('policy.section9_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                نحتفظ بحق تعديل هذه الشروط في أي وقت. سيتم إخطارك بأي تغييرات جوهرية عبر البريد الإلكتروني.
+                                {{ __('policy.section9_text1') }}
                             </p>
                             <p>
-                                استمرارك في استخدام المنصة بعد التعديلات يعني موافقتك على الشروط الجديدة.
+                                {{ __('policy.section9_text2') }}
                             </p>
                         </div>
                     </div>
@@ -236,16 +236,16 @@
                     <!-- 10. دعم العملاء -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            10. دعم العملاء والتواصل
+                            {{ __('policy.section10_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                نقدم دعماً على مدار الساعة طوال أيام الأسبوع. يمكنك التواصل معنا:
+                                {{ __('policy.section10_intro') }}
                             </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li><strong>البريد الإلكتروني:</strong> support@doha.app</li>
-                                <li><strong>الهاتف:</strong> 00968-9808-4952</li>
-                                <li><strong>دردشة مباشرة:</strong> متاحة في المنصة</li>
+                                <li><strong>{{ __('policy.section10_email_label') }}</strong> support@doha.app</li>
+                                <li><strong>{{ __('policy.section10_phone_label') }}</strong> 00968-9808-4952</li>
+                                <li><strong>{{ __('policy.section10_chat_label') }}</strong> {{ __('policy.section10_chat_text') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -253,14 +253,14 @@
                     <!-- 11. القانون الواجب التطبيق -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            11. القانون الواجب التطبيق
+                            {{ __('policy.section11_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <p>
-                                تخضع هذه الشروط وأي نزاعات ناشئة عنها لقوانين سلطنة عمان.
+                                {{ __('policy.section11_text1') }}
                             </p>
                             <p>
-                                تتنازل أنت عن حقك في محاكمة أمام هيئة محلفين والحق في الاستئناف.
+                                {{ __('policy.section11_text2') }}
                             </p>
                         </div>
                     </div>
@@ -268,24 +268,24 @@
                     <!-- 12. البنود الإضافية -->
                     <div class="mb-10 sm:mb-14">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 pb-3 border-b-2 border-[#dd208e]">
-                            12. أحكام متفرقة
+                            {{ __('policy.section12_title') }}
                         </h2>
                         <div class="space-y-4 text-sm sm:text-base leading-relaxed">
                             <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                <li><strong>التكامل:</strong> هذه الشروط تمثل الاتفاق الكامل بيننا</li>
-                                <li><strong>القابلية للفصل:</strong> إذا كان أي بند غير صحيح قانونياً، فستبقى البنود الأخرى سارية</li>
-                                <li><strong>عدم التنازل:</strong> عدم فرضنا لأي حق لا يعني التخلي عنه</li>
-                                <li><strong>الإسناد:</strong> لا يمكنك نقل حقوقك أو التزاماتك إلى طرف ثالث</li>
+                                <li><strong>{{ __('policy.section12_integration_label') }}</strong> {{ __('policy.section12_integration_text') }}</li>
+                                <li><strong>{{ __('policy.section12_severability_label') }}</strong> {{ __('policy.section12_severability_text') }}</li>
+                                <li><strong>{{ __('policy.section12_waiver_label') }}</strong> {{ __('policy.section12_waiver_text') }}</li>
+                                <li><strong>{{ __('policy.section12_assignment_label') }}</strong> {{ __('policy.section12_assignment_text') }}</li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Contact Section -->
                     <div class="mt-16 p-6 sm:p-8 bg-gradient-to-r from-[#dd208e] to-[#b01670] rounded-xl text-white">
-                        <h3 class="text-xl sm:text-2xl font-bold mb-4">لديك أسئلة حول الشروط؟</h3>
-                        <p class="mb-6 text-red-100">نحن هنا للمساعدة. تواصل معنا في أي وقت</p>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-4">{{ __('policy.contact_title') }}</h3>
+                        <p class="mb-6 text-red-100">{{ __('policy.contact_subtitle') }}</p>
                         <a href="{{ route('home') }}#contact" class="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#dd208e] font-bold rounded-lg hover:shadow-lg transition">
-                            تواصل معنا
+                            {{ __('policy.contact_button') }}
                         </a>
                     </div>
                 </div>
@@ -300,43 +300,43 @@
                        
                         <img src="{{ asset('images/bg.png') }}" alt="doha logo" class="h-10 sm:h-12 mb-3 sm:mb-4">
                        
-                        <p class="text-xs sm:text-sm">حل متكامل لإدارة صالونات ومراكز التجميل</p>
+                        <p class="text-xs sm:text-sm">{{ __('policy.footer_description') }}</p>
                     </div>
                     <div>
-                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">المنتج</h4>
+                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">{{ __('policy.footer_product') }}</h4>
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                            <li><a href="{{ route('home') }}#features" class="hover:text-gray-700 transition">المميزات</a></li>
-                            <li><a href="{{ route('home') }}#pricing" class="hover:text-gray-700 transition">الأسعار</a></li>
+                            <li><a href="{{ route('home') }}#features" class="hover:text-gray-700 transition">{{ __('policy.footer_features') }}</a></li>
+                            <li><a href="{{ route('home') }}#pricing" class="hover:text-gray-700 transition">{{ __('policy.footer_pricing') }}</a></li>
                             
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">الشركة</h4>
+                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">{{ __('policy.footer_company') }}</h4>
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                            <li><a href="{{ route('home') }}#about" class="hover:text-gray-700 transition">عننا</a></li>
-                            <li><a href="{{ route('blogs.public.index') }}" class="hover:text-gray-700 transition">المدونة</a></li>
+                            <li><a href="{{ route('home') }}#about" class="hover:text-gray-700 transition">{{ __('policy.footer_about') }}</a></li>
+                            <li><a href="{{ route('blogs.public.index') }}" class="hover:text-gray-700 transition">{{ __('policy.footer_blog') }}</a></li>
                             
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">قانوني</h4>
+                        <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-base sm:text-lg">{{ __('policy.footer_legal') }}</h4>
                         <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                             
-                            <li><a href="{{ route('policy') }}" class="hover:text-gray-700 transition">الشروط و الاحكام</a></li>
-                            <li><a href="{{ route('home') }}#contact" class="hover:text-gray-700 transition">التواصل</a></li>
+                            <li><a href="{{ route('policy') }}" class="hover:text-gray-700 transition">{{ __('policy.footer_terms') }}</a></li>
+                            <li><a href="{{ route('home') }}#contact" class="hover:text-gray-700 transition">{{ __('policy.footer_contact') }}</a></li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="border-t border-gray-800 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
-                    <p>&copy; 2026 . جميع الحقوق محفوظة.</p>
+                    <p>{{ __('policy.footer_copyright') }}</p>
                 </div>
             </div>
         </footer> 
 
         <style>
             * {
-                font-family: 'Cairo', sans-serif;
+                font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Inter'" : "'Inter', 'Cairo'" }}, sans-serif;
             }
 
             html {

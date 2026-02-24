@@ -649,7 +649,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold mb-1">{{ __('landing.contact_phone_title') }}</h4>
-                                        <p class="text-pink-100 text-sm">00249-1109-20958</p>
+                                        <p class="text-pink-100 text-sm">00968-9808-4952/p>
                                     </div>
                                 </div>
                             </div>

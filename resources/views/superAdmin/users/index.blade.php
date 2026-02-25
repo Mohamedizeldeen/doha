@@ -18,6 +18,7 @@
                     <th class="px-6 py-3 text-right text-sm font-semibold text-gray-700">{{ __('admin.email') }}</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">{{ __('admin.password') }}</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">{{ __('admin.created_at') }}</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">{{ __('admin.phone') }}</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">{{ __('admin.action') }}</th>
                 </tr>
             </thead>
@@ -40,6 +41,9 @@
                     
                         <td class="px-6 py-4 text-sm text-gray-600 text-center">
                             {{ $user->created_at->format('d/m/Y') }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600 text-center">
+                            {{ $user->phone }}
                         </td>
                         <td class="px-6 py-4 text-sm text-center">
                             <div class="flex justify-center items-center gap-3 flex-row-reverse">

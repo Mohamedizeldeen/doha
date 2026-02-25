@@ -183,6 +183,18 @@
                                    class="input-field w-full px-4 py-3 rounded-xl text-sm text-gray-900 bg-white">
                         </div>
 
+                        <!-- Phone Field -->
+                        <div>
+                            <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-phone text-[#dd208e] {{ app()->getLocale() === 'ar' ? 'ml-1' : 'mr-1' }}"></i>
+                                {{ __('auth.phone_number') }}
+                            </label>
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required
+                                   placeholder="{{ __('auth.phone_placeholder') }}"
+                                   class="input-field w-full px-4 py-3 rounded-xl text-sm text-gray-900 bg-white ltr"
+                                   dir="ltr">
+                        </div>
+
                         <!-- Password Fields Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <!-- Password -->

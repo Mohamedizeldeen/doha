@@ -10,7 +10,7 @@ return [
     'home_page' => 'الصفحة الرئيسية',
 
     // Register Page
-    'register_subtitle' => 'أنشئ حسابك وابدأ رحلتك مع معنا',
+    'register_subtitle' => 'أذا لم يكن لديك حساب، اتصل بنا لإنشاء واحد لك',
     'full_name' => 'الاسم الكامل',
     'full_name_placeholder' => 'أدخل اسمك الكامل',
     'email_label' => 'البريد الإلكتروني',

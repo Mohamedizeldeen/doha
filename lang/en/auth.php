@@ -10,7 +10,7 @@ return [
     'home_page' => 'Home Page',
 
     // Register Page
-    'register_subtitle' => 'Create your account and start your journey with us',
+    'register_subtitle' => 'If you don\'t have an account, Contact us to create one for you',
     'full_name' => 'Full Name',
     'full_name_placeholder' => 'Enter your full name',
     'email_label' => 'Email Address',

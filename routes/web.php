@@ -14,6 +14,17 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\StaffScheduleController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\EmployeeDashboardController;
+use App\Http\Controllers\CashierDashboardController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\FinancialReportController;
 
 // Public routes
 Route::get('/', function () {
@@ -124,7 +135,52 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::get('booking/{booking}/status', [BookingController::class, 'updateStatusForm'])->name('booking.status.form');
         Route::patch('booking/{booking}/status', [BookingController::class, 'updateStatus'])->name('booking.status.update');
         Route::patch('booking/{booking}/whatsapp-reminded', [BookingController::class, 'toggleWhatsappReminder'])->name('booking.whatsapp.toggle');
+
+        // Calendar routes
+        Route::get('calendar/daily', [CalendarController::class, 'daily'])->name('calendar.daily');
+        Route::get('calendar/weekly', [CalendarController::class, 'weekly'])->name('calendar.weekly');
+
+        // Invoice / POS routes
+        Route::resource('invoice', InvoiceController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
+        Route::post('invoice/{invoice}/payment', [InvoiceController::class, 'addPayment'])->name('invoice.payment');
+        Route::get('invoices/daily-sales', [InvoiceController::class, 'dailySales'])->name('invoice.daily-sales');
+        Route::get('invoice/validate-coupon', [InvoiceController::class, 'validateCoupon'])->name('invoice.validate-coupon');
+
+        // Staff Schedule & Leave routes
+        Route::get('staff-schedule', [StaffScheduleController::class, 'index'])->name('staff-schedule.index');
+        Route::post('staff-schedule', [StaffScheduleController::class, 'updateSchedule'])->name('staff-schedule.update');
+        Route::post('staff-schedule/leave', [StaffScheduleController::class, 'storeLeave'])->name('staff-schedule.leave.store');
+        Route::delete('staff-schedule/leave/{leave}', [StaffScheduleController::class, 'destroyLeave'])->name('staff-schedule.leave.destroy');
+
+        // Service Package routes
+        Route::resource('package', PackageController::class);
+
+        // Coupon routes
+        Route::resource('coupon', CouponController::class)->only(['index', 'create', 'store', 'destroy']);
+
+        // Expense routes
+        Route::resource('expense', ExpenseController::class)->only(['index', 'create', 'store', 'destroy']);
+
+        // Salary management routes
+        Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
+        Route::post('salary', [SalaryController::class, 'store'])->name('salary.store');
+
+        // Financial report routes
+        Route::get('reports/net-profit', [FinancialReportController::class, 'netProfit'])->name('reports.net-profit');
+        Route::get('reports/vat', [FinancialReportController::class, 'vatReport'])->name('reports.vat');
+        Route::get('reports/revenue-comparison', [FinancialReportController::class, 'revenueComparison'])->name('reports.revenue-comparison');
+
+        // Account management routes (admin only - uses Policy)
+        Route::resource('account', AccountController::class)->except(['show']);
+        Route::post('account/{account}/toggle-status', [AccountController::class, 'toggleStatus'])->name('account.toggle-status');
+        Route::post('account/{account}/reset-password', [AccountController::class, 'resetPassword'])->name('account.reset-password');
     });
+
+    // Employee dashboard
+    Route::get('/employee/dashboard', [EmployeeDashboardController::class, 'index'])->name('employee.dashboard');
+
+    // Cashier dashboard
+    Route::get('/cashier/dashboard', [CashierDashboardController::class, 'index'])->name('cashier.dashboard');
     
     // Admin dashboard
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

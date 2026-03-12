@@ -19,10 +19,16 @@ class BookingController extends Controller
     {
         $this->authorize('own', $salon);
 
-        $bookings = $salon->bookings()
-            ->with('client', 'service', 'staff')
-            ->orderBy('appointment_datetime', 'desc')
-            ->get();
+        $query = $salon->bookings()
+            ->with('client', 'service', 'staff');
+
+        // If employee, only show their own bookings
+        $user = auth()->user();
+        if ($user->role === 'employee' && $user->staff_id) {
+            $query->where('staff_id', $user->staff_id);
+        }
+
+        $bookings = $query->orderBy('appointment_datetime', 'desc')->get();
 
         return view('booking.index', compact('salon', 'bookings'));
     }

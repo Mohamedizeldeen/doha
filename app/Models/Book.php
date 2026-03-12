@@ -60,6 +60,14 @@ class Book extends Model
     }
 
     /**
+     * Get the invoice for this booking
+     */
+    public function invoice()
+    {
+        return $this->hasOne(\App\Models\Invoice::class, 'booking_id');
+    }
+
+    /**
      * Check if booking is in past
      */
     public function isPast(): bool

@@ -11,11 +11,11 @@ class CheckRole
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        if (auth()->check() && auth()->user()->role === $role) {
+        if (auth()->check() && in_array(auth()->user()->role, $roles)) {
             // Check if account is blocked (skip for super_admin)
-            if ($role !== 'super_admin' && !auth()->user()->is_active) {
+            if (!in_array('super_admin', $roles) && !auth()->user()->is_active) {
                 auth()->logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();

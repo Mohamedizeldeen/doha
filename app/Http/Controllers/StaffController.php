@@ -58,6 +58,10 @@ class StaffController extends Controller
             'phone' => 'required|regex:/^[0-9+\-\s()]{7,20}$/',
             'position_en' => 'required|string|max:255',
             'position_ar' => 'required|string|max:255',
+            'commission_rate' => 'nullable|numeric|min:0|max:100',
+            'salary' => 'nullable|numeric|min:0',
+            'specialization_en' => 'nullable|string|max:255',
+            'specialization_ar' => 'nullable|string|max:255',
             'services' => 'nullable|array|max:5',
             'services.*' => 'required|integer|exists:services,id',
         ]);
@@ -70,6 +74,10 @@ class StaffController extends Controller
             'phone' => $validated['phone'],
             'position_en' => $validated['position_en'],
             'position_ar' => $validated['position_ar'],
+            'commission_rate' => $validated['commission_rate'] ?? 0,
+            'salary' => $validated['salary'] ?? 0,
+            'specialization_en' => $validated['specialization_en'] ?? null,
+            'specialization_ar' => $validated['specialization_ar'] ?? null,
         ]);
 
         // Attach services if provided
@@ -138,11 +146,28 @@ class StaffController extends Controller
             'phone' => 'required|regex:/^[0-9+\-\s()]{7,20}$/',
             'position_en' => 'required|string|max:255',
             'position_ar' => 'required|string|max:255',
+            'commission_rate' => 'nullable|numeric|min:0|max:100',
+            'salary' => 'nullable|numeric|min:0',
+            'specialization_en' => 'nullable|string|max:255',
+            'specialization_ar' => 'nullable|string|max:255',
+            'is_active' => 'boolean',
             'services' => 'nullable|array|max:5',
             'services.*' => 'required|integer|exists:services,id',
         ]);
 
-        $staff->update($validated);
+        $staff->update([
+            'name_en' => $validated['name_en'],
+            'name_ar' => $validated['name_ar'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'position_en' => $validated['position_en'],
+            'position_ar' => $validated['position_ar'],
+            'commission_rate' => $validated['commission_rate'] ?? $staff->commission_rate,
+            'salary' => $validated['salary'] ?? $staff->salary,
+            'specialization_en' => $validated['specialization_en'] ?? $staff->specialization_en,
+            'specialization_ar' => $validated['specialization_ar'] ?? $staff->specialization_ar,
+            'is_active' => $validated['is_active'] ?? true,
+        ]);
 
         // Update services
         if (isset($validated['services'])) {

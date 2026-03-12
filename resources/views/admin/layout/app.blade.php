@@ -71,44 +71,125 @@
             </div>
             <nav class="sidebar-nav">
                 <div class="nav-section-label">{{ __('admin.main_menu') }}</div>
-                @php $salon = $salon ?? auth()->user()->salons->first(); @endphp
-                <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
-                    <i class="fas fa-th-large"></i><span>{{ __('admin.dashboard') }}</span>
-                </a>
-                <a href="{{ route('booking.index', $salon) }}" class="nav-item {{ request()->routeIs('booking.*') ? 'active' : '' }}">
-                    <i class="fas fa-calendar-check"></i><span>{{ __('admin.bookings') }}</span>
-                </a>
-                <a href="{{ route('client.index', $salon) }}" class="nav-item {{ request()->routeIs('client.*') ? 'active' : '' }}">
-                    <i class="fas fa-user-friends"></i><span>{{ __('admin.clients') }}</span>
-                </a>
-                <div class="nav-section-label">{{ __('admin.manage') }}</div>
-                <a href="{{ route('staff.index', $salon) }}" class="nav-item {{ request()->routeIs('staff.*') ? 'active' : '' }}">
-                    <i class="fas fa-users-cog"></i><span>{{ __('admin.staff_management') }}</span>
-                </a>
-                <a href="{{ route('service.index', $salon) }}" class="nav-item {{ request()->routeIs('service.*') ? 'active' : '' }}">
-                    <i class="fas fa-concierge-bell"></i><span>{{ __('admin.services') }}</span>
-                </a>
-                <a href="{{ route('category.index', $salon) }}" class="nav-item {{ request()->routeIs('category.*') ? 'active' : '' }}">
-                    <i class="fas fa-folder-open"></i><span>{{ __('admin.categories') }}</span>
-                </a>
-                <a href="{{ route('product.index', $salon) }}" class="nav-item {{ request()->routeIs('product.*') ? 'active' : '' }}">
-                    <i class="fas fa-box-open"></i><span>{{ __('admin.products') }}</span>
-                </a>
-                <div class="nav-section-label">{{ __('admin.analytics') }}</div>
-                <a href="{{ route('admin.reports', $salon) }}" class="nav-item {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
-                    <i class="fas fa-chart-pie"></i><span>{{ __('admin.reports') }}</span>
-                </a>
-                <div class="nav-section-label">{{ __('admin.settings') }}</div>
-                <a href="{{ route('settings.show') }}" class="nav-item {{ request()->routeIs('settings.*') || request()->routeIs('salon.show') ? 'active' : '' }}">
-                    <i class="fas fa-cog"></i><span>{{ __('admin.settings') }}</span>
-                </a>
+                @php
+                    $userRole = auth()->user()->role;
+                    if ($userRole === 'employee' || $userRole === 'cashier') {
+                        $salon = $salon ?? auth()->user()->salon;
+                    } else {
+                        $salon = $salon ?? auth()->user()->salons->first();
+                    }
+                @endphp
+
+                @if($userRole === 'employee')
+                    {{-- Employee Sidebar --}}
+                    <a href="{{ route('employee.dashboard') }}" class="nav-item {{ request()->routeIs('employee.*') ? 'active' : '' }}">
+                        <i class="fas fa-th-large"></i><span>{{ __('admin.dashboard') }}</span>
+                    </a>
+                    <a href="{{ route('booking.index', $salon) }}" class="nav-item {{ request()->routeIs('booking.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-check"></i><span>{{ __('admin.bookings') }}</span>
+                    </a>
+                    <a href="{{ route('calendar.daily', $salon) }}" class="nav-item {{ request()->routeIs('calendar.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-day"></i><span>{{ __('admin.calendar') }}</span>
+                    </a>
+                    <a href="{{ route('client.index', $salon) }}" class="nav-item {{ request()->routeIs('client.*') ? 'active' : '' }}">
+                        <i class="fas fa-user-friends"></i><span>{{ __('admin.clients') }}</span>
+                    </a>
+                @elseif($userRole === 'cashier')
+                    {{-- Cashier Sidebar --}}
+                    <a href="{{ route('cashier.dashboard') }}" class="nav-item {{ request()->routeIs('cashier.*') ? 'active' : '' }}">
+                        <i class="fas fa-th-large"></i><span>{{ __('admin.dashboard') }}</span>
+                    </a>
+                    <a href="{{ route('invoice.index', $salon) }}" class="nav-item {{ request()->routeIs('invoice.*') ? 'active' : '' }}">
+                        <i class="fas fa-cash-register"></i><span>{{ __('admin.cashier') }}</span>
+                    </a>
+                    <a href="{{ route('client.index', $salon) }}" class="nav-item {{ request()->routeIs('client.*') ? 'active' : '' }}">
+                        <i class="fas fa-user-friends"></i><span>{{ __('admin.clients') }}</span>
+                    </a>
+                    <a href="{{ route('booking.index', $salon) }}" class="nav-item {{ request()->routeIs('booking.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-check"></i><span>{{ __('admin.bookings') }}</span>
+                    </a>
+                @else
+                    {{-- Admin Sidebar (full access) --}}
+                    <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+                        <i class="fas fa-th-large"></i><span>{{ __('admin.dashboard') }}</span>
+                    </a>
+                    <a href="{{ route('booking.index', $salon) }}" class="nav-item {{ request()->routeIs('booking.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-check"></i><span>{{ __('admin.bookings') }}</span>
+                    </a>
+                    <a href="{{ route('calendar.daily', $salon) }}" class="nav-item {{ request()->routeIs('calendar.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-day"></i><span>{{ __('admin.calendar') }}</span>
+                    </a>
+                    <a href="{{ route('client.index', $salon) }}" class="nav-item {{ request()->routeIs('client.*') ? 'active' : '' }}">
+                        <i class="fas fa-user-friends"></i><span>{{ __('admin.clients') }}</span>
+                    </a>
+                    <a href="{{ route('invoice.index', $salon) }}" class="nav-item {{ request()->routeIs('invoice.*') ? 'active' : '' }}">
+                        <i class="fas fa-cash-register"></i><span>{{ __('admin.cashier') }}</span>
+                    </a>
+                    <div class="nav-section-label">{{ __('admin.manage') }}</div>
+                    <a href="{{ route('staff.index', $salon) }}" class="nav-item {{ request()->routeIs('staff.*') && !request()->routeIs('staff-schedule.*') ? 'active' : '' }}">
+                        <i class="fas fa-users-cog"></i><span>{{ __('admin.staff_management') }}</span>
+                    </a>
+                    <a href="{{ route('staff-schedule.index', $salon) }}" class="nav-item {{ request()->routeIs('staff-schedule.*') ? 'active' : '' }}">
+                        <i class="fas fa-clock"></i><span>{{ __('admin.staff_schedule') }}</span>
+                    </a>
+                    <a href="{{ route('service.index', $salon) }}" class="nav-item {{ request()->routeIs('service.*') ? 'active' : '' }}">
+                        <i class="fas fa-concierge-bell"></i><span>{{ __('admin.services') }}</span>
+                    </a>
+                    <a href="{{ route('package.index', $salon) }}" class="nav-item {{ request()->routeIs('package.*') ? 'active' : '' }}">
+                        <i class="fas fa-cubes"></i><span>{{ __('admin.packages') }}</span>
+                    </a>
+                    <a href="{{ route('category.index', $salon) }}" class="nav-item {{ request()->routeIs('category.*') ? 'active' : '' }}">
+                        <i class="fas fa-folder-open"></i><span>{{ __('admin.categories') }}</span>
+                    </a>
+                    <a href="{{ route('product.index', $salon) }}" class="nav-item {{ request()->routeIs('product.*') ? 'active' : '' }}">
+                        <i class="fas fa-box-open"></i><span>{{ __('admin.products') }}</span>
+                    </a>
+                    <a href="{{ route('coupon.index', $salon) }}" class="nav-item {{ request()->routeIs('coupon.*') ? 'active' : '' }}">
+                        <i class="fas fa-ticket-alt"></i><span>{{ __('admin.coupons') }}</span>
+                    </a>
+                    <a href="{{ route('expense.index', $salon) }}" class="nav-item {{ request()->routeIs('expense.*') ? 'active' : '' }}">
+                        <i class="fas fa-receipt"></i><span>{{ __('admin.expenses') }}</span>
+                    </a>
+                    <a href="{{ route('salary.index', $salon) }}" class="nav-item {{ request()->routeIs('salary.*') ? 'active' : '' }}">
+                        <i class="fas fa-money-check-alt"></i><span>{{ __('admin.salaries') }}</span>
+                    </a>
+                    <div class="nav-section-label">{{ __('admin.team') }}</div>
+                    <a href="{{ route('account.index', $salon) }}" class="nav-item {{ request()->routeIs('account.*') ? 'active' : '' }}">
+                        <i class="fas fa-user-shield"></i><span>{{ __('admin.accounts') }}</span>
+                    </a>
+                    <div class="nav-section-label">{{ __('admin.analytics') }}</div>
+                    <a href="{{ route('admin.reports', $salon) }}" class="nav-item {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                        <i class="fas fa-chart-pie"></i><span>{{ __('admin.reports') }}</span>
+                    </a>
+                    <a href="{{ route('reports.net-profit', $salon) }}" class="nav-item {{ request()->routeIs('reports.net-profit') ? 'active' : '' }}">
+                        <i class="fas fa-chart-line"></i><span>{{ __('admin.net_profit') }}</span>
+                    </a>
+                    <a href="{{ route('reports.vat', $salon) }}" class="nav-item {{ request()->routeIs('reports.vat') ? 'active' : '' }}">
+                        <i class="fas fa-file-invoice-dollar"></i><span>{{ __('admin.vat_report') }}</span>
+                    </a>
+                    <a href="{{ route('reports.revenue-comparison', $salon) }}" class="nav-item {{ request()->routeIs('reports.revenue-comparison') ? 'active' : '' }}">
+                        <i class="fas fa-exchange-alt"></i><span>{{ __('admin.revenue_comparison') }}</span>
+                    </a>
+                    <div class="nav-section-label">{{ __('admin.settings') }}</div>
+                    <a href="{{ route('settings.show') }}" class="nav-item {{ request()->routeIs('settings.*') || request()->routeIs('salon.show') ? 'active' : '' }}">
+                        <i class="fas fa-cog"></i><span>{{ __('admin.settings') }}</span>
+                    </a>
+                @endif
             </nav>
             <div class="sidebar-footer">
                 <div class="sidebar-user">
                     <div class="sidebar-user-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 1)) }}</div>
                     <div>
                         <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
-                        <div class="sidebar-user-role">{{ __('admin.salon_owner') }}</div>
+                        <div class="sidebar-user-role">
+                            @if($userRole === 'employee')
+                                {{ __('admin.employee') }}
+                            @elseif($userRole === 'cashier')
+                                {{ __('admin.cashier_role') }}
+                            @else
+                                {{ __('admin.salon_owner') }}
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" style="margin-top: 0.5rem;">

@@ -25,6 +25,8 @@ class User extends Authenticatable
         'is_active',
         'commission_rate',
         'phone',
+        'salon_id',
+        'staff_id',
     ];
 
     /**
@@ -69,6 +71,22 @@ class User extends Authenticatable
     }
 
     /**
+     * The salon this user belongs to (for employee/cashier)
+     */
+    public function salon()
+    {
+        return $this->belongsTo(Salon::class);
+    }
+
+    /**
+     * The staff record linked to this user (for employee)
+     */
+    public function staffMember()
+    {
+        return $this->belongsTo(Staff::class, 'staff_id');
+    }
+
+    /**
      * Check if user is a sales person
      */
     public function isSales(): bool
@@ -90,6 +108,33 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is employee
+     */
+    public function isEmployee(): bool
+    {
+        return $this->role === 'employee';
+    }
+
+    /**
+     * Check if user is cashier
+     */
+    public function isCashier(): bool
+    {
+        return $this->role === 'cashier';
+    }
+
+    /**
+     * Get the salon for this user (works for admin, employee, cashier)
+     */
+    public function getActiveSalon()
+    {
+        if ($this->role === 'admin') {
+            return $this->salons()->first();
+        }
+        return $this->salon;
     }
 
     /**

@@ -20,6 +20,19 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->role === 'super_admin') {
+                return redirect()->route('superAdmin.dashboard');
+            }
+            if ($user->role === 'sales') {
+                return redirect()->route('sales.dashboard');
+            }
+            if ($user->role === 'employee') {
+                return redirect()->route('employee.dashboard');
+            }
+            if ($user->role === 'cashier') {
+                return redirect()->route('cashier.dashboard');
+            }
             return redirect()->route('salon.index');
         }
         
@@ -60,6 +73,28 @@ class AuthController extends Controller
             // Check if user is sales person
             if ($user->role === 'sales') {
                 return redirect()->route('sales.dashboard');
+            }
+
+            // Check if user is employee
+            if ($user->role === 'employee') {
+                if (!$user->salon_id) {
+                    Auth::logout();
+                    return redirect()->route('login')->withErrors([
+                        'email' => __('admin.no_salon_assigned'),
+                    ]);
+                }
+                return redirect()->route('employee.dashboard');
+            }
+
+            // Check if user is cashier
+            if ($user->role === 'cashier') {
+                if (!$user->salon_id) {
+                    Auth::logout();
+                    return redirect()->route('login')->withErrors([
+                        'email' => __('admin.no_salon_assigned'),
+                    ]);
+                }
+                return redirect()->route('cashier.dashboard');
             }
 
             // Regular admin/salon owner

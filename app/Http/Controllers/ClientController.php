@@ -44,6 +44,9 @@ class ClientController extends Controller
             'name_ar' => 'required|string|max:255',
             'phone' => 'required|regex:/^[0-9+\-\s()]{7,20}$/',
             'email' => 'required|email',
+            'notes' => 'nullable|string|max:2000',
+            'birthday' => 'nullable|date',
+            'preferences' => 'nullable|string|max:1000',
         ]);
 
         // Check for existing client with same phone/email
@@ -60,6 +63,12 @@ class ClientController extends Controller
         // Generate client code if not provided
         $clientCode = $validated['client_code'] ?? $this->generateClientCode($salon);
 
+        // Parse preferences into array
+        $preferences = null;
+        if (!empty($validated['preferences'])) {
+            $preferences = array_map('trim', explode(',', $validated['preferences']));
+        }
+
         Client::create([
             'salon_id' => $salon->id,
             'client_code' => $clientCode,
@@ -67,6 +76,9 @@ class ClientController extends Controller
             'name_ar' => $validated['name_ar'],
             'phone' => $validated['phone'],
             'email' => $validated['email'],
+            'notes' => $validated['notes'] ?? null,
+            'birthday' => $validated['birthday'] ?? null,
+            'preferences' => $preferences,
         ]);
 
         return redirect()->route('client.index', $salon)
@@ -112,7 +124,15 @@ class ClientController extends Controller
             'name_ar' => 'required|string|max:255',
             'phone' => 'required|regex:/^[0-9+\-\s()]{7,20}$/',
             'email' => 'required|email',
+            'notes' => 'nullable|string|max:2000',
+            'birthday' => 'nullable|date',
+            'preferences' => 'nullable|string|max:1000',
         ]);
+
+        // Parse preferences into array
+        if (!empty($validated['preferences'])) {
+            $validated['preferences'] = array_map('trim', explode(',', $validated['preferences']));
+        }
 
         // Check for existing client with same phone/email (excluding current client)
         $existing = Client::where('salon_id', $salon->id)

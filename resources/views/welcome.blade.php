@@ -1257,7 +1257,7 @@
                             <div>
                                 <h3 class="text-white font-semibold">{{ __('landing.contact_email_title') }}</h3>
                                 <p class="text-white/50 text-sm">{{ __('landing.contact_email_desc') }}</p>
-                                <a href="mailto:info@nld.om" class="text-pink-400 text-sm mt-1 block">info@nld.om</a>
+                                <a href="mailto:info@northline-dev.com" class="text-pink-400 text-sm mt-1 block">info@northline-dev.com</a>
                             </div>
                         </div>
 
@@ -1268,7 +1268,7 @@
                             <div>
                                 <h3 class="text-white font-semibold">{{ __('landing.contact_whatsapp_title') }}</h3>
                                 <p class="text-white/50 text-sm">{{ __('landing.contact_whatsapp_desc') }}</p>
-                                <a href="https://wa.me/96899999999" class="text-green-400 text-sm mt-1 block">+968 9999 9999</a>
+                                <a href="https://wa.me/96898084952" class="text-green-400 text-sm mt-1 block">+968 9808 4952</a>
                             </div>
                         </div>
 
@@ -1346,10 +1346,11 @@
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#dd208e] to-[#667eea] flex items-center justify-center">
-                            <i class="fas fa-spa text-white"></i>
-                        </div>
-                        <span class="text-white font-bold text-lg">NLD System</span>
+                        <div class="w-20 h-10 rounded-xl bg-gradient-to-br from-[#dd208e] to-[#ffffff] flex items-center justify-center">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-[500px] h-auto">
+                </div>
+               
+                       
                     </div>
                     <p class="text-white/50 text-sm">{{ __('landing.footer_desc') }}</p>
                 </div>
